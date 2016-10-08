@@ -54,6 +54,17 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     }
   })
+  .state('app.jihua', {
+    url: '/jihua',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/jihua.html',
+        controller:'jihua'
+      }
+    }
+
+  })
   .state('app.jihua-detail', {
     url: '/jihua/:id',
     cache:false,
@@ -66,48 +77,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 
   })
 
-  .state('app.jihua', {
-    url: '/jihua',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/jihua.html',
-        controller:'jihua'
-      }
-    }
-
-  })
-
-  .state('app.form', {
-    url: '/form',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/jihua.html'
-      }
-    }
-  })
-  .state('app.playlists', {
-    url: '/playlists',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/playlists.html',
-        controller: 'PlaylistsCtrl'
-      }
-    }
-  })
-
-  .state('app.single', {
-    url: '/playlists/:playlistId',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
-      }
-    }
-  });
+  ;
 
   $urlRouterProvider.otherwise('/app/main');
 
