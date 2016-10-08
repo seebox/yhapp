@@ -1,0 +1,8 @@
+{
+  "name": "sdf",
+  "app_id": "sdf",
+  "gulpStartupTasks":[
+    "concatctrl",
+    "watch"
+  ]
+}

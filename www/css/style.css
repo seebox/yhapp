@@ -1,0 +1,89 @@
+/* Empty. Add your own CSS if you like */
+a{
+  text-decoration: none;
+}
+body,.view-container{
+  background: #f5f5f5;
+}
+
+.sidemenu .list{
+  background: #444;
+}
+.positive .list{
+background: #0a9dc7;
+}
+.sidemenu ,.sidemenu p{
+  background: #444444;
+  color: #fff;
+
+}
+.positive,.positive p{
+  /*background: #0a9dc7;*/
+}
+.sidemenu .item-content {
+  background: #444444;
+  color: #fff;
+
+}
+.positive .item-content{
+background: #0a9dc7;
+}
+.sidemenu .item {
+  background: #444444;
+  color: #fff;
+
+  border-color: #555;
+}
+.positive .item{
+  background:#0a9dc7;
+}
+.sidemenu h2 {
+  color: #fff;
+}
+.sidemenu p {
+  color: #fff;
+}
+.sidemenu .item-avatar {
+  border: none;
+}
+.item {
+  border-color: #eee;
+}
+.bar .button.button-clear .icon:before, .bar .button.button-clear.icon:before, .bar .button.button-clear.icon-left:before, .bar .button.button-clear.icon-right:before, .bar button.button-clear .icon:before, .bar button.button-clear.icon:before, .bar button.button-clear.icon-left:before, .bar button.button-clear.icon-right:before {
+  font-size: 26px;
+  line-height: 32px;
+}
+.uncomplite{
+  border-top:1px solid #0c60ee;
+}
+.complite{
+  border-color: #e42112;
+}
+.my-avatar{height:32px;border-radius:50%;}
+
+.grid9 {
+	display: inline-block;
+	width: 25%;
+	height: 0;
+	padding-bottom: 25%;
+	color: #333;
+	text-align: center;
+	border-bottom: solid 1px #eee;
+	border-right: solid 1px #eee;
+  font-size:80%;
+  border:none;
+}
+
+/* Empty. Add your own CSS if you like */
+
+.grid9 img {
+	width: 40%;
+	/*margin-top: 25%;*/
+	border-radius: 3px;
+}
+.grid9 .pname {
+	color: #333;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
