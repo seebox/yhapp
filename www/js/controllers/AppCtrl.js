@@ -3,7 +3,7 @@ $controllers
 .controller('AppCtrl', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
 
   $scope.loginData = {};
-  $ionicModal.fromTemplateUrl('templates/login.html', {
+  $ionicModal.fromTemplateUrl('tpls/login.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.modal = modal;
@@ -11,6 +11,7 @@ $controllers
 
   $scope.closeLogin = function() {
     $scope.modal.hide();
+    
   };
 
   $scope.login = function() {

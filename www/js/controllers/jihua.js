@@ -10,7 +10,7 @@ $controllers
   }
   $ionicModal.fromTemplateUrl('tpls/jihua-ren.html', {
     scope: $scope,
-    animation: 'slide-in-left'
+    animation: 'slide-in-up'
   }).then(function(modal) {
     $rootScope.modalRen = modal;
   });
@@ -20,10 +20,15 @@ $controllers
   $rootScope.closeRen = function() {
     $rootScope.modalRen.hide();
   };
-  
+
 })
 
 .controller('jihuaDetail', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
 
 
-});
+})
+
+
+
+
+;

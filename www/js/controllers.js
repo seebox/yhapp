@@ -1,9 +1,18 @@
 $controllers
 
+
+.controller('anquan', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+
+
+})
+
+;
+$controllers
+
 .controller('AppCtrl', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
 
   $scope.loginData = {};
-  $ionicModal.fromTemplateUrl('templates/login.html', {
+  $ionicModal.fromTemplateUrl('tpls/login.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.modal = modal;
@@ -11,6 +20,7 @@ $controllers
 
   $scope.closeLogin = function() {
     $scope.modal.hide();
+    
   };
 
   $scope.login = function() {
@@ -32,6 +42,34 @@ $controllers
 });
 $controllers
 
+
+.controller('fuzhu', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+
+
+})
+
+;
+$controllers
+
+.controller('huibao', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+
+   $ionicModal.fromTemplateUrl('tpls/huibao-form.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modalHuibao = modal;
+  });
+ 
+
+});
+$controllers
+.controller('jiaoliu', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+
+
+})
+;
+$controllers
+
 .controller('jihua', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
 
   $rootScope.openmenu = function(){
@@ -42,7 +80,7 @@ $controllers
   }
   $ionicModal.fromTemplateUrl('tpls/jihua-ren.html', {
     scope: $scope,
-    animation: 'slide-in-left'
+    animation: 'slide-in-up'
   }).then(function(modal) {
     $rootScope.modalRen = modal;
   });
@@ -52,13 +90,24 @@ $controllers
   $rootScope.closeRen = function() {
     $rootScope.modalRen.hide();
   };
-  
+
 })
 
 .controller('jihuaDetail', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
 
 
-});
+})
+
+
+
+
+;
+$controllers
+.controller('butie', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+
+
+})
+;
 $controllers
 
 .controller('MainCtrl', function($rootScope, $scope, $stateParams, $ionicSideMenuDelegate) {
@@ -68,50 +117,90 @@ $controllers
   }
   $scope.positive = false;
   $scope.playlists = [{
-    icon: "t1.png",
     name: "引航计划",
     url:"app/jihua"
   }, {
-    icon: "t2.png",
     name: "航次汇报",
-    url:"app/jihua"
-  }, {
-    icon: "t3.png",
-    name: "引航签证查询",
-    url:"form1"
-  }, {
-    icon: "ben.png",
+    url:"app/huibao"
+  },{
     name: "特种船夜航审批",
-    url:"app/jihua"
+    url:"app/tezhong"
   }, {
-    icon: "max.png",
     name: "辅助信息查询",
-    url:"app/jihua"
+    url:"app/fuzhu"
   }, {
-    icon: "mike.png",
     name: "安全预警消息",
-    url:"app/jihua"
+    url:"app/anquan"
   }, {
-    icon: "mike.png",
     name: "出航津贴查询",
-    url:"app/jihua"
+    url:"app/butie"
   }, {
-    icon: "mike.png",
     name: "技术交流",
-    url:"app/jihua"
+    url:"app/jiaoliu"
   }, {
-    icon: "mike.png",
     name: "休假管理",
-    url:"app/jihua"
+    url:"app/qingjia"
   }, {
-    icon: "mike.png",
     name: "网络学堂",
-    url:"app/jihua"
+    url:"app/netclass"
   }, {
-    icon: "mike.png",
     name: "引航签证系统",
-    url:"app/jihua"
+    url:"app/playlists"
   }];
+
+})
+
+;
+$controllers
+.controller('netClass', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+
+	$scope.choice="A";
+
+	$scope.openSelect = function() {
+		$scope.selectShow = !$scope.selectShow;
+	};
+
+	
+	
+})
+
+.controller('classroom', function($rootScope, $scope, $ionicModal,$stateParams, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+
+
+	$scope.classid=$stateParams.id;
+	
+	
+}); 
+$controllers
+
+
+.controller('PlaylistsCtrl', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+
+
+})
+
+.controller('PlaylistCtrl', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+
+
+});
+$controllers
+
+.controller('qingjia', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+   $ionicModal.fromTemplateUrl('tpls/qingjia-form.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modalJia = modal;
+  });
+
+})
+
+;
+$controllers
+
+
+.controller('tezhong', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+
 
 })
 

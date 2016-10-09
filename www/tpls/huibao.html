@@ -1,0 +1,21 @@
+
+<ion-view>
+	<div class="bar bar-header bar-dark">
+		<div class="buttons">
+			<button class="button button-clear" ng-click="$ionicGoBack()"><i class="icon ion-android-arrow-back"></i></button>
+		</div>
+		<h1 class="title">引航员航次汇报</h1>
+		
+	</div>
+	<ion-content class="has-header scroll-content ionic-scroll">
+		<ion-list>
+			<ion-item class="item" href="#/app/huibao/{{i}}" ng-repeat="i in [0,1]">
+				<h2 class="positive">澄12968&nbsp;(ESTOLAR)</h2>
+				<p>代理：常州外代 长度：96.55 吃水：9.88</p>
+				<p>始发地：宝山 目的地：九江</p>
+				<p>开航时间：0700/07 抵澄时间：700/07</p>
+                <ion-option-button class="button-assertive" ng-click="modalHuibao.show();">航次汇报</ion-option-button>
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-view>

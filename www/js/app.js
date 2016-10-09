@@ -77,6 +77,190 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 
   })
 
+  .state('app.huibao', {
+    url: '/huibao',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/huibao.html',
+        controller:'huibao'
+      }
+    }
+
+  })
+    .state('app.huibao-detail', {
+    url: '/huibao/:id',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/huibao-detail.html',
+        controller:'huibao'
+      }
+    }
+
+  })
+  .state('app.playlists', {
+      url: '/playlists',
+      cache:false,
+      views: {
+        'menuContent': {
+          templateUrl: 'tpls/playlists.html',
+          controller: 'PlaylistsCtrl'
+        }
+      }
+    })
+
+  .state('app.single', {
+    url: '/playlists/:playlistId',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/playlist.html',
+        controller: 'PlaylistCtrl'
+      }
+    }
+  })
+  .state('app.qingjia', {
+    url: '/qingjia',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/qingjia.html',
+        controller: 'qingjia'
+      }
+    }
+  })
+  .state('app.qingjia-detail', {
+    url: '/qingjia/:id',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/qingjia-detail.html',
+        controller: 'qingjia'
+      }
+    }
+  })
+  .state('app.tezhong', {
+    url: '/tezhong',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/tezhong.html',
+        controller: 'tezhong'
+      }
+    }
+  })
+  .state('app.tezhong-detail', {
+    url: '/tezhong/:id',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/tezhong-detail.html',
+        controller: 'tezhong'
+      }
+    }
+  })
+
+   .state('app.fuzhu', {
+    url: '/fuzhu',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/fuzhu.html',
+        controller: 'fuzhu'
+      }
+    }
+  })
+  .state('app.fuzhu-detail', {
+    url: '/fuzhu/:id',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/fuzhu-detail.html',
+        controller: 'fuzhu'
+      }
+    }
+  })
+  .state('app.anquan', {
+    url: '/anquan',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/anquan.html',
+        controller: 'anquan'
+      }
+    }
+  })
+  .state('app.anquan-detail', {
+    url: '/anquan/:id',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/anquan-detail.html',
+        controller: 'anquan'
+      }
+    }
+  })
+  .state('app.butie', {
+    url: '/butie',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/butie.html',
+        controller: 'butie'
+      }
+    }
+  })
+  .state('app.butie-detail', {
+    url: '/butie/:id',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/butie-detail.html',
+        controller: 'butie'
+      }
+    }
+  })
+  .state('app.jiaoliu', {
+    url: '/jiaoliu',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/jiaoliu.html',
+        controller: 'jiaoliu'
+      }
+    }
+  })
+  .state('app.jiaoliu-detail', {
+    url: '/jiaoliu/:id',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/jiaoliu-detail.html',
+        controller: 'jiaoliu'
+      }
+    }
+  })
+  .state('app.netclass', {
+    url: '/netclass',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/netClass.html',
+        controller: 'netClass'
+      }
+    }
+  })
+  .state('app.netclass-detail', {
+    url: '/classroom/:id',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/netclassroom.html',
+        controller: 'classroom'
+      }
+    }
+  })
   ;
 
   $urlRouterProvider.otherwise('/app/main');

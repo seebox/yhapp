@@ -1,0 +1,25 @@
+<ion-view >
+  <div class="bar bar-header bar-dark">
+<div class="buttons">
+    <button class="button button-clear" ng-click="$ionicGoBack()"><i class="icon ion-android-arrow-back"></i></button>
+  </div>
+  <h1 class="title">签证单列表</h1>
+
+</div>
+
+
+  <ion-content  class="has-header scroll-content ionic-scroll">
+    <ion-list>
+      <a ng-repeat="playlist in [0,1,2]" ng-href="#/app/playlists/ingle">
+        <div class="card uncomplite" ng-class="{'complite':playlist.iscomplite}">
+          <div class="item item-text-wrap">
+            <h2>第28020号</h2>
+            <h2>船名:琴台6号 XWTA16</h2>
+            <p>引领地点:自{{playlist.scount}}致{{playlist.scount}}</p>
+            <p>登船时间:{{playlist.scount}}&nbsp;&nbsp;&nbsp;&nbsp;离船时间:{{playlist.scount}}</p>
+          </div>
+        </div>
+      </a>
+    </ion-list>
+  </ion-content>
+</ion-view>
