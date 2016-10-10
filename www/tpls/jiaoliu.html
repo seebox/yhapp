@@ -44,17 +44,21 @@
 		</ion-header-bar>
 		<ion-content>
 			<div class="list">
-				<label class="item item-input">
+				<label class="item item-input" style="line-height: 62px;">
 				    <span class="input-label">标题</span>
 				    <input type="text">
 				</label>
-				<label class="item item-input">
+				<label class="item item-input" style="line-height: 62px;">
 				    <span class="input-label">内容</span>
 				    <input type="text">
 				</label>
-				<label class="item item-input" ng-click="open_usersModal()">
-				    <span class="input-label">邀请</span>
-				</label>
+				<div class="item item-button-right">
+		        	邀请
+		            <button class="button" ng-click="open_usersModal()">
+		            	<i class="ion-arrow-down-b"></i>
+		            </button>
+		        </div>
+				
 			</div>
 			<div class="content padding">
 				<button class="button button-block button-positive">提交交流信息</button>
@@ -71,7 +75,7 @@
 		</div>
 		<h1 class="title">邀请</h1>
 		<div class="buttons">
-			<button class="button button-clear" ng-click="">确定</button>
+			<button class="button button-clear" ng-click="close_usersModal()">确定</button>
 		</div>
 		</ion-header-bar>
 		<ion-content>
