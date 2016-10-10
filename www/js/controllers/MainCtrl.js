@@ -7,8 +7,11 @@ $controllers
   }
   $scope.positive = false;
   $scope.playlists = [{
-    name: "引航计划",
+    name: "引航计划查询",
     url:"app/jihua"
+  },{
+    name: "引航计划审批",
+    url:"app/shenpi"
   }, {
     name: "航次汇报",
     url:"app/huibao"

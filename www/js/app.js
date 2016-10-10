@@ -74,9 +74,28 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         controller:'jihuaDetail'
       }
     }
+  })
+  .state('app.shenpi', {
+    url: '/shenpi',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/shenpi.html',
+        controller:'shenpi'
+      }
+    }
 
   })
-
+  .state('app.shenpi-detail', {
+    url: '/shenpi/:id',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/shenpi-detail.html',
+        controller:'shenpi'
+      }
+    }
+  })
   .state('app.huibao', {
     url: '/huibao',
     cache:false,

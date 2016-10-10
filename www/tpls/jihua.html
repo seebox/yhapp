@@ -11,6 +11,10 @@
 			<button class="button button-clear" ng-click="openmenu()"><i class="icon ion-navicon"></i></button>
 		</div>
 	</div>
+	  <ion-tabs class="tabs-striped tabs-top tabs-background-stable">
+    <ion-tab title="所有计划">
+      <header class="bar bar-header bar-dark">
+      </header>
 	<ion-content class="has-header scroll-content ionic-scroll">
 		<ion-list>
 			<ion-item class="item" href="#/app/jihua/{{i}}" ng-repeat="i in [0,1,2,3,4,5,6,7,8,9]">
@@ -21,6 +25,24 @@
 			</ion-item>
 		</ion-list>
 	</ion-content>
+  </ion-tab>
+
+  <ion-tab title="我的计划任务" >
+    <header class="bar bar-header bar-dark">    
+    </header>
+	<ion-content class="has-header scroll-content ionic-scroll">
+		<ion-list>
+			<ion-item class="item" href="#/app/jihua/{{i}}" ng-repeat="i in [0,1]">
+				<h2>澄12968&nbsp;(ESTOLAR)</h2>
+				<p>代理：<span class="positive">常州外代</span> 长度：<span class="assertive">96.55</span> 吃水：<span class="assertive">9.88</span></p>
+				<p>始发地：<span class="positive">宝山</span> 目的地：<span class="positive">九江</span></p>
+				<p>开航时间：<span class="positive">0700/07</span> 抵澄时间：<span class="positive">700/07</span></p>
+			</ion-item>
+		</ion-list>
+	</ion-content>
+  </ion-tab>
+</ion-tabs>
+
 </ion-view>
 <div ng-show="menuShow" class="bg-dark" style="position:absolute;width:100%;top:44px;z-index: 99999;background: #fff;">
 	<label class="item item-input item-select">
