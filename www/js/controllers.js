@@ -41,6 +41,14 @@ $controllers
 
 });
 $controllers
+.controller('butie', function($rootScope, $scope, $ionicModal,$stateParams, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+
+
+	
+	
+	
+}); 
+$controllers
 
 
 .controller('fuzhu', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
