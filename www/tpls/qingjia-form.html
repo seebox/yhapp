@@ -26,24 +26,27 @@
 		  </label>
 		   <label class="item item-input">
 		    <span class="input-label">开始时间</span>
-		    <input type="text">
+		    <input type="date">
 		  </label>
 		   <label class="item item-input">
 		    <span class="input-label">结束时间</span>
-		    <input type="text">
+		    <input type="date">
 		  </label>
 		   <label class="item item-input">
 		    <span class="input-label">天数</span>
 		    <input type="text">
 		  </label>
-		   <label class="item item-input">
+		   <label class="item item-select">
 		    <span class="input-label">审批人</span>
-		    <input type="text">
-		  </label>
-		   <label class="item item-input">
-		    <span class="input-label">审批内容</span>
-		    <input type="text">
+		    <select>
+		      <option>王主任</option>
+		      <option selected>李主任</option>
+		      <option>张主任</option>
+   			 </select>
 		  </label>
 		</div>
+		<button class="button button-positive button-block" ng-click="modalJia.hide()">
+      提交
+    </button>
 	</ion-content>
 </ion-modal-view>
