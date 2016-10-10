@@ -1,34 +1,89 @@
-    <ion-view >
-  <div class="bar bar-header bar-dark">
-  <div class="buttons">
-    <button class="button button-clear" ng-click="$ionicGoBack()"><i class="icon ion-android-arrow-back"></i></button>
-  </div>
-  <h1 class="title">技术交流</h1>
-    <div class="buttons">
-      <button class="button button-clear" ng-click=""><i class="icon ion-android-add"></i></button>
-    </div>
-</div>
-<ion-content class="has-header scroll-content ionic-scroll">
-              <div class="list card">
-<a href="#/app/jiaoliu/33">
+<ion-view >
+	<div class="bar bar-header bar-dark">
+		<div class="buttons">
+			<button class="button button-clear" ng-click="$ionicGoBack()">
+				<i class="icon ion-android-arrow-back"></i>
+			</button>
+		</div>
+		<h1 class="title">技术交流</h1>
+		<div class="buttons">
+			<button class="button button-clear" ng-click="open_jiaoliuModal()">
+				<i class="icon ion-android-add"></i>
+			</button>
+		</div>
+	</div>
+	<ion-content class="has-header scroll-content ionic-scroll">
+		<div class="list card">
+			<a href="#/app/jiaoliu/33">
+			<div class="item item-body">
 
+				<h2>提问：港口企业对被引船舶靠、离泊，应当做好哪些工作？</h2>
 
-             <div class="item item-body">
+				<p>
+					回答：
+					（一）泊位的靠泊等级必须符合被靠船舶相应等级，泊位防护设施完好；
+					（二）确保泊位有足够的水深，水下无障碍物；
+					（三）泊位有效长度应当至少为被引船舶总长的120%；被引船舶总长度小于100米的，泊位长度应大于被引船舶总长的20米；
+				</p>
+				<p>
+					<a class="subdued">15 赞</a>
+					<a class="subdued">26 评论</a>
+				</p>
+			</div> </a>
+		</div>
 
-                    <h2>提问：港口企业对被引船舶靠、离泊，应当做好哪些工作？</h2>
+	</ion-content>
+	
+	<script id="jiaoliu-modal.html" type="text/ng-template">
+		<ion-modal-view>
+		<ion-header-bar class="bar-stable">
+		<h1 class="title">填写交流信息</h1>
+		<div class="buttons">
+			<button class="button" ng-click="close_jiaoliuModal()"><i class="icon ion-close"></i></button>
+		</div>
+		</ion-header-bar>
+		<ion-content>
+			<div class="list">
+				<label class="item item-input">
+				    <span class="input-label">标题</span>
+				    <input type="text">
+				</label>
+				<label class="item item-input">
+				    <span class="input-label">内容</span>
+				    <input type="text">
+				</label>
+				<label class="item item-input" ng-click="open_usersModal()">
+				    <span class="input-label">邀请</span>
+				</label>
+			</div>
+			<div class="content padding">
+				<button class="button button-block button-positive">提交交流信息</button>
+			</div>
+		</ion-content>
+		</ion-modal-view>
+	</script>
+	
+	<script id="users-modal.html" type="text/ng-template">
+		<ion-modal-view>
+		<ion-header-bar class="bar-dark">
+		<div class="buttons">
+			<button class="button button-clear" ng-click="close_usersModal()">取消</button>
+		</div>
+		<h1 class="title">邀请</h1>
+		<div class="buttons">
+			<button class="button button-clear" ng-click="">确定</button>
+		</div>
+		</ion-header-bar>
+		<ion-content>
+			<div class="list">
+				<ion-checkbox ng-repeat="item in devList"
+                        ng-model="item.checked" 
+                        ng-checked="item.checked">
+            	{{ item.text }}
+          		</ion-checkbox>
+			</div>
+		</ion-content>
+		</ion-modal-view>
+	</script>
 
-               <p>回答：
-                  （一）泊位的靠泊等级必须符合被靠船舶相应等级，泊位防护设施完好；
-                  （二）确保泊位有足够的水深，水下无障碍物；
-                  （三）泊位有效长度应当至少为被引船舶总长的120%；被引船舶总长度小于100米的，泊位长度应大于被引船舶总长的20米；
-               </p>
-               <p>
-                 <a class="subdued">15 赞</a>
-                 <a class="subdued">26 评论</a>
-               </p>
-             </div>
-</a>
-           </div>
-
-         </ion-content>
 </ion-view>
