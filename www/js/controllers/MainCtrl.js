@@ -22,7 +22,7 @@ $controllers
     name: "辅助信息查询",
     url:"app/fuzhu"
   }, {
-    name: "安全预警消息",
+    name: "消息中心",
     url:"app/anquan"
   }, {
     name: "出航津贴查询",
