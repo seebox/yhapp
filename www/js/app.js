@@ -200,13 +200,23 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     }
   })
+  .state('app.boatlists', {
+    url: '/boatlists',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/boatlists.html',
+        controller: 'boatlists'
+      }
+    }
+  })
   .state('app.boat-detail', {
     url: '/boat/:id',
     cache:false,
     views: {
       'menuContent': {
         templateUrl: 'tpls/boat-detail.html',
-        controller: 'boat'
+        controller: 'boatdetail'
       }
     }
   })

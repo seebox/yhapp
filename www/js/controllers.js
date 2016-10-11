@@ -59,7 +59,14 @@ $controllers
 
 })
 
-.controller('boat', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+.controller('boatlists', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+	$scope.search=function(){
+		$scope.selectShow=!$scope.selectShow;
+	};
+	
+})
+
+.controller('boatdetail', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
 	
 	
 })
