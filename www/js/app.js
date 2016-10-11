@@ -200,13 +200,73 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     }
   })
-  .state('app.boat', {
+  .state('app.boat-detail', {
     url: '/boat/:id',
     cache:false,
     views: {
       'menuContent': {
         templateUrl: 'tpls/boat-detail.html',
         controller: 'boat'
+      }
+    }
+  })
+  .state('app.faguilists', {
+    url: '/faguilists',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/faguilists.html',
+        controller: 'faguilists'
+      }
+    }
+  })
+  .state('app.fagui-detail', {
+    url: '/fagui/:id',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/fagui-detail.html',
+        controller: 'faguidetail'
+      }
+    }
+  })
+  .state('app.hangxinglists', {
+    url: '/hangxinglists',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/hangxinglists.html',
+        controller: 'hangxinglists'
+      }
+    }
+  })
+  .state('app.hangxing-detail', {
+    url: '/hangxing/:id',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/hangxing-detail.html',
+        controller: 'hangxingdetail'
+      }
+    }
+  })
+  .state('app.matoulists', {
+    url: '/matoulists',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/matoulists.html',
+        controller: 'matoulists'
+      }
+    }
+  })
+  .state('app.matou-detail', {
+    url: '/matou/:id',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/matou-detail.html',
+        controller: 'matoudetail'
       }
     }
   })
