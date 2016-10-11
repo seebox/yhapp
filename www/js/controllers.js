@@ -195,8 +195,11 @@ $controllers
     name: "辅助信息查询",
     url:"app/fuzhu"
   }, {
-    name: "消息中心",
+    name: "安全预警消息",
     url:"app/anquan"
+  }, {
+    name: "消息中心",
+    url:"app/xiaoxi"
   }, {
     name: "出航津贴查询",
     url:"app/butie"
@@ -279,6 +282,15 @@ $controllers
 
 
 .controller('tezhong', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+
+
+})
+
+;
+$controllers
+
+
+.controller('xiaoxi', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
 
 
 })
