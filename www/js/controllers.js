@@ -133,10 +133,23 @@ $controllers
     $rootScope.modalRen.hide();
   };
 
+  $ionicModal.fromTemplateUrl('my-modal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $rootScope.modalList = modal;
+  });
+
+
 })
 
 .controller('jihuaDetail', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
-
+  $ionicModal.fromTemplateUrl('piban-modal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modalPeiban = modal;
+  });
 
 })
 

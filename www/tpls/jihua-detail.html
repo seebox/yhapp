@@ -97,7 +97,7 @@
     <a class="item">
       下段引航员
       <span class="item-note">
-        饶明安、王炜
+        <span ng-click="modalPeiban.show()" class="positive">饶明安</span>、<span ng-click="modalPeiban.show()" class="positive">王炜</span>
       </span>
     </a>
     <a class="item">
@@ -115,3 +115,38 @@
   </div>
 </ion-content>
 </ion-view>
+<script id="piban-modal.html" type="text/ng-template">
+  <div class="modal">
+    <ion-header-bar>
+      <h1 class="title">配班信息</h1>
+      <button class="button" ng-click="modalPeiban.hide()">
+        <i class="icon ion-close"></i>
+      </button>
+    </ion-header-bar>
+    <ion-content>
+    <div class="list">   
+       <a class="item">
+      姓名
+      <span class="item-note">
+        饶明安
+      </span>
+      <a class="item">
+      档次
+      <span class="item-note">
+        
+      </span>
+      <a class="item">
+      电话
+      <span class="item-note">
+        <span class="positive">1234567</span>
+      </span>
+      <a class="item">
+      所属引航站
+      <span class="item-note">
+        江阴站
+      </span>
+    </a>
+  </div>
+    </ion-content>
+  </div>
+</script>
