@@ -161,6 +161,13 @@ $controllers
               { text: "朱建忠", checked: false }
             ];
 	
+	$scope.answer=function(){
+		$scope.answerShow=!$scope.answerShow;
+	};
+	
+	$scope.submit=function(){
+		$scope.answerShow=!$scope.answerShow;
+	};
 	
 })
 ;
