@@ -300,6 +300,26 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     }
   })
+    .state('app.xiaoxi', {
+    url: '/xiaoxi',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/xiaoxi.html',
+        controller: 'xiaoxi'
+      }
+    }
+  })
+  .state('app.xiaoxi-detail', {
+    url: '/xiaoxi/:id',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/xiaoxi-detail.html',
+        controller: 'xiaoxi'
+      }
+    }
+  })
   .state('app.butie', {
     url: '/butie',
     cache:false,
