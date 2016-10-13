@@ -139,6 +139,16 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     }
   })
+    .state('app.uploaded', {
+    url: '/uploaded/:id',
+    cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: 'tpls/uploaded.html',
+        controller: 'PlaylistCtrl'
+      }
+    }
+  })
   .state('app.qingjia', {
     url: '/qingjia',
     cache:false,
