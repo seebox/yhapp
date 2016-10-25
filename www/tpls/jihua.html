@@ -11,38 +11,38 @@
 			<button class="button button-clear" ng-click="openmenu()"><i class="icon ion-navicon"></i></button>
 		</div>
 	</div>
-	  <ion-tabs class="tabs-striped tabs-top tabs-background-stable">
-    <ion-tab title="所有计划">
-      <header class="bar bar-header bar-dark">
-      </header>
-	<ion-content class="has-header scroll-content ionic-scroll">
-		<ion-list>
-			<ion-item class="item" href="#/app/jihua/{{i}}" ng-repeat="i in [0,1,2,3,4,5,6,7,8,9]">
-				<h2>澄12968&nbsp;(ESTOLAR)</h2>
-				<p>代理：<span class="positive">常州外代</span> 长度：<span class="assertive">96.55</span> 吃水：<span class="assertive">9.88</span></p>
-				<p>始发地：<span class="positive">宝山</span> 目的地：<span class="positive">九江</span></p>
-				<p>开航时间：<span class="positive">0700/07</span> 抵澄时间：<span class="positive">700/07</span></p>
-				<ion-option-button class="button-assertive" ng-click="modalList.show()">历史航次汇报</ion-option-button>
-			</ion-item>
-		</ion-list>
-	</ion-content>
-  </ion-tab>
-
-  <ion-tab title="我的计划任务" >
-    <header class="bar bar-header bar-dark">    
+ <ion-tabs class="tabs-striped tabs-top tabs-background-stable">
+  <ion-tab title="所有计划">
+    <header class="bar bar-header bar-dark">
     </header>
-	<ion-content class="has-header scroll-content ionic-scroll">
-		<ion-list>
-			<ion-item class="item" href="#/app/jihua/{{i}}" ng-repeat="i in [0,1]">
-				<h2>澄12968&nbsp;(ESTOLAR)</h2>
-				<p>代理：<span class="positive">常州外代</span> 长度：<span class="assertive">96.55</span> 吃水：<span class="assertive">9.88</span></p>
-				<p>始发地：<span class="positive">宝山</span> 目的地：<span class="positive">九江</span></p>
-				<p>开航时间：<span class="positive">0700/07</span> 抵澄时间：<span class="positive">700/07</span></p>
-				<ion-option-button class="button-assertive" ng-click="modalList.show()">历史航次汇报</ion-option-button>
-			</ion-item>
-		</ion-list>
-	</ion-content>
-  </ion-tab>
+    <ion-content class="has-header scroll-content ionic-scroll">
+      <ion-list>
+       <ion-item class="item" href="#/app/jihua/{{i}}" ng-repeat="i in [0,1,2,3,4,5,6,7,8,9]">
+        <h2>澄12968&nbsp;(ESTOLAR)</h2>
+        <p>代理：<span class="positive">常州外代</span> 长度：<span class="assertive">96.55</span> 吃水：<span class="assertive">9.88</span></p>
+        <p>始发地：<span class="positive">宝山</span> 目的地：<span class="positive">九江</span></p>
+        <p>开航时间：<span class="positive">0700/07</span> 抵澄时间：<span class="positive">700/07</span></p>
+        <ion-option-button class="button-assertive" ng-click="modalList.show()">历史航次汇报</ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-tab>
+
+<ion-tab title="我的计划任务" >
+  <header class="bar bar-header bar-dark">    
+  </header>
+  <ion-content class="has-header scroll-content ionic-scroll">
+    <ion-list>
+     <ion-item class="item" href="#/app/jihua/{{i}}" ng-repeat="i in [0,1]">
+      <h2>澄12968&nbsp;(ESTOLAR)</h2>
+      <p>代理：<span class="positive">常州外代</span> 长度：<span class="assertive">96.55</span> 吃水：<span class="assertive">9.88</span></p>
+      <p>始发地：<span class="positive">宝山</span> 目的地：<span class="positive">九江</span></p>
+      <p>开航时间：<span class="positive">0700/07</span> 抵澄时间：<span class="positive">700/07</span></p>
+      <ion-option-button class="button-assertive" ng-click="modalList.show()">历史航次汇报</ion-option-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
+</ion-tab>
 </ion-tabs>
 
 </ion-view>
@@ -52,179 +52,182 @@
 			引航站
 		</div>
 		<select>
-		    <option>全线</option>
-			<option>太仓</option>
-			<option selected>江阴</option>
-			<option>常州</option>
-		</select>
-	</label>
-	<div class="list">
-	<div class="padding"><input type="radio" name="B">&nbsp;&nbsp;内贸&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="B">&nbsp;&nbsp;外贸</div>
-		<div class="padding"><input type="radio" name="A">&nbsp;&nbsp;进江&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="A">&nbsp;&nbsp;出江&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="A">&nbsp;&nbsp;移泊</div>
-		
-		<button class="button button-positive button-block" ng-click="openmenu()">
+      <option>全线</option>
+      <option>太仓</option>
+      <option selected>江阴</option>
+      <option>常州</option>
+    </select>
+  </label>
+  <div class="list">
+   <div class="padding"><input type="radio" name="B">&nbsp;&nbsp;内贸&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="B">&nbsp;&nbsp;外贸</div>
+   <div class="padding"><input type="radio" name="A">&nbsp;&nbsp;进江&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="A">&nbsp;&nbsp;出江&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="A">&nbsp;&nbsp;移泊</div>
+   <a class="item"> 船名<input type="text" style="height:auto;text-align: right;" class="item-note" placeholder=""></a>
+   <a class="item"> 始发地
+    <input type="text" style="height:auto;text-align: right;" class="item-note" placeholder=""></a>
+    <a class="item"> 目的地<input type="text" style="height:auto;text-align: right;" class="item-note" placeholder=""></a>
+    <button class="button button-positive button-block" ng-click="openmenu()">
       确定
     </button>
-	</div>
-	
+  </div>
+
 </div>
 <script id="my-modal.html" type="text/ng-template">
   <div class="modal">
     <ion-header-bar>
       <h1 class="title">历史航次汇报</h1>
       <button class="button" ng-click="modalList.hide()">
-				<i class="icon ion-close"></i>
-			</button>
+        <i class="icon ion-close"></i>
+      </button>
     </ion-header-bar>
     <ion-content>	 
-      		    <div class="list">
-     <a class="item">
-      中文船名
-      <span class="item-note">
-        尊严
-      </span>
-    </a>
-    <a class="item">
-      引航员
-      <span class="item-note">
-        孙北京
-      </span>
-    </a>
-    <a class="item">
-      始发地
-      <span class="item-note">
-        宝山
-      </span>
-    </a>
-    <a class="item">
-      目的地
-      <span class="item-note">
-        武港
-      </span>
-    </a>
+      <div class="list">
+       <a class="item">
+        中文船名
+        <span class="item-note">
+          尊严
+        </span>
+      </a>
+      <a class="item">
+        引航员
+        <span class="item-note">
+          孙北京
+        </span>
+      </a>
+      <a class="item">
+        始发地
+        <span class="item-note">
+          宝山
+        </span>
+      </a>
+      <a class="item">
+        目的地
+        <span class="item-note">
+          武港
+        </span>
+      </a>
 
-    <a class="item">
-      报告时间
-      <span class="item-note">
-        2013-12-23 12:37:21
-      </span>
-    </a>
+      <a class="item">
+        报告时间
+        <span class="item-note">
+          2013-12-23 12:37:21
+        </span>
+      </a>
 
-    <a class="item">
-      接受人
-      <span class="item-note">
-        江山
-      </span>
-    </a>
-    <a class="item">
-      操纵性能
-      <span class="item-note">
-        良好
-      </span>
-    </a>
-    <a class="item">
-      主机工况
-      <span class="item-note">
-        常
-      </span>
-    </a>
-    <a class="item">
-      可变螺距
-      <span class="item-note">
-        否
-      </span>
-    </a>
+      <a class="item">
+        接受人
+        <span class="item-note">
+          江山
+        </span>
+      </a>
+      <a class="item">
+        操纵性能
+        <span class="item-note">
+          良好
+        </span>
+      </a>
+      <a class="item">
+        主机工况
+        <span class="item-note">
+          常
+        </span>
+      </a>
+      <a class="item">
+        可变螺距
+        <span class="item-note">
+          否
+        </span>
+      </a>
 
-    <a class="item">
-      正常航速
-      <span class="item-note">
-        13
-      </span>
-    </a>
-    <a class="item">
-      舵机工况
-      <span class="item-note">
-        正常
-      </span>
-    </a>
-    <a class="item">
-      助航设备
-      <span class="item-note">
-        良好
-      </span>
-    </a> 
-    <a class="item">
-      靠离泊状态
-      <span class="item-note">
-落水
-      </span>
-    </a>
-    <a class="item">
-      锚的使用情况
-      <span class="item-note">
-        无
-      </span>
-    </a>
-    <a class="item">
-      锚机工况
-      <span class="item-note">
-        正常
-      </span>
-    </a>
-    <a class="item">
-      锚链入水
-      <span class="item-note">
-        0
-      </span>
-    </a>
-    <a class="item">
-      其他信息
-      <span class="item-note">
-        
-      </span>
-    </a>
-    <a class="item">
-      备注
-      <span class="item-note">
-        
-      </span>
-    </a>
-  </div>
-    </ion-content>
-  </div>
+      <a class="item">
+        正常航速
+        <span class="item-note">
+          13
+        </span>
+      </a>
+      <a class="item">
+        舵机工况
+        <span class="item-note">
+          正常
+        </span>
+      </a>
+      <a class="item">
+        助航设备
+        <span class="item-note">
+          良好
+        </span>
+      </a> 
+      <a class="item">
+        靠离泊状态
+        <span class="item-note">
+          落水
+        </span>
+      </a>
+      <a class="item">
+        锚的使用情况
+        <span class="item-note">
+          无
+        </span>
+      </a>
+      <a class="item">
+        锚机工况
+        <span class="item-note">
+          正常
+        </span>
+      </a>
+      <a class="item">
+        锚链入水
+        <span class="item-note">
+          0
+        </span>
+      </a>
+      <a class="item">
+        其他信息
+        <span class="item-note">
+
+        </span>
+      </a>
+      <a class="item">
+        备注
+        <span class="item-note">
+
+        </span>
+      </a>
+    </div>
+  </ion-content>
+</div>
 </script>
 <script id="piban-modal.html" type="text/ng-template">
   <div class="modal">
     <ion-header-bar>
       <h1 class="title">配班信息</h1>
       <button class="button" ng-click="modalPeiban.hide()">
-				<i class="icon ion-close"></i>
-			</button>
+        <i class="icon ion-close"></i>
+      </button>
     </ion-header-bar>
     <ion-content>
-    <div class="list">	 
+      <div class="list">	 
        <a class="item">
-      姓名
-      <span class="item-note">
-        王某某
-      </span>
-      <a class="item">
-      档次
-      <span class="item-note">
-        
-      </span>
-      <a class="item">
-      电话
-      <span class="item-note">
-        <a href="tel:1234567">1234567</a>
-      </span>
-      <a class="item">
-      所属引航站
-      <span class="item-note">
-        江阴站
-      </span>
-    </a>
-  </div>
-    </ion-content>
-  </div>
-</script>
+        姓名
+        <span class="item-note">
+          王某某
+        </span>
+        <a class="item">
+          档次
+          <span class="item-note">
+
+          </span>
+          <a class="item">
+            电话
+            <span class="item-note">
+              <a href="tel:1234567">1234567</a>
+            </span>
+            <a class="item">
+              所属引航站
+              <span class="item-note">
+                江阴站
+              </span>
+            </a>
+          </div>
+        </ion-content>
+      </div>
+    </script>
