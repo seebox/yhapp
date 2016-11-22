@@ -25,6 +25,9 @@ $controllers
     name: "安全预警消息",
     url:"app/anquan"
   }, {
+    name: "消息中心",
+    url:"app/xiaoxi"
+  }, {
     name: "出航津贴查询",
     url:"app/butie"
   }, {

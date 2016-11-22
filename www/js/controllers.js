@@ -52,8 +52,62 @@ $controllers
 
 
 .controller('fuzhu', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+	
+	$scope.search=function(){
+		$scope.selectShow=!$scope.selectShow;
+	};
 
+})
 
+.controller('boatlists', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+	$scope.search=function(){
+		$scope.selectShow=!$scope.selectShow;
+	};
+	
+})
+
+.controller('boatdetail', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+	
+	
+})
+
+.controller('faguilists', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+	
+	$scope.search=function(){
+		$scope.selectShow=!$scope.selectShow;
+	};
+	
+})
+
+.controller('faguidetail', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+	
+	
+})
+
+.controller('hangxinglists', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+	
+	$scope.search=function(){
+		$scope.selectShow=!$scope.selectShow;
+	};
+	
+})
+
+.controller('hangxingdetail', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+	
+	
+})
+
+.controller('matoulists', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+	
+	$scope.search=function(){
+		$scope.selectShow=!$scope.selectShow;
+	};
+	
+})
+
+.controller('matoudetail', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+	
+	
 })
 
 ;
@@ -107,6 +161,13 @@ $controllers
               { text: "朱建忠", checked: false }
             ];
 	
+	$scope.answer=function(){
+		$scope.answerShow=!$scope.answerShow;
+	};
+	
+	$scope.submit=function(){
+		$scope.answerShow=!$scope.answerShow;
+	};
 	
 })
 ;
@@ -133,10 +194,23 @@ $controllers
     $rootScope.modalRen.hide();
   };
 
+  $ionicModal.fromTemplateUrl('my-modal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $rootScope.modalList = modal;
+  });
+
+
 })
 
 .controller('jihuaDetail', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
-
+  $ionicModal.fromTemplateUrl('piban-modal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modalPeiban = modal;
+  });
 
 })
 
@@ -176,6 +250,9 @@ $controllers
   }, {
     name: "安全预警消息",
     url:"app/anquan"
+  }, {
+    name: "消息中心",
+    url:"app/xiaoxi"
   }, {
     name: "出航津贴查询",
     url:"app/butie"
@@ -258,6 +335,15 @@ $controllers
 
 
 .controller('tezhong', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+
+
+})
+
+;
+$controllers
+
+
+.controller('xiaoxi', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
 
 
 })

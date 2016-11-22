@@ -1,51 +1,61 @@
 <ion-view >
-  <div class="bar bar-header bar-dark">
-<div class="buttons">
-    <button class="button button-clear" ng-click="$ionicGoBack()"><i class="icon ion-android-arrow-back"></i></button>
-  </div>
-  <h1 class="title">引航签证系统</h1>
+	<div class="bar bar-header bar-dark">
+		<div class="buttons">
+			<button class="button button-clear" ng-click="$ionicGoBack()">
+				<i class="icon ion-android-arrow-back"></i>
+			</button>
+		</div>
+		<h1 class="title">引航签证系统</h1>
 
-</div>
-  <ion-tabs class="tabs-striped tabs-top tabs-background-stable">
-    <ion-tab title="我的计划列表">
-      <header class="bar bar-header bar-dark">
-      </header>
-  <ion-content  class="has-header scroll-content ionic-scroll">
-    <ion-list>
-      <a ng-repeat="playlist in [0,1,2]" ng-href="#/app/playlists/ingle">
-        <div class="uncomplite" ng-class="{'complite':playlist.iscomplite}">
-          <div class="item item-text-wrap">
-             <h2>澄12968&nbsp;(ESTOLAR)</h2>
-        <p>代理：<span class="positive">常州外代</span> 长度：<span class="assertive">96.55</span> 吃水：<span class="assertive">9.88</span></p>
-        <p>始发地：<span class="positive">宝山</span> 目的地：<span class="positive">九江</span></p>
-        <p>开航时间：<span class="positive">0700/07</span> 抵澄时间：<span class="positive">700/07</span></p>
-          </div>
-        </div>
-      </a>
-    </ion-list>
-  </ion-content>
-  </ion-tab>
+	</div>
+	<ion-tabs class="tabs-striped tabs-top tabs-background-stable">
+		<ion-tab title="我的计划列表">
+			<header class="bar bar-header bar-dark"></header>
+			<ion-content  class="has-header scroll-content ionic-scroll">
+				<ion-list>
+					<a ng-repeat="playlist in [0,1,2]" ng-href="#/app/playlists/ingle">
+					<div class="uncomplite" ng-class="{'complite':playlist.iscomplite}">
+						<div class="item item-text-wrap">
+							<h2>澄12968&nbsp;(ESTOLAR)</h2>
+							<p>
+								代理：<span class="positive">常州外代</span> 长度：<span class="assertive">96.55</span> 吃水：<span class="assertive">9.88</span>
+							</p>
+							<p>
+								始发地：<span class="positive">宝山</span> 目的地：<span class="positive">九江</span>
+							</p>
+							<p>
+								开航时间：<span class="positive">0700/07</span> 抵澄时间：<span class="positive">700/07</span>
+							</p>
+						</div>
+					</div> </a>
+				</ion-list>
+			</ion-content>
+		</ion-tab>
 
-  <ion-tab title="已上传签证单" >
-    <header class="bar bar-header bar-dark">
-      
-    </header>
-    <ion-content  class="has-header scroll-content ionic-scroll">
-    <ion-list>
-      <a ng-repeat="playlist in [0,1]" ng-href="#/app/playlists/ingle">
-        <div class="card uncomplite" ng-class="{'complite':playlist.iscomplite}">
-          <div class="item item-text-wrap">
-             <h2>澄12968&nbsp;(ESTOLAR)</h2>
-        <p>代理：<span class="positive">常州外代</span> 长度：<span class="assertive">96.55</span> 吃水：<span class="assertive">9.88</span></p>
-        <p>始发地：<span class="positive">宝山</span> 目的地：<span class="positive">九江</span></p>
-        <p>开航时间：<span class="positive">0700/07</span> 抵澄时间：<span class="positive">700/07</span></p>
-          </div>
-        </div>
-      </a>
-    </ion-list>
-  </ion-content>
-  </ion-tab>
-</ion-tabs>
+		<ion-tab title="已上传签证单" >
+			<header class="bar bar-header bar-dark">
 
+			</header>
+			<ion-content  class="has-header scroll-content ionic-scroll">
+				<ion-list>
+					<a ng-repeat="playlist in [0,1]" ng-href="#/app/uploaded/1">
+					<div class="card uncomplite" ng-class="{'complite':playlist.iscomplite}">
+						<div class="item item-text-wrap">
+							<h2>澄12968&nbsp;(ESTOLAR)</h2>
+							<p>
+								代理：<span class="positive">常州外代</span> 长度：<span class="assertive">96.55</span> 吃水：<span class="assertive">9.88</span>
+							</p>
+							<p>
+								始发地：<span class="positive">宝山</span> 目的地：<span class="positive">九江</span>
+							</p>
+							<p>
+								开航时间：<span class="positive">0700/07</span> 抵澄时间：<span class="positive">700/07</span>
+							</p>
+						</div>
+					</div> </a>
+				</ion-list>
+			</ion-content>
+		</ion-tab>
+	</ion-tabs>
 
 </ion-view>
