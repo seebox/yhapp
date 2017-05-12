@@ -6,13 +6,16 @@
     <ion-content class="sidemenu">
       <div class="list">
         <a class="item item-avatar">
-          <img src="img/stantz.jpg">
-          <h2>郑智化</h2>
-          <p>引航中心引航员</p>
+          <img src="img/ionic.png">
+          <h2>{{userName}}</h2>
+          <p>{{userTitle}}</p>
         </a>
         <p class="padding" style="padding:0 16px;color: #999;">他说风雨中这点痛算什么...</p>
       </div>
       <ion-list>
+        
+        <ion-toggle ng-model="isNoti" ng-change="ChangeNotification();" class="item item-icon-left item-toggle" toggle-class="toggle-calm"><i class="icon ion-ios-bell-outline"></i>
+      接收通知</ion-toggle>
         <ion-item menu-close ng-click="login()">
           <i class="icon ion-log-out"></i>&nbsp;退出登录
         </ion-item>

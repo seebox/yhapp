@@ -13,13 +13,22 @@
 		<div class="item item-body" ng-if="classid=='2'">
 			<a>点击下载：E-pilot在引航中的应用（姚泽炎）.ppt</a>
 		</div>
-
+    <div class="item item-divider">
+				评论
+			</div>
+			<div class="item item-avatar" ng-repeat="item in commlist">
+				<img src="img/ionic.png">
+				<h2>测试人员</h2>
+				<p>
+					{{item}}
+				</p>
+		</div>
 	</ion-content>
 	 <div class="bar bar-footer bar-stable item-input-inset">
   <label class="item-input-wrapper">
-    <input type="search" placeholder="输入学习评论内容">
+    <input type="search" placeholder="输入学习评论内容" ng-model="com.content">
   </label>
-  <button class="button button-clear">
+  <button class="button button-clear" ng-click="submit()">
     提交
   </button>
 </div>

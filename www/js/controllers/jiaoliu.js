@@ -30,18 +30,36 @@ $controllers
 	};
 	
 	$scope.devList = [
-              { text: "吴福康", checked: false },
-              { text: "朱学文", checked: false },
-              { text: "朱建忠", checked: false }
+              { text: "安技部", checked: false },
+              { text: "办公室", checked: false },
+              { text: "引航站", checked: false }
             ];
 	
 	$scope.answer=function(){
 		$scope.answerShow=!$scope.answerShow;
 	};
-	
+	$scope.rep = {
+		title:"",
+		reply:""
+	}
+	$scope.reply = "";
+	$scope.comment = "";
 	$scope.submit=function(){
 		$scope.answerShow=!$scope.answerShow;
 	};
+	$scope.tiwen=function(){
+		$scope.jiaoliuModal.hide();
+		$scope.items.push($scope.rep);
+	};
+	$scope.commlist = ['说的很好，很有心得','早就知道了'];
+
+	$scope.comm = function(){
+		$scope.commlist.push($scope.comment);
+		$scope.comment = "";
+	}
+	$scope.items = [
+		{title:"港口企业对被引船舶靠、离泊，应当做好哪些工作？",reply:"泊位的靠泊等级必须符合被靠船舶相应等级，泊位防护设施完好；"}
+	]
 	
 })
 ;

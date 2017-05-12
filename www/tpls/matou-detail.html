@@ -6,6 +6,9 @@
 			</button>
 		</div>
 		<h1 class="title">码头信息</h1>
+		<div class="buttons">
+			<button class="button button-clear" ng-click="menuShow=true"><i class="icon ion-more"></i></button>
+		</div>
 	</div>
 
 	<ion-content class="has-header scroll-content ionic-scroll">
@@ -74,3 +77,25 @@
 	</ion-content>
 
 </ion-view>
+<div ng-show="menuShow" class="bg-dark" style="position:absolute;width:100%;top:44px;z-index: 99999;background: #fff;">
+	<label class="item item-select">
+		<div class="input-label">
+			地域
+		</div>
+		<select ng-model="yinhangzhan">
+      <option value="太仓">太仓</option>
+      <option selected value="江阴">江阴</option>
+      <option value="常州">常州</option>
+    </select>
+  </label>
+  <div class="list">
+
+   <div class="padding"><input type="radio" name="A">&nbsp;&nbsp;&nbsp;前一天&nbsp;<input type="radio" name="A">&nbsp;&nbsp;&nbsp;今天&nbsp;<input type="radio" name="A">&nbsp;&nbsp;后一天</div>
+   <a class="item"> 前一天<input type="text" style="height:auto;text-align: right;" class="item-note" placeholder=""></a>
+
+    <button class="button button-positive button-block" ng-click="closemenu()">
+      确定
+    </button>
+  </div>
+
+</div>

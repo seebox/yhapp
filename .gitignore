@@ -6,3 +6,5 @@ platforms/
 plugins/
 resources/
 scss/
+hooks/
+.DS_Store

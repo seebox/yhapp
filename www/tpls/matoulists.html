@@ -5,58 +5,39 @@
 				<i class="icon ion-android-arrow-back"></i>
 			</button>
 		</div>
-		<h1 class="title">辅助信息详情</h1>
+		<h1 class="title">潮汐信息查询</h1>
+		<div class="buttons">
+			<button class="button button-clear" ng-click="menuShow=!!!menuShow"><i class="icon ion-more"></i></button>
+		</div>
 	</div>
 
 	<ion-content class="has-header scroll-content ionic-scroll">
 		<ion-list>
-			<ion-item class="item" href="#/app/matou/2">
-				<p>
-					码头名称：<span class="positive">张海航〔2016〕046号</span>
-				</p>
-				<p>
-					码头形式：<span class="positive">2016年9月30日</span> 码头用途：<span class="positive">张家港海事局</span>
-				</p>
-			</ion-item>
-		</ion-list>
-		<ion-list>
-			<ion-item class="item" href="#/app/matou/2">
-				<p>
-					码头名称：<span class="positive">张海航〔2016〕046号</span>
-				</p>
-				<p>
-					码头形式：<span class="positive">2016年9月30日</span> 码头用途：<span class="positive">张家港海事局</span>
-				</p>
-			</ion-item>
-		</ion-list>
-		<ion-list>
-			<ion-item class="item" href="#/app/matou/2">
-				<p>
-					码头名称：<span class="positive">张海航〔2016〕046号</span>
-				</p>
-				<p>
-					码头形式：<span class="positive">2016年9月30日</span> 码头用途：<span class="positive">张家港海事局</span>
-				</p>
-			</ion-item>
+			<li class="item" ng-repeat="item in items">
+				{{item.title}}
+				<span class="item-note"> {{item.value}} </span>
+			</li>			
 		</ion-list>
 	</ion-content>
-
 </ion-view>
-<div ng-show="!selectShow" class="bg-dark" style="position:absolute;width:100%;height:100%;top:44px;z-index: 99999;background:white;">
-	<div class="list">
-		<label class="item item-input"> <span class="input-label">码头名称：</span>
-			<input type="text">
-		</label>
-		<label class="item item-input"> <span class="input-label">码头形式：</span>
-			<input type="text">
-		</label>
-		<label class="item item-input"> <span class="input-label">码头用途：</span>
-			<input type="text">
-		</label>
-	</div>
-	<div class="padding">
-		<button class="button button-block button-positive" ng-click="search()">
-			查询
-		</button>
-	</div>
+<div ng-show="menuShow" class="bg-dark" style="position:absolute;width:100%;top:44px;z-index: 99999;background: #fff;">
+	<label class="item item-select">
+		<div class="input-label">
+			地域
+		</div>
+		<select ng-model="yinhangzhan">
+      <option value="太仓">太仓</option>
+      <option selected value="江阴">江阴</option>
+      <option value="常州">常州</option>
+    </select>
+  </label>
+  <div class="list">
+
+   <div class="padding"><input type="radio" name="A">前一天&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="A" checked>今天&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="A">后一天</div>
+
+    <button class="button button-positive button-block" ng-click="menuShow=false">
+      确定
+    </button>
+  </div>
+
 </div>

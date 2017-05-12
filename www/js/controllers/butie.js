@@ -1,8 +1,8 @@
 $controllers
-.controller('butie', function($rootScope, $scope, $ionicModal,$stateParams, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+    .controller('butie', function($rootScope, $scope, $ionicModal, $stateParams, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
 
 
-	
-	
-	
-}); 
+
+
+
+    });

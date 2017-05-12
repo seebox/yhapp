@@ -8,6 +8,7 @@ $controllers
   }).then(function(modal) {
     $scope.modalHuibao = modal;
   });
- 
+  $scope.huibaolist = window.localStorage.huibaolist?JSON.parse(window.localStorage.huibaolist):[];
+
 
 });

@@ -12,10 +12,10 @@ var paths = {
 
 
 gulp.task('watch', function() {
-  gulp.watch(paths.ctrl, ['concatctrl']);
+  gulp.watch(paths.ctrl, ['concat']);
 });
 
-gulp.task('concatctrl', function () {
+gulp.task('concat', function () {
     gulp.src('./www/js/controllers/*.js')
         .pipe(concat('controllers.js'))
         .pipe(gulp.dest('./www/js'));

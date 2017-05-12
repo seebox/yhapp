@@ -7,7 +7,7 @@ $controllers
   }).then(function(modal) {
     $scope.modalJia = modal;
   });
-
+  $scope.role = (window.localStorage.username=='admin');
 })
 
 ;

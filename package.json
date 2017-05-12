@@ -24,7 +24,8 @@
     {
       "locator": "https://github.com/netinhoteixeira/cordova-plugin-signature-view",
       "id": "nl.codeyellow.signature"
-    }
+    },
+    "cordova-plugin-camera@2.3.0"
   ],
   "cordovaPlatforms": [
     "android"

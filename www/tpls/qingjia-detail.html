@@ -7,7 +7,27 @@
   </div>
 
   <ion-content class="has-header scroll-content ionic-scroll">
+    <div class="item item-divider" >
+	    自2017年1月1日起已休假情况
+	  </div>
+    <a class="item">
+    
+        <p><span>年假:3天</span>&nbsp;&nbsp;
+        <span>婚假:10天</span>&nbsp;&nbsp;
+        <span>病假:1天</span>&nbsp;&nbsp;
+        <span>年假:3天</span></p>
+
+     </a>
+     <div class="item item-divider" >
+	    
+	  </div>
     <div class="list">
+           <a class="item">
+      休假人
+      <span class="item-note">
+        陈学思
+      </span>
+     </a>
      <a class="item">
       休假地点
       <span class="item-note">
@@ -29,31 +49,44 @@
           <a class="item">
       休假开始时间
       <span class="item-note">
-        2016-09-28
+        <input type="datetime-local" value="2016-09-08T04:20">
       </span>
      </a>
           <a class="item">
       休假结束时间
       <span class="item-note">
-         2016-09-30
+         <input type="datetime-local" value="2016-09-09T04:20">
       </span>
      </a>
           <a class="item">
       请假天数
       <span class="item-note">
-        2
+        <input type="text" value="2">
       </span>
      </a>
-	<div class="item item-divider">
-	    审批项
+   <div class="item item-divider" >
+	    审批情况
+	  </div>
+    <a class="item">
+      
+        <h2>引航站领导（李某）已同意。</h2>
+        <p>审批意见:XXXXXXXXXXX</p>
+
+     </a>
+	<div class="item item-divider" >
+	    审批意见
 	  </div>
 <div class="list list-inset">
   <label class="item item-input">
     <textarea placeholder="审批内容"></textarea>
   </label>
-<button class="button button-positive button-block">
-      审批
-    </button>
+   
+<div class="button-bar ">
+  <a class="button button-positive">同意</a>
+  <a class="button button-assertive">不同意</a>
+</div>
+    
+    
 </div>
   </div>
 </ion-content>

@@ -15,6 +15,12 @@ $controllers
 
 
 	$scope.classid=$stateParams.id;
+	$scope.com = {content:""};
+$scope.commlist = [];
+	$scope.submit = function(){
+		$scope.commlist.push($scope.com.content);
+		$scope.com.content = "";
+	}
 	
 	
 }); 

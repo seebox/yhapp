@@ -1,179 +1,161 @@
 <ion-modal-view>
-	<div class="bar bar-header bar-stable">
+    <div class="bar bar-header bar-positive">
 
-		<h1 class="title">航次汇报</h1>
-		<div class="buttons">
-			<button class="button" ng-click="modalHuibao.hide()">
+        <h1 class="title">航次汇报</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="modalHuibao.hide()">
 				<i class="icon ion-close"></i>
 			</button>
-		</div>
-	</div>
-	<ion-content class="has-header scroll-content ionic-scroll">
+        </div>
+    </div>
+    <ion-content class="has-header scroll-content ionic-scroll">
 
-		<div class="list">
-			<div class="item item-input">
-				<div class="input-label">
-					引 航 员:
-				</div>
-				<span>
-					陈学思
+        <div class="list">
+            <div class="item">
+                引 航 员:
+                <span class="item-note">
+					陈学思			
 				</span>
-			</div>
-			<div class="item item-input">
-				<div class="input-label">
-					船名:
-				</div>
-				<span>
-					安娜贝尔
+            </div>
+            <div class="item">
+                船名:
+                <span class="item-note">
+					PHENIX	环球凤凰					
 				</span>
-			</div>
-			<div class="item item-input">
-				<div class="input-label">
-					船舶起迄地:
-				</div>
-				<span>
-					中储粮-宝山
+            </div>
+            <div class="item">
+                船舶起迄地:
+                <span class="item-note">
+					宝山-太仓					
 				</span>
-			</div>
-			<div class="item item-input">
-				<div class="input-label">
-					报告时间:
-				</div>
-				<span>
-					2016-10-9 10:23:49
-				</span>
-			</div>
+            </div>
 
-			<div class="item item-input item-select">
-				<div class="input-label">
-					报告接受人:
-				</div>
-				<select>
-					<option selected="">陈刚</option>
-					<option>杭建军</option>
-					<option>刘伟</option>
-				</select>
-			</div>
-			
-			<div class="item item-input item-select">
-				<div class="input-label">
-					船舶操纵性能:
-				</div>
-				<select>
-					<option selected="">良好</option>
+            <div class="item item-input item-select">
+                <div class="input-label">
+                    船舶操纵性能:
+                </div>
+                <select>
+					<option>请选择</option>
+					<option>良好</option>
 					<option>一般</option>
 					<option>差</option>
 				</select>
-			</div>
-			
-			<div class="item item-input item-select">
-				<div class="input-label">
-					主机工况:
-				</div>
-				<select>
-					<option selected="">正常</option>
+            </div>
+
+            <div class="item item-input item-select">
+                <div class="input-label">
+                    主机工况:
+                </div>
+                <select>
+					<option>请选择</option>
+					<option>正常</option>
 					<option>启动转向慢</option>
 					<option>车速慢</option>
 				</select>
-			</div>
-			
-			<div class="item item-input item-select">
-				<div class="input-label">
-					是否可变螺距:
-				</div>
-				<select>
-					<option selected="">否</option>
+            </div>
+
+            <div class="item item-input item-select">
+                <div class="input-label">
+                    是否可变螺距:
+                </div>
+                <select>
+					<option>请选择</option>
+					<option>否</option>
 					<option>是</option>
 				</select>
-			</div>
-			
-			<div class="item item-input item-select">
-				<div class="input-label">
-					静水航速几节:
-				</div>
-				<select>
-					<option></option>
+            </div>
+
+            <div class="item item-input item-select">
+                <div class="input-label">
+                    静水航速几节:
+                </div>
+                <select>
+					<option>请选择</option>
 					<option>3</option>
 					<option>4</option>
 					<option>5</option>
-					<option selected="">12</option>
+					<option>12</option>
 				</select>
-			</div>
-			
-			<div class="item item-input item-select">
-				<div class="input-label">
-					舵机工况:
-				</div>
-				<select>
-					<option selected="">正常</option>
+            </div>
+
+            <div class="item item-input item-select">
+                <div class="input-label">
+                    舵机工况:
+                </div>
+                <select>
+					<option>请选择</option>
+					<option>正常</option>
 					<option>反应慢</option>
 				</select>
-			</div>
-			
-			<div class="item item-input item-select">
-				<div class="input-label">
-					锚机工况:
-				</div>
-				<select>
-					<option selected="">正常</option>
+            </div>
+
+            <div class="item item-input item-select">
+                <div class="input-label">
+                    锚机工况:
+                </div>
+                <select>
+					<option>请选择</option>
+					<option>正常</option>
 					<option>锚机力量小</option>
 				</select>
-			</div>
-			
-			<div class="item item-input">
-				<span class="input-label">助航设备：</span>
-   				<input type="text" style="text-align: right;padding-right:50px;" value="良好">
-			</div>
-			
-			<div class="item item-input item-select">
-				<div class="input-label">
-					靠离泊状态:
-				</div>
-				<select>
-					<option selected="">涨水</option>
+            </div>
+
+            <div class="item item-input item-select">
+                <span class="input-label">助航设备：</span>
+                <select>
+					<option>请选择</option>
+					<option>良好</option>
+					<option>差</option>
+				</select>
+            </div>
+
+            <div class="item item-input item-select">
+                <div class="input-label">
+                    靠离泊状态:
+                </div>
+                <select>
+					<option>请选择</option>
+					<option>涨水</option>
 					<option>落水</option>
 				</select>
-			</div>
-			
-			<div class="item item-input item-select">
-				<div class="input-label">
-					锚的使用情况:
-				</div>
-				<select>
-					<option selected="">拎水锚</option>
+            </div>
+
+            <div class="item item-input item-select">
+                <div class="input-label">
+                    锚的使用情况:
+                </div>
+                <select>
+					    <option>请选择</option>
+					<option>拎水锚</option>
 					<option>开锚</option>
 					<option>倒锚</option>
 					<option>无</option>
 				</select>
-			</div>
-			
-			<div class="item item-input item-select">
-				<div class="input-label">
-					锚链入水几节:
-				</div>
-				<select>
+            </div>
+
+            <div class="item item-input item-select">
+                <div class="input-label">
+                    锚链入水几节:
+                </div>
+                <select>
+					<option>请选择</option>
 					<option>0</option>
-					<option selected="">1</option>
+					<option>1</option>
 					<option>2</option>
 					<option>3</option>
 				</select>
-			</div>
-			
-			<div class="item item-input">
-				<span class="input-label">其他安全信息:</span>
-				<input type="text" style="text-align: right;" value="">
-			</div>
-			
-			<div class="item item-input">
-				<span class="input-label">备 注:</span>
-				<input type="text" style="text-align: right;" value="">
-			</div>
+            </div>
 
-		</div>
-		
-		<div class="content padding">
-			<button class="button button-block button-positive">提交航次报告</button>
-		</div>
+            <div class="item item-input">
+                <span class="input-label">其它安全信息:</span>
+                <input type="text" style="text-align: right;" value="">
+            </div>
 
-	</ion-content>
+        </div>
+        <a class="item" ng-click="play()"> 填写签证单信息<span class="item-note" style="font-size:26px;"><i class="icon ion-ios-arrow-right"></i></span> </a>
+        <div class="content padding">
+            <button class="button button-block button-assertiveß" ng-click="doHuibao()">提交</button>
+        </div>
+
+    </ion-content>
 </ion-modal-view>
