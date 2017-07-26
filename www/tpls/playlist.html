@@ -1,59 +1,30 @@
 <ion-view>
-	<div class="bar bar-header bar-stable">
-		
-		<h1 class="title">澄12977</h1>
-		<div class="buttons">
-			<button class="button button-clear" ng-click="playModal.hide()">
-				<i class="icon ion-close"></i>
+    <div class="bar bar-header bar-stable">
+
+        <h1 class="title">澄12977</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="playModal.hide()">
+				<i class="ion-close"></i>
 			</button>
-		</div>
+        </div>
 
-	</div>
-	<ion-content  class="has-header scroll-content ionic-scroll">
+    </div>
+    <ion-content class="has-header scroll-content ionic-scroll">
 
-		<div class="list">
+        <div class="list">
 
-			<label class="item item-input"> <span class="input-label">船名</span><input type="text"  class="item-note" value="GLOBAL"></label>
-			<label class="item item-input"> <span class="input-label">国籍</span><input type="text"  class="item-note" value="马来西亚"></label>
-			<label class="item item-input"> <span class="input-label">船舶呼号</span><input type="text"  class="item-note" value="3FRG7"></label>
-	
-			<label class="item item-input"> <span class="input-label">净吨位</span><input type="text"  class="item-note" value="1595&nbsp;吨"></label>
-			<label class="item item-input"> <span class="input-label">最大吃水</span><input type="text"  class="item-note" value="65&nbsp;米"></label>
-			
-			<label class="item item-input"> <span class="input-label">代理公司</span><input type="text"  class="item-note" value="河北某某船代"></label>
-		
-			<div class="item item-divider">
-				上段引航员登船~离船时间
-			</div>
-			<div class="item item-input">
-				<input type="datetime-local" value="2016-09-08T04:20">~&nbsp;&nbsp;&nbsp;&nbsp;<input type="datetime-local"   value="2016-09-07T21:43">
-			</div>
-			<div class="item item-divider">
-				上段夜航时间段 <span class="item-note">
-				   <i class="icon ion-plus" ng-click="add1()"></i>&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon ion-minus" ng-click="min1()" ng-if="dates1.length>1"></i>
-			     </span>
-			</div>
-			
-			<div class="item item-input" ng-repeat="i in dates1">
-				<input type="datetime-local" value="2016-09-08T04:20">~&nbsp;&nbsp;&nbsp;&nbsp;<input type="datetime-local"   value="2016-09-07T21:43">
-			</div>
-						<div class="item item-divider">
-				下段引航员登船~离船时间
-			</div>
-			<div class="item item-input">
-				<input type="datetime-local" value="2016-09-08T04:20">~&nbsp;&nbsp;&nbsp;&nbsp;<input type="datetime-local"   value="2016-09-07T21:43">
-			</div>
-			<div class="item item-divider">
-				下段夜航时间段 <span class="item-note">
-				   <i class="icon ion-plus" ng-click="add2()"></i>&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon ion-minus" ng-click="min2()" ng-if="dates2.length>1"></i>
-			     </span>
-			</div>
-			
-			<div class="item item-input" ng-repeat="i in dates2">
-				<input type="datetime-local" value="2016-09-08T04:20">~&nbsp;&nbsp;&nbsp;&nbsp;<input type="datetime-local"   value="2016-09-07T21:43">
-			</div>
-			<a class="item" ng-click="upload()"> 纸质签证单拍照<span class="item-note" style="font-size:26px;"><i class="icon ion-ios-reverse-camera-outline"></i></span> </a>
-		</div>
+            <label class="item item-input"> <span class="input-label">上段引航员登船时间</span><input type="datetime-local" value="2016-09-08T04:20"></label>
+            <label class="item item-input"> <span class="input-label">上段引航员离船时间</span><input type="datetime-local" value="2016-09-08T04:20"></label>
+            <label class="item item-input"> <span class="input-label">上段夜航开始时间</span><input type="datetime-local" value="2016-09-08T04:20"></label>
+            <label class="item item-input"> <span class="input-label">上段夜航结束时间</span><input type="datetime-local" value="2016-09-08T04:20"></label>
+            <label class="item item-input"> <span class="input-label">下段引航员登船时间</span><input type="datetime-local" value="2016-09-08T04:20"></label>
+            <label class="item item-input"> <span class="input-label">下段引航员离船时间</span><input type="datetime-local" value="2016-09-08T04:20"></label>
+            <label class="item item-input"> <span class="input-label">签收日期</span><input type="date" value="2016-09-08"></label>
+            <label class="item item-input"> <span class="input-label">交接前引航员</span><input type="text"></label>
+            <label class="item item-input"> <span class="input-label">交接后引航员</span><input type="text"></label>
 
-	</ion-content>
+            <a class="item" ng-click="upload()"> 纸质签证单拍照<span class="item-note" style="font-size:26px;"><i class="icon ion-ios-reverse-camera-outline"></i></span> </a>
+        </div>
+
+    </ion-content>
 </ion-view>

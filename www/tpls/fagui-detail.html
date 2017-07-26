@@ -1,36 +1,21 @@
-<ion-view>
-	<div class="bar bar-header bar-dark">
-		<div class="buttons">
-			<button class="button button-clear" ng-click="$ionicGoBack()">
-				<i class="icon ion-android-arrow-back"></i>
+<ion-modal-view>
+    <div class="bar bar-header bar-stable">
+        <h1 class="title">详情</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="modalHangxin.hide()">
+				<i class="icon ion-close"></i>
 			</button>
-		</div>
-		<h1 class="title">法规信息</h1>
-	</div>
+        </div>
+    </div>
 
-	<ion-content class="has-header scroll-content ionic-scroll">
-		<ion-list>
-			<li class="item">
-				标题
-				<span class="item-note"> 航标修改图（10.8） </span>
-			</li>
-			<li class="item">
-				内容
-				<span class="item-note" style="white-space: normal;width: 80%;"> 据长江上海航道管理处8日电：
+    <ion-content class="has-header scroll-content ionic-scroll">
+        <div class="item">
+            <h2 class="white-space: normal;">{{detail.title}}</h2>
+            <p class="text-right">{{detail.author}}&nbsp;&nbsp;{{detail.releaseDate}}</p>
+        </div>
+        <div class=" item-body" ng-bind-html="detail.txt|to_trusted">
 
-10月8日，福姜沙北水道fb#6紅浮至fb#7-1紅浮附近水域局部河床近期演变剧烈，最浅水深在fb#7紅浮上游585米、航道内45米处为理论最低潮面下7.1米，请过往船舶注意避浅，以策安全。 </span>
-			</li>
-			<li class="item">
-				发布人
-				<span class="item-note"> 安技部 </span>
-			</li>
-			<li class="item">
-				发布时间
-				<span class="item-note"> 2016-10-8 11:44:49 </span>
-			</li>
-			
-			
-		</ion-list>
-	</ion-content>
-
-</ion-view>
+        </div>
+        </ion-list>
+    </ion-content>
+</ion-modal-view>

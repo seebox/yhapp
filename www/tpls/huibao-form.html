@@ -1,10 +1,10 @@
 <ion-modal-view>
-    <div class="bar bar-header bar-positive">
+    <div class="bar bar-header bar-stable">
 
         <h1 class="title">航次汇报</h1>
         <div class="buttons">
-            <button class="button button-clear" ng-click="modalHuibao.hide()">
-				<i class="icon ion-close"></i>
+            <button class="button  button-clear" ng-click="modalHuibao.hide()">
+				<i class="ion-close"></i>
 			</button>
         </div>
     </div>
@@ -14,19 +14,19 @@
             <div class="item">
                 引 航 员:
                 <span class="item-note">
-					陈学思			
+					{{loginBody.loginUserRealName}}	
 				</span>
             </div>
             <div class="item">
                 船名:
                 <span class="item-note">
-					PHENIX	环球凤凰					
+					{{jihuaItem.CH_NAME}}				
 				</span>
             </div>
             <div class="item">
                 船舶起迄地:
                 <span class="item-note">
-					宝山-太仓					
+					{{jihuaItem.ORIGIN_BWMC}}-{{jihuaItem.DESTINATION_BWMC}}					
 				</span>
             </div>
 
@@ -34,11 +34,10 @@
                 <div class="input-label">
                     船舶操纵性能:
                 </div>
-                <select>
-					<option>请选择</option>
-					<option>良好</option>
-					<option>一般</option>
-					<option>差</option>
+                <select ng-model="huibaoForm.cbczxn">
+					<option value="1">良好</option>
+					<option value="2">一般</option>
+					<option value="3">差</option>
 				</select>
             </div>
 
@@ -46,11 +45,10 @@
                 <div class="input-label">
                     主机工况:
                 </div>
-                <select>
-					<option>请选择</option>
-					<option>正常</option>
-					<option>启动转向慢</option>
-					<option>车速慢</option>
+                <select ng-model="huibaoForm.zjgk">
+					<option value="1">正常</option>
+					<option value="2">启动转向慢</option>
+					<option value="3">车速慢</option>
 				</select>
             </div>
 
@@ -58,10 +56,9 @@
                 <div class="input-label">
                     是否可变螺距:
                 </div>
-                <select>
-					<option>请选择</option>
-					<option>否</option>
-					<option>是</option>
+                <select ng-model="huibaoForm.sfkbdj">
+					<option value="0">否</option>
+					<option value="1">是</option>
 				</select>
             </div>
 
@@ -69,12 +66,8 @@
                 <div class="input-label">
                     静水航速几节:
                 </div>
-                <select>
-					<option>请选择</option>
-					<option>3</option>
-					<option>4</option>
-					<option>5</option>
-					<option>12</option>
+                <select ng-model="huibaoForm.zchs">
+					<option ng-repeat="i in [15,14,13,12,11,10,9,8,7,6,5]" value="{{i}}">{{i}}</option>
 				</select>
             </div>
 
@@ -82,10 +75,9 @@
                 <div class="input-label">
                     舵机工况:
                 </div>
-                <select>
-					<option>请选择</option>
-					<option>正常</option>
-					<option>反应慢</option>
+                <select ng-model="huibaoForm.djgk">
+					<option value="1">正常</option>
+					<option value="2">锚机力量小</option>
 				</select>
             </div>
 
@@ -93,8 +85,7 @@
                 <div class="input-label">
                     锚机工况:
                 </div>
-                <select>
-					<option>请选择</option>
+                <select ng-model="huibaoForm.mjgk">
 					<option>正常</option>
 					<option>锚机力量小</option>
 				</select>
@@ -102,21 +93,17 @@
 
             <div class="item item-input item-select">
                 <span class="input-label">助航设备：</span>
-                <select>
-					<option>请选择</option>
-					<option>良好</option>
-					<option>差</option>
+                <select ng-model="huibaoForm.zhsb">
+					<option value="1">良好</option>
+                    <option value="2">一般</option>
+					<option value="3">差</option>
 				</select>
             </div>
-
             <div class="item item-input item-select">
-                <div class="input-label">
-                    靠离泊状态:
-                </div>
-                <select>
-					<option>请选择</option>
-					<option>涨水</option>
-					<option>落水</option>
+                <span class="input-label">靠离泊状态</span>
+                <select ng-model="huibaoForm.kibzt">
+					<option value="1">涨水</option>
+                    <option value="2">落水</option>
 				</select>
             </div>
 
@@ -124,12 +111,13 @@
                 <div class="input-label">
                     锚的使用情况:
                 </div>
-                <select>
-					    <option>请选择</option>
-					<option>拎水锚</option>
-					<option>开锚</option>
-					<option>倒锚</option>
-					<option>无</option>
+                <select ng-model="huibaoForm.mdsyqk">
+					<option value="1">无</option>
+					<option value="2">开锚</option>
+					<option value="3">倒锚</option>
+                    <option value="4">拎水锚</option>
+					<option value="5">左锚</option>
+                    <option value="6">右锚</option>
 				</select>
             </div>
 
@@ -137,24 +125,20 @@
                 <div class="input-label">
                     锚链入水几节:
                 </div>
-                <select>
-					<option>请选择</option>
-					<option>0</option>
-					<option>1</option>
-					<option>2</option>
-					<option>3</option>
+                <select ng-model="huibaoForm.mlrsjj">
+					<option ng-repeat="i in [10,9,8,7,6,5,4,3,2,1,0]" value="{{i}}">{{i}}</option>
 				</select>
             </div>
 
             <div class="item item-input">
                 <span class="input-label">其它安全信息:</span>
-                <input type="text" style="text-align: right;" value="">
+                <input type="text" ng-model="huibaoForm.qtaqxx">
             </div>
 
         </div>
         <a class="item" ng-click="play()"> 填写签证单信息<span class="item-note" style="font-size:26px;"><i class="icon ion-ios-arrow-right"></i></span> </a>
         <div class="content padding">
-            <button class="button button-block button-assertiveß" ng-click="doHuibao()">提交</button>
+            <button class="button button-block button-assertive" ng-click="doHuibao()">提交</button>
         </div>
 
     </ion-content>

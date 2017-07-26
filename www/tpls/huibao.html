@@ -1,20 +1,19 @@
-
 <ion-view>
-	<div class="bar bar-header bar-dark">
-		<div class="buttons">
-			<button class="button button-clear" ng-click="$ionicGoBack()"><i class="icon ion-android-arrow-back"></i></button>
-		</div>
-		<h1 class="title">我的航次汇报列表</h1>
-		
-	</div>
-	<ion-content class="has-header scroll-content ionic-scroll">
-		<ion-list>
-			<ion-item class="item" href="#/app/huibao/{{i}}" ng-repeat="i in huibaolist">
-				<h2 class="positive">澄12968-{{i}}</h2>
-				<p>代理：常州外代 长度：96.55 吃水：9.88</p>
-				<p>始发地：宝山 目的地：九江</p>
-				<p>开航时间：0700/07 抵澄时间：700/07</p>
-			</ion-item>
-		</ion-list>
-	</ion-content>
+    <div class="bar bar-header bar-dark">
+        <div class="buttons">
+            <button class="button button-clear" ng-click="$ionicGoBack()"><i class="icon ion-android-arrow-back"></i></button>
+        </div>
+        <h1 class="title">我的航次汇报列表</h1>
+
+    </div>
+    <ion-content class="has-header scroll-content ionic-scroll">
+        <ion-list>
+            <ion-item class="item" ng-click="showDetail(item)" ng-repeat="item in huibaolist">
+                <h2 class="positive">{{item.cbbh}}</h2>
+                <p>引航员：{{item.yhyName}} 正常航速：{{item.zchs}}</p>
+                <p>始发地：{{item.sfd}} 目的地：{{item.mdd}}</p>
+                <p>报告时间：{{item.bgsj}}</p>
+            </ion-item>
+        </ion-list>
+    </ion-content>
 </ion-view>

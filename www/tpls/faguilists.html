@@ -1,66 +1,34 @@
 <ion-view>
-	<div class="bar bar-header bar-dark">
-		<div class="buttons">
-			<button class="button button-clear" ng-click="$ionicGoBack()">
+    <div class="bar bar-header bar-dark">
+        <div class="buttons">
+            <button class="button button-clear" ng-click="$ionicGoBack()">
 				<i class="icon ion-android-arrow-back"></i>
 			</button>
-		</div>
-		<h1 class="title">辅助信息详情</h1>
-	</div>
+        </div>
+        <h1 class="title">{{title}}{{choice.v}}</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="selectShow=!!!selectShow" ng-show="types.length>0"><i class="icon ion-navicon"></i></button>
+        </div>
+    </div>
 
-	<ion-content class="has-header scroll-content ionic-scroll">
-		<ion-list>
-			<ion-item class="item" href="#/app/fagui/2">
-				<p>
-					标题：<span class="positive">航标修改图（10.8）</span>
-				</p>
-				<p>
-					时间：<span class="positive">2016-10-8 11:44:49</span> 类型：<span class="positive">安全公告</span>
-				</p>
-			</ion-item>
-		</ion-list>
-		<ion-list>
-			<ion-item class="item" href="#/app/fagui/2">
-				<p>
-					标题：<span class="positive">航标修改图（10.8）</span>
-				</p>
-				<p>
-					时间：<span class="positive">2016-10-8 11:44:49</span> 类型：<span class="positive">安全公告</span>
-				</p>
-			</ion-item>
-		</ion-list>
-		<ion-list>
-			<ion-item class="item" href="#/app/fagui/2">
-				<p>
-					标题：<span class="positive">航标修改图（10.8）</span>
-				</p>
-				<p>
-					时间：<span class="positive">2016-10-8 11:44:49</span> 类型：<span class="positive">安全公告</span>
-				</p>
-			</ion-item>
-		</ion-list>
-	</ion-content>
+    <ion-content class="has-header scroll-content ionic-scroll">
+        <ion-refresher pulling-text="下拉刷新" on-refresh="change(choice,true)"></ion-refresher>
+        <ion-list>
+            <ion-item class="item" ng-repeat="item in items" ng-click="showDetail(item.contentId)">
+                <h2 style="white-space: normal;">
+                    {{item.title}}
+                </h2>
+                <p class="text-right">
+                    {{item.author}}&nbsp;&nbsp;{{item.releaseDate}}
+                </p>
+            </ion-item>
+        </ion-list>
+        <ion-infinite-scroll ng-if="noMore" on-infinite="change(choice)"></ion-infinite-scroll>
+    </ion-content>
 
 </ion-view>
-<div ng-show="selectShow" class="bg-dark" style="position:absolute;width:100%;height:100%;top:44px;z-index: 99999;background:white;">
-	<div class="list">
-		<label class="item item-input"> <span class="input-label">标题：</span>
-			<input type="text">
-		</label>
-		<label class="item item-input"> <span class="input-label">时间：</span>
-			<input type="date">
-		</label>
-		<label class="item item-input item-select">
-			<span class="input-label">类别</span>
-			<select>
-				<option selected>全部</option>
-				<option>安全公告</option>
-			</select>
-		</label>
-	</div>
-	<div class="padding">
-		<button class="button button-block button-positive" ng-click="search()">
-			查询
-		</button>
-	</div>
+<div ng-show="selectShow" class="bg-dark" style="position:absolute;width:100%;height:30%;top:44px;z-index: 99999;">
+    <ion-list>
+        <ion-radio ng-model="cur" ng-value="i.k" ng-click="change(i,true)" ng-repeat="i in types">{{i.v}}</ion-radio>
+    </ion-list>
 </div>

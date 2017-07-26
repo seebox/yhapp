@@ -3,25 +3,25 @@
         <div class="buttons">
             <button class="button button-clear" ng-click="$ionicGoBack()"><i class="icon ion-android-arrow-back"></i></button>
         </div>
-        <h1 class="title">出航津贴(2016年{{9}}月)</h1>
+        <h1 class="title">出航津贴({{curmonth}})</h1>
         <button class="button button-clear" ng-click="serachShow=!serachShow">
 			<i class="icon ion-ios-calendar-outline"></i>
 		</button>
     </div>
     <ion-content class="has-header scroll-content ionic-scroll">
         <div class="row" style="padding:0 11px;">
-            <div class="col">基础分：<span class="assertive">2011</span></div>
-            <div class="col">工作分：<span class="assertive">3042</span></div>
+            <div class="col">基础分：<span class="assertive">{{data.calc.jcf}}</span></div>
+            <div class="col">工作分：<span class="assertive">{{data.calc.gzf}}</span></div>
         </div>
         <div class="row" style="padding:0 11px;">
-            <div class="col">夜航分：<span class="assertive">452</span></div>
-            <div class="col">总艘次：<span class="assertive">16.38</span></div>
+            <div class="col">夜航分：<span class="assertive">{{data.calc.yhf}}</span></div>
+            <div class="col">总艘次：<span class="assertive">{{data.calc.zsc}}</span></div>
         </div>
         <ion-list>
-            <ion-item class="item" ng-click="modalHuibao.show();" href="#/app/butie/{{i}}" ng-repeat="i in [0,1]">
-                <h2 class="positive">京w56982&nbsp;(海神)</h2>
-                <p>引领时间：2016-8-29 19:01:00 艘次：1.02</p>
-                <p>夜航分：63 基础分：123.13 工作分：176.07</p>
+            <ion-item class="item" ng-click="openDetail(item)" ng-repeat="item in data.page">
+                <h2 class="positive">{{item.cbbh}}</h2>
+                <p>引领时间：{{item.khsjDate}} 艘次：{{item.sc}}</p>
+                <p>夜航分：{{item.yhf}} 基础分：{{item.jcf}} 工作分：{{item.gzf}}</p>
             </ion-item>
         </ion-list>
     </ion-content>
@@ -30,8 +30,8 @@
 <div ng-show="serachShow" ng-click="serachShow=!serachShow" class="bg-dark" style="position:absolute;width:100%;height:100%;top:44px;z-index: 99999;background:white;overflow: auto;">
 
     <ul class="list">
-        <li class="item" ng-repeat="i in [1,2,3,4,5,6,7,8,9]" ng-click="">
-            2016年{{i}}月
+        <li class="item" ng-repeat="item in years" ng-click="changeDate(item)">
+            {{item}}
         </li>
     </ul>
 </div>

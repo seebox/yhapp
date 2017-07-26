@@ -1,0 +1,177 @@
+<ion-view>
+    <div class="bar bar-header bar-dark">
+        <div class="buttons">
+            <button class="button button-clear" ng-click="$ionicGoBack()"><i class="icon ion-android-arrow-back"></i></button>
+        </div>
+        <h1 class="title">码头泊位({{YHZ}})</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="menuShow=!!!menuShow"><i class="icon ion-more"></i></button>
+        </div>
+    </div>
+
+    <ion-content class="has-header scroll-content ionic-scroll">
+        <ion-list>
+            <ion-item class="item" ng-click="showDetail(item)" ng-repeat="item in jihuaList">
+                <h2>{{BWMC}}</h2>
+                <p>港口：<span class="positive">{{item.GKMC}}</span> 引航站：<span class="assertive">{{item.YHZ}}</span></p>
+                <p>泊位长度（米）：<span class="positive">{{item.BWCD}}</span> 靠泊能力（吨）：<span class="positive">{{item.KBNL}}</span></p>
+                <p>前沿水深（米）：<span class="positive">{{item.QYSS}}</span> 靠离泊次数：<span class="positive">{{item.KLBCS}}</span></p>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+
+</ion-view>
+<div ng-show="menuShow" class="list card bg-dark" style="position:absolute;top:44px;left:0;right:0;z-index: 99999;background: #fff;">
+    <label class="item item-select">
+		<div class="input-label">
+			引航站
+		</div>
+		<select ng-model="yinhangzhan">
+      <option value="{{item.YHZNAME}}" ng-repeat="item in yhzList">{{item.YHZNAME}}</option>
+    </select>
+  </label>
+    <div class="buttons padding">
+        <button class="button button-positive button-block" ng-click="search()">
+              确定
+        </button>
+    </div>
+
+</div>
+
+<script id="bowei-detail.html" type="text/ng-template">
+    <div class="modal">
+        <ion-header-bar>
+            <h1 class="title">码头泊位详情</h1>
+            <button class="button" ng-click="boweiDetail.hide()">
+        <i class="icon ion-close"></i>
+      </button>
+        </ion-header-bar>
+        <ion-content>
+            <div class="list">
+                <a class="item">
+                序号
+                <span class="item-note">
+                    {{item.SORT}}
+                </span>
+                <a class="item">
+                泊位名称
+                <span class="item-note">
+                    {{item.BWMC}}
+                </span>
+                <a class="item" href="tel:12345670000">
+                港口名称
+                <span class="item-note">
+                    {{item.GKMC}}
+                </span>
+                <a class="item">
+                里程
+                <span class="item-note">
+                    {{item.LC}}
+                </span>
+                </a>
+                <a class="item">
+                引航站
+                <span class="item-note">
+                    {{item.YHZ}}
+                </span>
+                </a>
+                <a class="item">
+                作业性质
+                <span class="item-note">
+                    {{item.ZYXZ}}
+                </span>
+                </a>
+                <a class="item">
+                码头形式
+                <span class="item-note">
+                    {{item.MTXS}}
+                </span>
+                </a>
+                <a class="item">
+                倒套标志
+                <span class="item-note">
+                    {{item.DTBZ}}
+                </span>
+                </a>
+                <a class="item">
+                倒套里程
+                <span class="item-note">
+                    {{item.DTLC}}
+                </span>
+                </a>
+                <a class="item">
+                英文名
+                <span class="item-note">
+                    {{item.YWM}}
+                </span>
+                </a>
+                <a class="item">
+                所在位置
+                <span class="item-note">
+                    {{item.SZWZ}}
+                </span>
+                </a>
+                <a class="item">
+                泊位长度（米）
+                <span class="item-note">
+                    {{item.BWCD}}
+                </span>
+                </a>
+                <a class="item">
+                靠泊能力（吨）
+                <span class="item-note">
+                    {{item.KBNL}}
+                </span>
+                </a>
+                <a class="item">
+               夜间靠泊条件
+                <span class="item-note">
+                    {{item.YJKBTJ}}
+                </span>
+                </a>
+                <a class="item">
+               前沿水深（米）
+                <span class="item-note">
+                    {{item.QYSS}}
+                </span>
+                </a>
+                <a class="item">
+                输入部门
+                <span class="item-note">
+                    {{item.SRBM}}
+                </span>
+                </a>
+                <a class="item">
+                输入人
+                <span class="item-note">
+                    {{item.SRR}}
+                </span>
+                </a>
+                <a class="item">
+                输入日期
+                <span class="item-note">
+                    {{item.SRRQ}}
+                </span>
+                </a>
+                <a class="item">
+                备注
+                <span class="item-note">
+                    {{item.REMARK}}
+                </span>
+                </a>
+                <a class="item">
+                靠离泊次数
+                <span class="item-note">
+                    {{item.KLBCS}}
+                </span>
+                </a>
+                <a class="item">
+                夜航时间
+                <span class="item-note">
+                    {{item.YHSJ}}
+                </span>
+                </a>
+            </div>
+        </ion-content>
+    </div>
+</script>

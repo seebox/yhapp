@@ -4,396 +4,313 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers','ngCordova'])
+angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
 
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
+.run(function($rootScope, $ionicPlatform, $ionicPopup, $timeout, $state) {
+    $ionicPlatform.ready(function() {
+        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+        // for form inputs)
+        if (window.cordova && window.cordova.plugins.Keyboard) {
+            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+            cordova.plugins.Keyboard.disableScroll(true);
 
-    }
-    if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
-    }
-  });
+        }
+        if (window.StatusBar) {
+            // org.apache.cordova.statusbar required
+            StatusBar.styleDefault();
+            StatusBar.backgroundColorByHexString('#444');
+        }
+        if (window.plugins && window.plugins.jPushPlugin) {
+            window.plugins.jPushPlugin.init();
+            window.plugins.jPushPlugin.setTagsWithAlias([], 'shenxiaohui');
+        }
+
+        //延迟设置isVisible为false，防止第三方输入法返回退出当前页面  
+        window.addEventListener('native.keyboardhide', function(e) {
+            cordova.plugins.Keyboard.isVisible = true;
+            $timeout(function() {
+                cordova.plugins.Keyboard.isVisible = false;
+            }, 100);
+        });
+
+        //主页面显示退出提示框  
+        $ionicPlatform.registerBackButtonAction(function(e) {
+            e.preventDefault();
+
+            function showConfirm() {
+                var confirmPopup = $ionicPopup.confirm({
+                    title: '<strong>退出应用?</strong>',
+                    template: '你确定要退出应用吗?',
+                    okText: '退出',
+                    cancelText: '取消'
+                });
+                confirmPopup.then(function(res) {
+                    if (res) {
+                        ionic.Platform.exitApp();
+                    }
+                });
+            }
+            if (cordova.plugins.Keyboard.isVisible) {
+                cordova.plugins.Keyboard.close();
+            } else {
+                if ($state.current.name == 'app.main') {
+                    showConfirm();
+                } else {
+                    $rootScope.$ionicGoBack();
+                }
+            }
+            return false;
+        }, 101);
+
+        $rootScope.showAlert = function(tpl) {
+            var confirmPopup = $ionicPopup.alert({
+                title: '<strong>系统提示</strong>',
+                template: '当前登录超时，或在其他终端登录',
+                okText: '重新登录'
+            });
+            confirmPopup.then(function(res) {
+                if (res) {
+                    $rootScope.loginModal.show();
+                }
+            });
+        };
+
+    });
 })
 
-.config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
-  $ionicConfigProvider.platform.ios.tabs.style('standard');
-  $ionicConfigProvider.platform.ios.tabs.position('bottom');
-  $ionicConfigProvider.platform.android.tabs.style('standard');
-  $ionicConfigProvider.platform.android.tabs.position('standard');
-  $ionicConfigProvider.platform.ios.navBar.alignTitle('center');
-  $ionicConfigProvider.platform.android.navBar.alignTitle('standard');
-  $ionicConfigProvider.platform.ios.backButton.previousTitleText('').icon('ion-ios-arrow-thin-left');
-  $ionicConfigProvider.platform.android.backButton.previousTitleText('').icon('ion-android-arrow-back');
-  $ionicConfigProvider.platform.ios.views.transition('ios');
-  $ionicConfigProvider.platform.android.views.transition('android');
+        $ionicConfigProvider.platform.ios.tabs.style('standard');
+        $ionicConfigProvider.platform.ios.tabs.position('bottom');
+        $ionicConfigProvider.platform.android.tabs.style('standard');
+        $ionicConfigProvider.platform.android.tabs.position('standard');
+        $ionicConfigProvider.platform.ios.navBar.alignTitle('center');
+        $ionicConfigProvider.platform.android.navBar.alignTitle('standard');
+        $ionicConfigProvider.platform.ios.backButton.previousTitleText('').icon('ion-ios-arrow-thin-left');
+        $ionicConfigProvider.platform.android.backButton.previousTitleText('').icon('ion-android-arrow-back');
+        $ionicConfigProvider.platform.ios.views.transition('ios');
+        $ionicConfigProvider.platform.android.views.transition('android');
 
-  $stateProvider
+        $stateProvider
 
-  .state('app', {
-    url: '/app',
-    abstract: true,
-    cache:false,
-    templateUrl: 'tpls/app.html',
-    controller: 'AppCtrl'
-  })
-  .state('app.main', {
-    url: '/main',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/main.html',
-        controller: 'MainCtrl'
-      }
-    }
-  })
-  .state('app.jihua', {
-    url: '/jihua',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/jihua.html',
-        controller:'jihua'
-      }
-    }
+            .state('app', {
+                url: '/app',
+                abstract: true,
+                cache: false,
+                templateUrl: 'tpls/app.html',
+                controller: 'AppCtrl'
+            })
+            .state('app.main', {
+                url: '/main',
+                cache: false,
+                views: {
+                    'menuContent': {
+                        templateUrl: 'tpls/main.html',
+                        controller: 'MainCtrl'
+                    }
+                }
+            })
+            .state('app.jihua', {
+                url: '/jihua',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'tpls/jihua.html',
+                        controller: 'jihua'
+                    }
+                }
 
-  })
-  .state('app.jihua-detail', {
-    url: '/jihua/:id',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/jihua-detail.html',
-        controller:'jihuaDetail'
-      }
-    }
-  })
-  .state('app.shenpi', {
-    url: '/shenpi',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/shenpi.html',
-        controller:'shenpi'
-      }
-    }
+            })
+            .state('app.shenpi', {
+                url: '/shenpi',
+                cache: false,
+                views: {
+                    'menuContent': {
+                        templateUrl: 'tpls/shenpi.html',
+                        controller: 'shenpi'
+                    }
+                }
 
-  })
-  .state('app.shenpi-detail', {
-    url: '/shenpi/:id',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/shenpi-detail.html',
-        controller:'shenpi'
-      }
-    }
-  })
-  .state('app.huibao', {
-    url: '/huibao',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/huibao.html',
-        controller:'huibao'
-      }
-    }
+            })
+            .state('app.huibao', {
+                url: '/huibao',
+                cache: false,
+                views: {
+                    'menuContent': {
+                        templateUrl: 'tpls/huibao.html',
+                        controller: 'huibao'
+                    }
+                }
+            })
+            .state('app.playlists', {
+                url: '/playlists',
+                cache: false,
+                views: {
+                    'menuContent': {
+                        templateUrl: 'tpls/playlists.html',
+                        controller: 'PlaylistsCtrl'
+                    }
+                }
+            })
+            .state('app.single', {
+                url: '/playlists/:playlistId',
+                cache: false,
+                views: {
+                    'menuContent': {
+                        templateUrl: 'tpls/playlist.html',
+                        controller: 'PlaylistCtrl'
+                    }
+                }
+            })
+            .state('app.uploaded', {
+                url: '/uploaded/:id',
+                cache: false,
+                views: {
+                    'menuContent': {
+                        templateUrl: 'tpls/uploaded.html',
+                        controller: 'PlaylistCtrl'
+                    }
+                }
+            })
+            .state('app.qingjia', {
+                url: '/qingjia',
+                cache: false,
+                views: {
+                    'menuContent': {
+                        templateUrl: 'tpls/qingjia.html',
+                        controller: 'qingjia'
+                    }
+                }
+            })
+            .state('app.qingjia-detail', {
+                url: '/qingjia/:id',
+                cache: false,
+                views: {
+                    'menuContent': {
+                        templateUrl: 'tpls/qingjia-detail.html',
+                        controller: 'qingjia'
+                    }
+                }
+            })
+            .state('app.tezhong', {
+                url: '/tezhong',
+                cache: false,
+                views: {
+                    'menuContent': {
+                        templateUrl: 'tpls/tezhong.html',
+                        controller: 'tezhong'
+                    }
+                }
+            })
+            .state('app.faguilists', {
+                url: '/faguilists/:flag',
+                cache: false,
+                views: {
+                    'menuContent': {
+                        templateUrl: 'tpls/faguilists.html',
+                        controller: 'faguilists'
+                    }
+                }
+            })
+            .state('app.chaoxi', {
+                url: '/chaoxi',
+                cache: false,
+                views: {
+                    'menuContent': {
+                        templateUrl: 'tpls/chaoxi.html',
+                        controller: 'chaoxi'
+                    }
+                }
+            })
+            .state('app.xiaoxi', {
+                url: '/xiaoxi/:flag',
+                cache: false,
+                views: {
+                    'menuContent': {
+                        templateUrl: 'tpls/xiaoxi.html',
+                        controller: 'xiaoxi'
+                    }
+                }
+            })
+            .state('app.butie', {
+                url: '/butie',
+                cache: false,
+                views: {
+                    'menuContent': {
+                        templateUrl: 'tpls/butie.html',
+                        controller: 'butie'
+                    }
+                }
+            })
+            .state('app.jiaoliu', {
+                url: '/jiaoliu',
+                cache: false,
+                views: {
+                    'menuContent': {
+                        templateUrl: 'tpls/jiaoliu.html',
+                        controller: 'jiaoliu'
+                    }
+                }
+            })
+            .state('app.jiaoliu-detail', {
+                url: '/jiaoliu/:id',
+                cache: false,
+                views: {
+                    'menuContent': {
+                        templateUrl: 'tpls/jiaoliu-detail.html',
+                        controller: 'jiaoliuDetail'
+                    }
+                }
+            }).state('app.bowei', {
+                url: '/bowei',
+                cache: false,
+                views: {
+                    'menuContent': {
+                        templateUrl: 'tpls/bowei.html',
+                        controller: 'bowei'
+                    }
+                }
+            });
 
-  })
-    .state('app.huibao-detail', {
-    url: '/huibao/:id',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/huibao-detail.html',
-        controller:'huibao'
-      }
-    }
+        $urlRouterProvider.otherwise('/app/main');
 
-  })
-  .state('app.playlists', {
-      url: '/playlists',
-      cache:false,
-      views: {
-        'menuContent': {
-          templateUrl: 'tpls/playlists.html',
-          controller: 'PlaylistsCtrl'
-        }
-      }
     })
+    .config(['$httpProvider', function($httpProvider) {
+        function authInterceptor($location, $injector, $q, $rootScope) {
+            var interceptor = {
+                'request': function(config) {
+                    config.params = config.params || {};
+                    if (config.url.indexOf('.html') == -1 && config.url.indexOf('login.jspx') == -1) {
+                        config.params.appId = SYSTEM.appId;
+                        var sessionKey = window.localStorage.loginBody || {};
 
-  .state('app.single', {
-    url: '/playlists/:playlistId',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/playlist.html',
-        controller: 'PlaylistCtrl'
-      }
-    }
-  })
-    .state('app.uploaded', {
-    url: '/uploaded/:id',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/uploaded.html',
-        controller: 'PlaylistCtrl'
-      }
-    }
-  })
-  .state('app.qingjia', {
-    url: '/qingjia',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/qingjia.html',
-        controller: 'qingjia'
-      }
-    }
-  })
-  .state('app.qingjia-detail', {
-    url: '/qingjia/:id',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/qingjia-detail.html',
-        controller: 'qingjia'
-      }
-    }
-  })
-  .state('app.tezhong', {
-    url: '/tezhong',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/tezhong.html',
-        controller: 'tezhong'
-      }
-    }
-  })
-  .state('app.tezhong-detail', {
-    url: '/tezhong/:id',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/tezhong-detail.html',
-        controller: 'tezhong'
-      }
-    }
-  })
+                        if (window.localStorage.loginBody) {
+                            config.params.sessionKey = JSON.parse(window.localStorage.loginBody).sessionKey;
+                        }
+                        if (window.cordova && window.location.hostname.length === 0) {
+                            config.url = "http://106.38.46.26:3421" + config.url;
+                        }
+                    }
+                    return config;
+                },
+                'response': function(response) {
+                    if (response.data.status == 'false') {
+                        window.location = "/#/app/main";
+                        $rootScope.loginModal.show();
+                    }
+                    return response;
+                },
+                'responseError': function(response) {
+                    if (response.status == -1) {
+                        //alert('当前网络存在异常！');
+                    }
+                    return $q.reject(response);
+                }
+            };
+            return interceptor;
+        }
+        authInterceptor.$inject = ['$location', '$injector', '$q', '$rootScope'];
+        $httpProvider.interceptors.push(authInterceptor);
 
-   .state('app.fuzhu', {
-    url: '/fuzhu',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/fuzhu.html',
-        controller: 'fuzhu'
-      }
-    }
-  })
-  .state('app.fuzhu-detail', {
-    url: '/fuzhu/:id',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/fuzhu-detail.html',
-        controller: 'fuzhu'
-      }
-    }
-  })
-  .state('app.boatlists', {
-    url: '/boatlists',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/boatlists.html',
-        controller: 'boatlists'
-      }
-    }
-  })
-  .state('app.boat-detail', {
-    url: '/boat/:id',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/boat-detail.html',
-        controller: 'boatdetail'
-      }
-    }
-  })
-  .state('app.faguilists', {
-    url: '/faguilists',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/faguilists.html',
-        controller: 'faguilists'
-      }
-    }
-  })
-  .state('app.fagui-detail', {
-    url: '/fagui/:id',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/fagui-detail.html',
-        controller: 'faguidetail'
-      }
-    }
-  })
-  .state('app.hangxinglists', {
-    url: '/hangxinglists',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/hangxinglists.html',
-        controller: 'hangxinglists'
-      }
-    }
-  })
-  .state('app.hangxing-detail', {
-    url: '/hangxing/:id',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/hangxing-detail.html',
-        controller: 'hangxingdetail'
-      }
-    }
-  })
-  .state('app.matoulists', {
-    url: '/matoulists',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/matoulists.html',
-        controller: 'matoulists'
-      }
-    }
-  })
-  .state('app.matou-detail', {
-    url: '/matou/:id',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/matou-detail.html',
-        controller: 'matoudetail'
-      }
-    }
-  })
-  .state('app.anquan', {
-    url: '/anquan',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/anquan.html',
-        controller: 'anquan'
-      }
-    }
-  })
-  .state('app.anquan-detail', {
-    url: '/anquan/:id',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/anquan-detail.html',
-        controller: 'anquan'
-      }
-    }
-  })
-    .state('app.xiaoxi', {
-    url: '/xiaoxi',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/xiaoxi.html',
-        controller: 'xiaoxi'
-      }
-    }
-  })
-  .state('app.xiaoxi-detail', {
-    url: '/xiaoxi/:id',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/xiaoxi-detail.html',
-        controller: 'xiaoxi'
-      }
-    }
-  })
-  .state('app.butie', {
-    url: '/butie',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/butie.html',
-        controller: 'butie'
-      }
-    }
-  })
-  .state('app.butie-detail', {
-    url: '/butie/:id',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/butie-detail.html',
-        controller: 'butie'
-      }
-    }
-  })
-  .state('app.jiaoliu', {
-    url: '/jiaoliu',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/jiaoliu.html',
-        controller: 'jiaoliu'
-      }
-    }
-  })
-  .state('app.jiaoliu-detail', {
-    url: '/jiaoliu/:id',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/jiaoliu-detail.html',
-        controller: 'jiaoliu'
-      }
-    }
-  })
-  .state('app.netclass', {
-    url: '/netclass',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/netClass.html',
-        controller: 'netClass'
-      }
-    }
-  })
-  .state('app.netclass-detail', {
-    url: '/classroom/:id',
-    cache:false,
-    views: {
-      'menuContent': {
-        templateUrl: 'tpls/netclassroom.html',
-        controller: 'classroom'
-      }
-    }
-  })
-  ;
-
-  $urlRouterProvider.otherwise('/app/main');
-
-});
+    }]);
 
 var $controllers = angular.module('starter.controllers', []);

@@ -1,231 +1,120 @@
 $controllers
+    .controller('faguilists', function($scope, $http, $ionicModal, $ionicLoading, $stateParams) {
+        if ($stateParams.flag == 'GZZD') {
+            $scope.types = [
+                { k: 'RSGL', v: '人事管理' },
+                { k: 'XZGL', v: '行政管理' },
+                { k: 'DQGL', v: '党群管理' },
+                { k: 'CWGL', v: '财务管理' },
+                { k: 'AQGL', v: '安全管理' },
+                { k: 'SCDD', v: '生产调度' }
+            ];
+            $scope.title = '规章制度 - ';
+            $scope.choice = { k: 'RSGL', v: '人事管理' };
+            $scope.cur = "RSGL";
+        } else if ($stateParams.flag == 'HXGG') {
+            $scope.types = [];
+            $scope.choice = { k: 'HXGG', v: '航行公告' };
+        } else if ($stateParams.flag == 'GWZX') {
+            $scope.types = [];
+            $scope.choice = { k: 'GWZX', v: '公文在线' };
+        } else if ($stateParams.flag == 'XXGG') {
+            $scope.types = [];
+            $scope.choice = { k: 'XXGG', v: '信息公告' };
+        } else if ($stateParams.flag == 'MWCZ') {
+            $scope.types = [];
+            $scope.choice = { k: 'MWCZ', v: '明文传真' };
+        } else if ($stateParams.flag == 'WLXT') {
+            $scope.types = [
+                { k: 'YWXX', v: '业务学习' },
+                { k: 'ZZXX', v: '政治学习' },
+                { k: 'QTXX', v: '其他学习' },
+                { k: 'WSJT', v: '网上讲堂' }
+            ];
+            $scope.title = '网络学堂 - ';
+            $scope.choice = { k: 'YWXX', v: '业务学习' };
+            $scope.cur = "YWXX";
+        }
+        $ionicModal.fromTemplateUrl('tpls/fagui-detail.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.modalHangxin = modal;
+        });
+        var pageNo = 0,
+            pageSize = 15;
+        $scope.items = [];
+        $scope.noMore = true;
+        $scope.change = function(choice, isRefresh) {
+            if (isRefresh) {
+                pageNo = 1;
+            } else {
+                ++pageNo;
+            }
+            $ionicLoading.show({ template: '正在加载...' });
+            $scope.selectShow = false;
+            $scope.choice = choice;
+            $http.get('/cjpilot/yhapi/content.jspx?type=0&channel=' + choice.k + '&pageNo=' + pageNo + '&pageSize=' + pageSize).success(function(response) {
+                if (response.body.content) {
+                    if (isRefresh) {
+                        $scope.items = response.body.content.list;
+                    } else {
+                        $scope.items = $scope.items.concat(response.body.content.list);
+                    }
+                }
+                if (response.body.content.list.length > 0) {
+                    $scope.noMore = true;
+                } else {
+                    $scope.noMore = false;
+                }
+                $ionicLoading.hide();
+                $scope.$broadcast('scroll.refreshComplete');
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+            });
+        };
+        $scope.showDetail = function(id) {
+            $http.get('/cjpilot/yhapi/content.jspx?type=1&parent=GZZD&contentId=' + id).success(function(response) {
+                $scope.detail = response.body.content;
+                $scope.modalHangxin.show();
+            });
+        };
 
 
-.controller('fuzhu', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
-	
-	$scope.search=function(){
-		$scope.selectShow=!$scope.selectShow;
-	};
 
-})
+    }).filter(
+        'to_trusted', ['$sce', function($sce) {
+            return function(text) {
+                return $sce.trustAsHtml(text);
+            }
+        }]
+    )
 
-.controller('boatlists', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
-	$scope.search=function(){
-		$scope.selectShow=!$scope.selectShow;
-	};
+.controller('chaoxi', function($scope, $http) {
 
-	
-})
-
-.controller('boatdetail', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate,$stateParams) {
-	$scope.id =   $stateParams.id;
-	
-})
-
-.controller('faguilists', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
-	
-	$scope.search=function(){
-		$scope.selectShow=!$scope.selectShow;
-	};
-	
-})
-
-.controller('faguidetail', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
-	
-	
-})
-
-.controller('hangxinglists', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
-	
-	$scope.search=function(){
-		$scope.selectShow=!$scope.selectShow;
-	};
-	
-})
-
-.controller('hangxingdetail', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
-	
-	
-})
-
-.controller('matoulists', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
-	
-	$scope.search=function(){
-		$scope.selectShow=!$scope.selectShow;
-	};
-		$scope.items = [
-    {
-        "key": "eight",
-        "value": "082",
-        "title": "8时潮高"
-    },
-    {
-        "key": "eighteen",
-        "value": "100",
-        "title": "18时潮高"
-    },
-    {
-        "key": "eleven",
-        "value": "361",
-        "title": "11时潮高"
-    },
-    {
-        "key": "fifteen",
-        "value": "206",
-        "title": "15时潮高"
-    },
-    {
-        "key": "five",
-        "value": "118",
-        "title": "5时潮高"
-    },
-    {
-        "key": "four",
-        "value": "146",
-        "title": "4时潮高"
-    },
-    {
-        "key": "fourteen",
-        "value": "258",
-        "title": "14时潮高"
-    },
-    {
-        "key": "nine",
-        "value": "191",
-        "title": "9时潮高"
-    },
-    {
-        "key": "nineteen",
-        "value": "080",
-        "title": "19时潮高"
-    },
-    {
-        "key": "one",
-        "value": "295",
-        "title": "1时潮高"
-    },
-    {
-        "key": "placeDate",
-        "value": "吴淞",
-        "title": "请求地点"
-    },
-    {
-        "key": "seven",
-        "value": "083",
-        "title": "7时潮高"
-    },
-    {
-        "key": "seventeen",
-        "value": "127",
-        "title": "17时潮高"
-    },
-    {
-        "key": "six",
-        "value": "093",
-        "title": "6时潮高"
-    },
-    {
-        "key": "sixteen",
-        "value": "165",
-        "title": "16时潮高"
-    },
-    {
-        "key": "ten",
-        "value": "312",
-        "title": "10时潮高"
-    },
-    {
-        "key": "thieteen",
-        "value": "327",
-        "title": "13时潮高"
-    },
-    {
-        "key": "three",
-        "value": "194",
-        "title": "3时潮高"
-    },
-    {
-        "key": "tidehigh1",
-        "value": "076",
-        "title": "潮高1"
-    },
-    {
-        "key": "tidehigh2",
-        "value": "368",
-        "title": "潮高2"
-    },
-    {
-        "key": "tidehigh3",
-        "value": "060",
-        "title": "潮高3"
-    },
-    {
-        "key": "tidehigh4",
-        "value": "060",
-        "title": "潮高4"
-    },
-    {
-        "key": "tidetime1",
-        "value": "0736",
-        "title": "低潮时间1"
-    },
-    {
-        "key": "tidetime2",
-        "value": "1129",
-        "title": "低潮时间2"
-    },
-    {
-        "key": "tidetime3",
-        "value": "2004",
-        "title": "低潮时间3"
-    },
-    {
-        "key": "tidetime4",
-        "value": "2004",
-        "title": "低潮时间4"
-    },
-    {
-        "key": "twelve",
-        "value": "361",
-        "title": "12时潮高"
-    },
-    {
-        "key": "twenty",
-        "value": "061",
-        "title": "20时潮高"
-    },
-    {
-        "key": "twentyOne",
-        "value": "129",
-        "title": "21时潮高"
-    },
-    {
-        "key": "twentyThree",
-        "value": "350",
-        "title": "23时潮高"
-    },
-    {
-        "key": "twentyTwo",
-        "value": "278",
-        "title": "22时潮高"
-    },
-    {
-        "key": "two",
-        "value": "234",
-        "title": "2时潮高"
-    },
-    {
-        "key": "zero",
-        "value": "337",
-        "title": "0时潮高"
+    $scope.default = {
+        place: 1,
+        whichDay: 1
     }
-];
-	
-})
+    $scope.search = function() {
+        $scope.selectShow = !$scope.selectShow;
+    };
+    $scope.addrs = [{ name: "吴淞", id: "1" }, { name: "白茆", id: "2" }, { name: "浒浦", id: "3" }, { name: "天生港", id: "4" }, { name: "江阴", id: "5" }];
+    $scope.days = [{ name: "前一天", id: "0" }, { name: "今天", id: "1" }, { name: "后一天", id: "2" }]
 
-.controller('matoudetail', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
-	
-	
-})
+    $scope.search = function(place, whichDay) {
+        if (place && whichDay) {
+            $scope.default = {
+                place: place,
+                whichDay: whichDay
+            }
+        }
+        $http.get('/cjpilot/yhapi/vpn/tide.jspx?place=' + $scope.default.place + '&whichDay=' + $scope.default.whichDay + '&nowTime=' + parseInt(new Date().getTime() / 1000)).success(function(response) {
+            if (response.body.data) {
+                $scope.data = response.body.data[0];
+                $scope.data.nowTime = response.body.nowTime;
+            }
+        });
+    }
+    $scope.search();
 
-;
+});

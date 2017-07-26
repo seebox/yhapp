@@ -3,13 +3,17 @@
   "version": "1.1.1",
   "description": "yinhang: An Ionic project",
   "dependencies": {
+    "cordova-plugin-jcore": "file:node_modules/cordova-plugin-jcore",
     "gulp": "^3.5.6",
-    "gulp-sass": "^2.0.4",
     "gulp-concat": "^2.2.0",
     "gulp-minify-css": "^0.3.0",
-    "gulp-rename": "^1.2.0"
+    "gulp-rename": "^1.2.0",
+    "gulp-sass": "^2.0.4",
+    "jpush-phonegap-plugin": "^3.1.6"
   },
   "devDependencies": {
+    "@ionic/cli-plugin-cordova": "1.1.2",
+    "@ionic/cli-plugin-ionic1": "1.0.0",
     "bower": "^1.3.3",
     "gulp-util": "^2.2.14",
     "shelljs": "^0.3.0"
@@ -25,9 +29,17 @@
       "locator": "https://github.com/netinhoteixeira/cordova-plugin-signature-view",
       "id": "nl.codeyellow.signature"
     },
-    "cordova-plugin-camera@2.3.0"
+    "cordova-plugin-camera@2.3.0",
+    "jpush-phonegap-plugin"
   ],
   "cordovaPlatforms": [
     "android"
-  ]
+  ],
+  "cordova": {
+    "plugins": {
+      "jpush-phonegap-plugin": {
+        "APP_KEY": "a35efa126392f4479cd615dc"
+      }
+    }
+  }
 }

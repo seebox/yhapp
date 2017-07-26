@@ -1,48 +1,75 @@
-<ion-view >
-  <div class="bar bar-header bar-dark">
-  <div class="buttons">
-		<button class="button button-clear" ng-click="$ionicGoBack()"><i class="icon ion-android-arrow-back"></i></button>
-  </div>
-  <h1 class="title">特种船、夜航审批</h1>
+<ion-view>
+    <div class="bar bar-header bar-dark">
+        <div class="buttons">
+            <button class="button button-clear" ng-click="$ionicGoBack()"><i class="icon ion-android-arrow-back"></i></button>
+        </div>
+        <h1 class="title">特种船、夜航审批</h1>
 
-</div>
-<ion-tabs class="tabs-striped tabs-top tabs-background-stable">
-    <ion-tab title="特种船">
-      <header class="bar bar-header bar-dark">
-      </header>
-  <ion-content  class="has-header scroll-content ionic-scroll">
-
-   
-    <ion-list>
-      <ion-item class="item" href="#/app/tezhong/{{i}}" ng-repeat="i in [0,1,2]">
-        <h2>澄12968&nbsp;(ESTOLAR)</h2>
-        <p>代理：<span class="positive">常州外代</span> 长度：<span class="assertive">96.55</span> 吃水：<span class="assertive">9.88</span></p>
-        <p>始发地：<span class="positive">宝山</span> 目的地：<span class="positive">九江</span></p>
-        <p>开航时间：<span class="positive">0700/07</span> 抵澄时间：<span class="positive">700/07</span></p>
-      </ion-item>
-    </ion-list>
-
-  </ion-content>
-  </ion-tab>
-
-  <ion-tab title="夜航船" >
-    <header class="bar bar-header bar-dark">    
-    </header>
-  <ion-content  class="has-header scroll-content ionic-scroll">
-
-   
-    <ion-list>
-      <ion-item class="item" href="#/app/tezhong/{{i}}" ng-repeat="i in [0,1,2,3]">
-        <h2>澄12968&nbsp;(ESTOLAR)</h2>
-        <p>代理：<span class="positive">常州外代</span> 长度：<span class="assertive">96.55</span> 吃水：<span class="assertive">9.88</span></p>
-        <p>始发地：<span class="positive">宝山</span> 目的地：<span class="positive">九江</span></p>
-        <p>开航时间：<span class="positive">0700/07</span> 抵澄时间：<span class="positive">700/07</span></p>
-      </ion-item>
-    </ion-list>
-
-  </ion-content>
-  </ion-tab>
-</ion-tabs>
+    </div>
+    <ion-tabs class="tabs-striped tabs-top tabs-background-stable">
+        <ion-tab title="特种船">
+            <header class="bar bar-header bar-dark">
+            </header>
+            <ion-content class="has-header scroll-content ionic-scroll">
 
 
+                <ion-list>
+                    <ion-item class="item" ng-click="showDetail()" ng-repeat="i in [0,1,2]">
+                        <h2>澄12968&nbsp;(ESTOLAR)</h2>
+                        <p>代理：<span class="positive">常州外代</span> 长度：<span class="assertive">96.55</span> 吃水：<span class="assertive">9.88</span></p>
+                        <p>始发地：<span class="positive">宝山</span> 目的地：<span class="positive">九江</span></p>
+                        <p>开航时间：<span class="positive">0700/07</span> 抵澄时间：<span class="positive">700/07</span></p>
+                    </ion-item>
+                </ion-list>
+
+            </ion-content>
+        </ion-tab>
+
+        <ion-tab title="夜航船">
+            <header class="bar bar-header bar-dark">
+            </header>
+            <ion-content class="has-header scroll-content ionic-scroll">
+
+
+                <ion-list>
+                    <ion-item class="item" ng-click="showDetail()" ng-repeat="i in [0,1,2,3]">
+                        <h2>澄12968&nbsp;(ESTOLAR)</h2>
+                        <p>代理：<span class="positive">常州外代</span> 长度：<span class="assertive">96.55</span> 吃水：<span class="assertive">9.88</span></p>
+                        <p>始发地：<span class="positive">宝山</span> 目的地：<span class="positive">九江</span></p>
+                        <p>开航时间：<span class="positive">0700/07</span> 抵澄时间：<span class="positive">700/07</span></p>
+                    </ion-item>
+                </ion-list>
+            </ion-content>
+        </ion-tab>
+    </ion-tabs>
 </ion-view>
+
+<script id="anquan-modal.html" type="text/ng-template">
+    <div class="modal">
+        <ion-header-bar>
+            <h1 class="title">选择安全措施</h1>
+            <button class="button" ng-click="anquanModal.hide()">
+        <i class="icon ion-close"></i>
+      </button>
+        </ion-header-bar>
+        <ion-content class="padding">
+            <div class="item item-divider">
+                备选
+            </div>
+            <ion-list>
+
+                <ion-checkbox ng-model="filter.blue">安全措施1</ion-checkbox>
+                <ion-checkbox ng-model="filter.yellow">安全措施2</ion-checkbox>
+                <ion-checkbox ng-model="filter.pink">安全措施1</ion-checkbox>
+
+            </ion-list>
+            <div class="item item-divider">
+                自定义
+            </div>
+            <label class="item item-input">
+    <textarea placeholder=""></textarea>
+  </label>
+            <a class="button button-block button-positive" ng-click="anquanModal.hide()">确定</a>
+        </ion-content>
+    </div>
+</script>

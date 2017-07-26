@@ -1,77 +1,32 @@
-<ion-view >
-  <div class="bar bar-header bar-dark">
-    <div class="buttons">
-      <button class="button button-clear" ng-click="$ionicGoBack()"><i class="icon ion-android-arrow-back"></i></button>
+<ion-view>
+    <div class="bar bar-header bar-dark">
+        <div class="buttons">
+            <button class="button button-clear" ng-click="$ionicGoBack()"><i class="icon ion-android-arrow-back"></i></button>
+        </div>
+        <h1 class="title">休假管理</h1>
+        <div class="buttons">
+
+        </div>
+
     </div>
-    <h1 class="title">休假管理</h1>
-    <div class="buttons">
-      
-    </div>
 
-  </div>
 
-  <ion-tabs class="tabs-striped tabs-top tabs-background-stable">
 
-    <ion-tab title="待我批准" ng-if="role">
-      <header class="bar bar-header bar-dark">
-      </header>
-      <ion-content has-header="true">
-       <div class="list">
-        <a class="item item-avatar" href="#app/qingjia/23" ng-repeat="i in [0,1]">
-          <img src="img/ionic.png">
-          <h2>郑智化(引航员)</h2>
-          <p>办理购房贷款的事情，请假两天</p>
-          <p>时间：9月28-9月30日&nbsp;&nbsp;共2天</p>
-        </a>
-      </div>
+
+    <ion-content class="has-header">
+        <div class="list">
+            <a class="item item-avatar" ng-click="showDetail(item)" ng-repeat="i in [0,1]">
+                <img src="img/ionic.png">
+                <h2>郑智化(引航员)</h2>
+                <p>办理购房贷款的事情，请假两天</p>
+                <p>时间：9月28-9月30日&nbsp;&nbsp;共2天</p>
+            </a>
+        </div>
     </ion-content>
-  </ion-tab>
 
-  <ion-tab title="我的申请" ng-if="!role">
-    <header class="bar bar-header bar-dark">
-    </header>
-    <ion-content  class="has-header scroll-content ionic-scroll"> 
-      <div class="list">
-        <a class="item item-avatar" href="#app/qingjia/23">
-          <img src="img/ionic.png">
-          <h2>郑智化(引航员)</h2>
-          <p>办理购房贷款的事情，请假两天</p>
-          <p>时间：9月28-9月30日&nbsp;&nbsp;共2天</p>
-        </a>
-      </div>
-    </ion-content>
-  </ion-tab>
 
-  <ion-tab title="部门内休假" ng-if="!role">
-      <header class="bar bar-header bar-dark">
-      </header>
-      <ion-content has-header="true">
-       <div class="list">
-        <a class="item item-avatar" href="#app/qingjia/23" ng-repeat="i in [0,1]">
-          <img src="img/ionic.png">
-          <h2>郑智化(引航员)</h2>
-          <p>办理购房贷款的事情，请假两天</p>
-          <p>时间：9月28-9月30日&nbsp;&nbsp;共2天</p>
-        </a>
-      </div>
-    </ion-content>
-  </ion-tab>
-   <ion-tab title="全部休假" ng-if="role">
-      <header class="bar bar-header bar-dark">
-      </header>
-      <ion-content has-header="true">
-       <div class="list">
-        <a class="item item-avatar" href="#app/qingjia/23" ng-repeat="i in [0,1]">
-          <img src="img/ionic.png">
-          <h2>郑智化(引航员)</h2>
-          <p>办理购房贷款的事情，请假两天</p>
-          <p>时间：9月28-9月30日&nbsp;&nbsp;共2天</p>
-        </a>
-      </div>
-    </ion-content>
-  </ion-tab>
-  
 
-</ion-tabs>
+
+    </ion-tabs>
 
 </ion-view>

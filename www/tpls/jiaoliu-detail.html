@@ -1,63 +1,71 @@
 <ion-view>
-	<div class="bar bar-header bar-dark">
-		<div class="buttons">
-			<button class="button button-clear" ng-click="$ionicGoBack()">
+    <div class="bar bar-header bar-dark">
+        <div class="buttons">
+            <button class="button button-clear" ng-click="$ionicGoBack()">
 				<i class="icon ion-android-arrow-back"></i>
 			</button>
-		</div>
-		<h1 class="title">详细</h1>
-	</div>
+        </div>
+        <h1 class="title">详细</h1>
+    </div>
 
-	<ion-content class="has-header scroll-content ionic-scroll">
-		<div class="list">
-			<div class="item item-avatar">
-				<img src="img/ionic.png">
-				<h2>郑智化</h2>
-				<p>
-					引航中心引航员
-				</p>
-			</div>
-			<div class="item item-body">
+    <ion-content class="has-header has-footer scroll-content ionic-scroll">
+        <div class="list">
+            <div class="item">
+                <h2>提问：{{detail.title}}</h2>
+                <p>
+                    XXX - 引航中心引航员
+                </p>
+            </div>
+            <div class="list list-inset">
 
-				<h2>提问：港口企业对被引船舶靠、离泊，应当做好哪些工作？</h2>
+                <ion-list>
+                    <ion-item ng-repeat="answer in detail.answers">
 
-				<p>
-					王学海：
-					（一）泊位的靠泊等级必须符合被靠船舶相应等级，泊位防护设施完好；
-					（二）确保泊位有足够的水深，水下无障碍物；
-					（三）泊位有效长度应当至少为被引船舶总长的120%；被引船舶总长度小于100米的，泊位长度应大于被引船舶总长的20米；
-				</p>
-			</div>
-			<div class="padding">
-		        <button class="button button-block button-positive" ng-click="answer()">回答</button>
-		    </div>
-			<div class="item item-divider">
-				评论
-			</div>
-			<div class="item item-avatar" ng-repeat="item in commlist">
-				<img src="img/ionic.png">
-				<h2>郑智化</h2>
-				<p>
-					{{item}}
-				</p>
-			</div>
-		</div>
+                        王学海：{{answer.answerContent}}
+                        <ion-option-button class="button-assertive" ng-click="delAnswer(answer)">删除</ion-option-button>
+                    </ion-item>
+                </ion-list>
 
-	</ion-content>
-	<div class="bar bar-footer bar-stable item-input-inset">
-		<label class="item-input-wrapper">
+
+            </div>
+
+            <div class="padding">
+                <button class="button button-block button-positive" ng-click="answer()">回答</button>
+            </div>
+
+            <div class="item item-divider">
+                评论
+            </div>
+            <ion-list>
+                <ion-item class="item item-avatar" ng-repeat="item in detail.comments">
+                    <img src="img/ionic.png">
+                    <h2>郑智化</h2>
+                    <p>
+                        {{item.commentContent}}
+                    </p>
+                    <ion-option-button class="button-assertive" ng-click="delComment(item)">删除</ion-option-button>
+                </ion-item>
+            </ion-list>
+        </div>
+
+    </ion-content>
+    <div class="bar bar-footer bar-stable item-input-inset">
+        <label class="item-input-wrapper">
 			<input type="search" placeholder="输入评论内容" ng-model="comment">
 		</label>
-		<button class="button button-clear" ng-click="comm()">
+        <button class="button button-clear" ng-click="comm()">
 			发布
 		</button>
-	</div>
+    </div>
 </ion-view>
 <div ng-show="answerShow" class="bg-dark" style="position:absolute;width:100%;height:100%;top:44px;z-index: 99999;background:white;">
-		
-      <div class="padding">
-      	<textarea style="width:100%;height:130px;border:solid 1px #ddd" ng-model="reply"></textarea>
-        <button class="button button-block button-positive" ng-click="submit()">提交</button>
-      </div>
-</div>
 
+    <div class="padding">
+        <textarea style="width:100%;height:130px;border:solid 1px #ddd" ng-model="replay"></textarea>
+        <div class="button-bar bar-stable">
+            <button class="button button-block button-positive" ng-click="submit()">确认回答</button>
+            <button class="button button-block" ng-click="answerShow=false">取消</button>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,124 @@
+<ion-view>
+    <div class="bar bar-header bar-dark">
+        <div class="buttons">
+            <button class="button button-clear" ng-click="$ionicGoBack()">
+				<i class="icon ion-android-arrow-back"></i>
+			</button>
+        </div>
+        <h1 class="title">潮汐信息查询</h1>
+    </div>
+
+    <ion-content class="has-header padding">
+        <p>查看地点为：<span class="assertive">{{data.placeDate}}</span>&nbsp;&nbsp;查看日期为：<span class="assertive">{{data.nowTime}}</span>&nbsp;&nbsp;阴历：{{data.yinLi}}</p>
+        <hr>
+        <table style="width:100%;">
+            <tr>
+                <td>高潮时间：<span class="positive">{{data.tidetime1}}</span> </td>
+                <td>潮高：<span class="positive">{{data.tidehigh1}}</span></td>
+                <td>低潮时间：<span class="positive">{{data.tidetime2}}</span> </td>
+                <td>潮高：<span class="positive">{{data.tidehigh2}}</span></td>
+            </tr>
+            <tr border="1">
+                <td>高潮时间：<span class="positive">{{data.tidetime3}}</span> </td>
+                <td>潮高：<span class="positive">{{data.tidehigh3}}</span></td>
+                <td>低潮时间：<span class="positive">{{data.tidetime4}}</span> </td>
+                <td>潮高：<span class="positive">{{data.tidehigh4}}</span></td>
+            </tr>
+        </table>
+        <br>
+        <table style="width:100%;" class="mytable">
+            <tr>
+                <td>时间</td>
+                <td>潮高</td>
+                <td>时间</td>
+                <td>潮高</td>
+                <td>时间</td>
+                <td>潮高</td>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td>{{data.zero}}</td>
+                <td>1</td>
+                <td>{{data.one}}</td>
+                <td>2</td>
+                <td>{{data.two}}</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>{{data.three}}</td>
+                <td>4</td>
+                <td>{{data.four}}</td>
+                <td>5</td>
+                <td>{{data.five}}</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>{{data.six}}</td>
+                <td>7</td>
+                <td>{{data.seven}}</td>
+                <td>8</td>
+                <td>{{data.eight}}</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>{{data.nine}}</td>
+                <td>10</td>
+                <td>{{data.ten}}</td>
+                <td>11</td>
+                <td>{{data.eleven}}</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>{{data.twelve}}</td>
+                <td>13</td>
+                <td>{{data.thieteen}}</td>
+                <td>14</td>
+                <td>{{data.fourteen}}</td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>{{data.fifteen}}</td>
+                <td>16</td>
+                <td>{{data.sixteen}}</td>
+                <td>17</td>
+                <td>{{data.seventeen}}</td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td>{{data.eighteen}}</td>
+                <td>19</td>
+                <td>{{data.nineteen}}</td>
+                <td>20</td>
+                <td>{{data.twenty}}</td>
+            </tr>
+            <tr>
+                <td>21</td>
+                <td>{{data.twentyOne}}</td>
+                <td>22</td>
+                <td>{{data.twentyTwo}}</td>
+                <td>23</td>
+                <td>{{data.twentyThree}}</td>
+            </tr>
+        </table>
+        <br>
+        <div class="button-bar bar-stable">
+            <a class="button button-small" ng-class="{'button-positive':default.place==i.id}" ng-repeat="i in addrs" ng-click="search(i.id,default.whichDay)">{{i.name}}</a>
+        </div>
+        <br>
+        <div class="button-bar bar-stable">
+            <a class="button button-small" ng-class="{'button-positive':default.whichDay==i.id}" ng-repeat="i in days" ng-click="search(default.place,i.id)">{{i.name}}</a>
+        </div>
+    </ion-content>
+</ion-view>
+<style>
+    table.mytable {
+        border: 1px solid #ccc;
+        border-spacing: 1px;
+        text-align: center;
+        border-collapse: separate;
+    }
+    
+    .mytable tr td {
+        border: 1px solid #ccc;
+    }
+</style>

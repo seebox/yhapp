@@ -1,35 +1,32 @@
 <ion-view view-title="引航移动办公系统">
 
-        <ion-nav-bar class="bar-dark">
-      <ion-nav-back-button>
-      </ion-nav-back-button>
+    <ion-nav-bar class="bar-dark">
+        <ion-nav-back-button>
+        </ion-nav-back-button>
 
-      <ion-nav-buttons side="left">
-        <button class="button button-clear" menu-toggle="left" ><img ng-show="!isOpen()" src="img/ionic.png" style="height:32px;border-radius:50%;">
+        <ion-nav-buttons side="left">
+            <button class="button button-clear" menu-toggle="left"><img ng-show="!isOpen()" src="img/ionic.png" style="height:32px;border-radius:50%;">
         </button>
 
-      </ion-nav-buttons>
-      <ion-nav-buttons side="right">
+        </ion-nav-buttons>
+        <ion-nav-buttons side="right">
 
-      </ion-nav-buttons>
+        </ion-nav-buttons>
     </ion-nav-bar>
-      <ion-content has-header="true">
+    <ion-content has-header="true">
         <ion-list>
-          <div id="banner">
-            <img src="img/work_banner.png"  style="margin-top: -1px;width:100%;" ng-style="bannerStyle">
-          </div>
-
-          <div class="worklist">
-            <a class="grid9" ng-repeat="playlist in playlists" ng-href="#/{{playlist.url}}"  type="item-text-wrap">
-              <div style="margin-top:25%;">
-                <img ng-src="img/pilot-{{$index+1}}.png" >
-                <div class="pname">
-                  {{playlist.name}}
-                </div>
-
+            <div id="banner">
+                <img src="img/work_banner.png" style="margin-top: -1px;width:100%;" ng-if="a" ng-style="bannerStyle">
             </div>
-            </a>
-          </div>
+
+            <div class="worklist">
+                <a class="grid9" ng-repeat="playlist in playlists" ng-href="#/{{playlist.url}}" type="item-text-wrap">
+                    <img class="{{colors[$index]}}-bg" ng-src="img/{{playlist.url.split('/')[1]}}{{playlist.url.split('/')[2]||''}}.png">
+                    <div class="pname">
+                        {{playlist.name}}
+                    </div>
+                </a>
+            </div>
         </ion-list>
-      </ion-content>
+    </ion-content>
 </ion-view>

@@ -1,14 +1,22 @@
 $controllers
+    .controller('huibao', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate, $http) {
 
-.controller('huibao', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+        $ionicModal.fromTemplateUrl('tpls/huibao-detail.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.modalHuibao = modal;
+        });
 
-   $ionicModal.fromTemplateUrl('tpls/huibao-form.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.modalHuibao = modal;
-  });
-  $scope.huibaolist = window.localStorage.huibaolist?JSON.parse(window.localStorage.huibaolist):[];
+        $scope.showDetail = function(item) {
+            $scope.huibaoItem = item;
+            $scope.modalHuibao.show();
+        };
+        $scope.huibaolist = [];
+
+        $http.get('/cjpilot/yhapi/hchb.jspx?type=0').success(function(res) {
+            $scope.huibaolist = res.body.result.list;
+        });
 
 
-});
+    });

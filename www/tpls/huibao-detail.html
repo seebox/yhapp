@@ -1,124 +1,126 @@
-<ion-view>
-  <div class="bar bar-header bar-dark">
-    <div class="buttons">
-      <button class="button button-clear" ng-click="$ionicGoBack()"><i class="icon ion-android-arrow-back"></i></button>
+<ion-modal-view>
+    <div class="bar bar-header bar-stable">
+        <h1 class="title">汇报详情</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="modalHuibao.hide()">
+            <i class="icon ion-close"></i>
+          </button>
+        </div>
     </div>
-    <h1 class="title">汇报详情</h1>
-  </div>
 
-  <ion-content class="has-header scroll-content ionic-scroll">
-      <div class="list">
-       <a class="item">
+    <ion-content class="has-header scroll-content ionic-scroll">
+        <div class="list">
+            <a class="item">
         中文船名
         <span class="item-note">
-          PHENIX	环球凤凰
+          {{huibaoItem.cm}}
         </span>
       </a>
-      <a class="item">
+            <a class="item">
         引航员
         <span class="item-note">
-          陈学思
+          {{huibaoItem.yhyName}}
         </span>
       </a>
-      <a class="item">
+            <a class="item">
         始发地
         <span class="item-note">
-          宝山
+          {{huibaoItem.sfd}}
         </span>
       </a>
-      <a class="item">
+            <a class="item">
         目的地
         <span class="item-note">
-          武港
+          {{huibaoItem.mdd}}
         </span>
       </a>
 
-      <a class="item">
+            <a class="item">
         报告时间
         <span class="item-note">
-          2013-12-23 12:37:21
+          {{huibaoItem.bgsj}}
         </span>
       </a>
 
-      <a class="item">
+            <a class="item">
         接受人
         <span class="item-note">
-          江山
+          {{huibaoItem.bgjsr}}
         </span>
       </a>
-      <a class="item">
+            <a class="item">
         操纵性能
         <span class="item-note">
-          良好
+          {{huibaoItem.cbczxn}}
         </span>
       </a>
-      <a class="item">
+            <a class="item">
         主机工况
         <span class="item-note">
-          常
+          {{huibaoItem.zjgk}}
         </span>
       </a>
-      <a class="item">
+            <a class="item">
         可变螺距
         <span class="item-note">
-          否
+          {{huibaoItem.sfkbdj}}
         </span>
       </a>
 
-      <a class="item">
+            <a class="item">
         正常航速
         <span class="item-note">
-          13
+          {{huibaoItem.zchs}}
         </span>
       </a>
-      <a class="item">
+            <a class="item">
         舵机工况
         <span class="item-note">
-          正常
+          {{huibaoItem.djgk}}
         </span>
       </a>
-      <a class="item">
+            <a class="item">
         助航设备
         <span class="item-note">
-          良好
+          {{huibaoItem.zhsb}}
         </span>
-      </a> 
-      <a class="item">
+      </a>
+            <a class="item">
         靠离泊状态
         <span class="item-note">
-          落水
+          {{huibaoItem.kibzt}}
         </span>
       </a>
-      <a class="item">
+            <a class="item">
         锚的使用情况
         <span class="item-note">
-          无
+          {{huibaoItem.mdsyqk}}
         </span>
       </a>
-      <a class="item">
+            <a class="item">
         锚机工况
         <span class="item-note">
-          正常
+          {{huibaoItem.mjgk}}
         </span>
       </a>
-      <a class="item">
+            <a class="item">
         锚链入水
         <span class="item-note">
-          0
+         {{huibaoItem.mlrsjj}}
         </span>
       </a>
-      <a class="item">
+            <a class="item">
         其它信息
         <span class="item-note">
-
+         {{huibaoItem.qtaqxx}}
         </span>
       </a>
-      <a class="item">
+            <a class="item">
         备注
         <span class="item-note">
-
+{{huibaoItem.remark}}
         </span>
       </a>
-    </div>
-</ion-content>
-</ion-view>
+        </div>
+    </ion-content>
+</ion-modal-view>

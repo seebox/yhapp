@@ -1,155 +1,122 @@
-<ion-view>
-  <div class="bar bar-header bar-dark">
-    <div class="buttons">
-      <button class="button button-clear" ng-click="$ionicGoBack()"><i class="icon ion-android-arrow-back"></i></button>
+<ion-modal-view>
+    <div class="bar bar-header bar-stable">
+        <h1 class="title">计划详情</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="jihuaDetail.hide()">
+				<i class="icon ion-close"></i>
+			</button>
+        </div>
     </div>
-    <h1 class="title">计划详情</h1>
-  </div>
 
-  <ion-content class="has-header scroll-content ionic-scroll">
-    <div class="list">
-     <div class="item">
-      船舶编号
-      <span class="item-note">
-        <a style="display:inline-block;" ng-href="#/app/boat/{{i}}">澄12968-{{i}}</a>
+    <ion-content class="has-header scroll-content ionic-scroll">
+        <div class="list">
+            <div class="item">
+                船舶编号
+                <span class="item-note">
+        <a style="display:inline-block;" ng-click="boatDetail.show()">{{jihuaItem.CBBH}}</a>
       </span>
-    </div>
-    <a class="item">
+            </div>
+            <a class="item">
       英文船名
       <span class="item-note">
-        GLOBAL
+        {{jihuaItem.EN_NAME}}
       </span>
     </a>
-    <a class="item">
+            <a class="item">
       中文船名
       <span class="item-note">
-        PHENIX	环球凤凰
+       {{jihuaItem.CH_NAME}}
       </span>
     </a>
-    <a class="item">
+            <a class="item">
       国籍
       <span class="item-note">
-        巴拿马
+        {{jihuaItem.NATION_CNAME}}
       </span>
     </a>
 
-    <a class="item">
+            <a class="item">
       代理
       <span class="item-note">
-        常州外代
+        {{jihuaItem.AGENT_NAME}}
       </span>
     </a>
-    <a class="item">
+            <a class="item">
       船舶类型
       <span class="item-note">
-        其它危品
+       {{jihuaItem.VESSEL_TYPE}}
       </span>
     </a>
-    <a class="item">
+            <a class="item">
       载货名称
       <span class="item-note">
-        无
+        {{jihuaItem.GOODS_NAME}}
       </span>
     </a>
-    <a class="item">
+            <a class="item">
       长度
       <span class="item-note">
-        113.00
+        {{jihuaItem.VESSEL_LONG}}
       </span>
     </a>
-    <a class="item">
+            <a class="item">
       吃水
       <span class="item-note">
-        5.20
+        {{jihuaItem.DRAFT_BEHIND}}
       </span>
     </a>
 
-    <a class="item">
+            <a class="item">
       始发地
       <span class="item-note">
-        新润化工
+        {{jihuaItem.ORIGIN_BWMC}}
       </span>
     </a>
-    <a class="item">
+            <a class="item">
       目的地
       <span class="item-note">
-        宝山
+        {{jihuaItem.DESTINATION_BWMC}}
       </span>
     </a>
-    <a class="item">
+            <a class="item">
       开航时间
       <span class="item-note">
-        2100/06
+        {{jihuaItem.KHSJ|date}}
       </span>
     </a>
-    <a class="item">
+            <a class="item">
       上段引航员
       <span class="item-note">
-
+       {{jihuaItem.SDYHY}}
       </span>
     </a>
-    <a class="item">
+            <a class="item">
       抵澄时间
       <span class="item-note">
-        2100/06
+        {{jihuaItem.DCSJ|date}}
       </span>
     </a>
-    <a class="item">
+            <a class="item">
       下段引航员
       <span class="item-note">
-        <span ng-click="modalPeiban.show()" class="positive">饶明安</span>、<span ng-click="modalPeiban.show()" class="positive">王炜</span>
+        {{jihuaItem.XDYHY}}
       </span>
     </a>
-    <a class="item">
+            <a class="item">
       抵宝时间
       <span class="item-note">
-        2100/06
+       {{jihuaItem.YLSJ|date}}
       </span>
     </a>
-    <a class="item">
+            <a class="item">
       引领备注
       <span class="item-note">
-        万鑫3
+        {{jihuaItem.JLBZ}}
       </span>
     </a>
-  </div>
-  <div class="button-bar padding">
-    <a class="button button-positive" ng-click="modalHuibao.show();">航次汇报</a>
-  </div>
-</ion-content>
-</ion-view>
-<script id="piban-modal.html" type="text/ng-template">
-  <div class="modal">
-    <ion-header-bar>
-      <h1 class="title">配班信息</h1>
-      <button class="button" ng-click="modalPeiban.hide()">
-        <i class="icon ion-close"></i>
-      </button>
-    </ion-header-bar>
-    <ion-content>
-    <div class="list">   
-       <a class="item">
-      姓名
-      <span class="item-note">
-        饶明安
-      </span>
-      <a class="item">
-      档次
-      <span class="item-note">
-        
-      </span>
-      <a class="item" href="tel:12345670000">
-      电话
-      <span class="item-note">
-        <span class="positive">1234567</span>
-      </span>
-      <a class="item">
-      所属引航站
-      <span class="item-note">
-        江阴站
-      </span>
-    </a>
-  </div>
+        </div>
+        <div class="button-bar padding">
+            <a class="button button-positive" ng-click="openHuibao()">航次汇报</a>
+        </div>
     </ion-content>
-  </div>
-</script>
+</ion-modal-view>
