@@ -1,6 +1,6 @@
 $controllers
 
-    .controller('qingjia', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+    .controller('qingjia', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $http) {
     $ionicModal.fromTemplateUrl('tpls/qingjia-form.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -14,7 +14,43 @@ $controllers
         $scope.qingjiaDetail = modal;
     });
 
-    $scope.showDetail = function() {
+    $scope.showDetail = function(item) {
+        $scope.itemDetail = item;
+        //pilotserver/pilotplan/getlist?type=xjtj&str={"yhyid":"3ed2a2c5e9034829afdfb52d5fba9494"}
+        $http({
+            method: "POST",
+            url: "/pilotserver/pilotplan/getlist",
+            params: {
+                type: 'xjtj',
+                str: JSON.stringify({ "yhyid": item.YHYID })
+            }
+        }).success(function(res) {
+            $scope.tongji = res.result;
+        });
         $scope.qingjiaDetail.show();
-    }
-});
+    };
+    ///pilotserver/pilotplan / getlist ? type = yhyqsj & str = { "spr": "aa", "dw": "南通站", "yhyid": "" }
+    //spr: 审批人 dw: 单位 yhyid: 引航员id
+
+    $http({
+        method: "POST",
+        url: "pilotserver/pilotplan/getlist",
+        params: {
+            type: 'yhyqsj',
+            str: JSON.stringify({ "dw": "南通站", "yhyid": $rootScope.loginBody.userPersonId })
+        }
+    }).success(function(res) {
+        $scope.items = res.result;
+    });
+}).filter(
+    'dateqingjia', [function() {
+        return function(text) {
+            if (text === null || text.length === 0) {
+                return "";
+            } else {
+                return moment(text).format('YYYY-MM-DD');
+            }
+
+        }
+    }]
+);;

@@ -13,38 +13,35 @@ $controllers
             $scope.usersModal = modal;
         });
 
-        $scope.devList = [
-            { id: "133", text: "安技部", checked: false },
-            { id: "234", text: "办公室", checked: true }
-        ];
 
         $scope.changedOrg = function() {
             $scope.usersModal.hide();
-            console.log($scope.devList);
-        }
+            console.log($scope.deptList);
+        };
         $scope.selectOrg = function(item) {
             item.checked = !item.checked;
-        }
+        };
         $scope.rep = {
             title: "",
             reply: ""
-        }
+        };
         $scope.reply = "";
         $scope.comment = "";
 
         $scope.changeTab = function(i) {
             $scope.index = i;
             loadData();
-        }
+        };
         $scope.index = 0;
         var listUri = [
             "/mobileoa/japi/discuss/listNotBelongOrg", //不可回答
             "/mobileoa/japi/discuss/listBelongOrg", //可回答
             "/mobileoa/japi/discuss/myList" //我提问的
-        ]
+        ];
+        console.log($rootScope);
 
         function loadData() {
-            $http.get(listUri[$scope.index] + '?orgId=123&userid=11').success(function(res) {
+            $http.get(listUri[$scope.index] + '?orgId=' + $rootScope.loginBody.dept.deptId).success(function(res) {
                 $scope.items = res;
             });
         }
@@ -53,13 +50,13 @@ $controllers
 
         $scope.tiwen = function() {
             var invites = [];
-            for (var i in $scope.devList) {
-                if ($scope.devList[i].checked) {
-                    invites.push($scope.devList[i].id);
+            for (var i in $scope.deptList) {
+                if ($scope.deptList[i].checked) {
+                    invites.push($scope.deptList[i].deptId);
                 }
             }
             if ($scope.rep.reply.replace(/\s/, '').length > 0 && invites.length > 0) {
-                $http.post('/mobileoa/japi/discuss/add?userid=11', {
+                $http.post('/mobileoa/japi/discuss/add', {
                     title: $scope.rep.reply,
                     invitedOrgs: invites.join(",")
                 }).success(function(res) {
@@ -69,19 +66,27 @@ $controllers
             }
 
         };
+        var appKey = 'lB31U03sLvvq1WKJfA1BuFl351Fu24yk';
+        var nonce_str = new Date().getTime();
+        var ans = ['appId=' + SYSTEM.appId, 'nonce_str=' + nonce_str, 'all=true'];
+        var sign = md5(ans.sort().join('&') + '&key=' + appKey).toUpperCase();
+
+        $http.get('/cjpilot/api/dept/getDepartment.jspx?all=true&nonce_str=' + nonce_str + '&sign=' + sign + '&appId=' + SYSTEM.appId).success(function(res) {
+            $scope.deptList = res.body;
+        });
 
         $scope.delDiscuss = function(item) {
             $http.get('/mobileoa/japi/discuss/delete/' + item.id).success(function(res) {
                 loadData();
             });
-        }
+        };
 
     })
     .controller('jiaoliuDetail', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $http, $stateParams) {
 
         $scope.answer = function() {
             $scope.answerShow = true;
-        }
+        };
 
         $http.get('/mobileoa/japi/discuss/get/' + $stateParams.id).success(function(res) {
             $scope.detail = res;
@@ -89,7 +94,7 @@ $controllers
         $scope.replay = "";
         $scope.submit = function() {
             if ($scope.replay.replace(/\s/, '').length > 0) {
-                $http.post('/mobileoa/japi/discuss/answer?bizid=' + $stateParams.id + '&userid=11', { answerContent: $scope.replay }).success(function(res) {
+                $http.post('/mobileoa/japi/discuss/answer?bizid=' + $stateParams.id + '&username=yhyd', { answerContent: $scope.replay }).success(function(res) {
                     $scope.detail = res;
                     $scope.answerShow = !$scope.answerShow;
                     $scope.replay = "";
@@ -101,12 +106,12 @@ $controllers
         $scope.comm = function() {
 
             if ($scope.comment.replace(/\s/, '').length > 0) {
-                $http.post('/mobileoa/japi/discuss/comment?bizid=' + $stateParams.id + '&userid=11', { commentContent: $scope.comment }).success(function(res) {
+                $http.post('/mobileoa/japi/discuss/comment?bizid=' + $stateParams.id + '&username=yhyd', { commentContent: $scope.comment }).success(function(res) {
                     $scope.detail = res;
                     $scope.comment = "";
                 });
             }
-        }
+        };
 
         $scope.delAnswer = function(answer) {
 
@@ -115,7 +120,7 @@ $controllers
                     $scope.detail = res;
                 });
             });
-        }
+        };
 
         $scope.delComment = function(comm) {
 
@@ -124,6 +129,6 @@ $controllers
                     $scope.detail = res;
                 });
             });
-        }
+        };
 
     });

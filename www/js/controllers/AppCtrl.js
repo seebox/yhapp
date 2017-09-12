@@ -7,6 +7,9 @@ $controllers
         scope: $scope
     }).then(function(modal) {
         $rootScope.loginModal = modal;
+        if (!window.localStorage.loginBody) {
+            $rootScope.loginModal.show();
+        }
     });
 
     $scope.closeLogin = function() {
@@ -22,6 +25,9 @@ $controllers
 
     if (window.localStorage.loginBody) {
         $rootScope.loginBody = JSON.parse(window.localStorage.loginBody);
+        if (window.plugins && window.plugins.jPushPlugin) {
+            window.plugins.jPushPlugin.setTagsWithAlias([], $rootScope.loginBody.loginUserName);
+        }
     }
 
     $scope.doLogin = function() {
@@ -38,7 +44,7 @@ $controllers
             return encrypted.ciphertext.toString().toLowerCase();
         }
         var form = ['username=' + $scope.loginData.username, 'aesPassword=' + Encrypt($scope.loginData.password), 'appId=' + appId, 'nonce_str=' + nonce_str];
-
+        console.log(form.sort().join("&") + '&key=' + appKey);
         var sign = md5(form.sort().join("&") + '&key=' + appKey).toUpperCase();
         $ionicLoading.show({ template: '正在登录' });
 
@@ -49,13 +55,18 @@ $controllers
                 $rootScope.loginBody = res.body;
                 $rootScope.loginModal.hide();
                 $ionicLoading.show({ template: '登录成功' });
+                if (window.plugins && window.plugins.jPushPlugin) {
+                    window.plugins.jPushPlugin.setTagsWithAlias([], $rootScope.loginBody.loginUserName);
+                }
                 $timeout(function() {
                     $ionicLoading.hide();
                 }, 1000);
             } else {
                 $ionicLoading.hide();
                 $ionicPopup.alert({ template: res.message });
-            };
+            }
+        }).error(function(data, status, headers, config) {
+            alert(config.url);
         });
 
 

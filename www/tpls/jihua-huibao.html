@@ -1,0 +1,24 @@
+<ion-modal-view>
+    <div class="bar bar-header bar-dark">
+
+        <h1 class="title">历史航次汇报列表</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="huibaoHistory.hide()">
+				<i class="icon ion-close"></i>
+			</button>
+        </div>
+    </div>
+    <ion-content class="has-header scroll-content ionic-scroll">
+        <ion-list>
+            <ion-item class="item" ng-repeat="item in jihuaHistory">
+                <p>船舶编号：<span class="positive">{{item.CBBH}}</span> 长度：<span class="assertive">{{item.VESSEL_LONG}}</span> 吃水：<span class="assertive">{{item.DRAFT_BEHIND}}</span></p>
+                <p>起止地：<span class="positive">{{item.ORIGIN_BWMC}}</span> -> <span class="positive">{{item.DESTINATION_BWMC}}</span></p>
+                <p><span ng-if="sqlx=='20004'||sqlx=='20005'">开航时间：<span class="positive">{{item.KHSJ|date}}</span></span><span ng-if="sqlx=='20003'"> 抵宝时间：<span class="positive">{{item.DBSJ|date}}</span></span><span ng-if="sqlx=='20003'||sqlx=='20004'"> 抵澄时间：<span class="positive">{{item.DCSJ|date}}</span></span>
+                </p>
+                <p ng-if="item.SDYHYXM">上段引航员：<span class="positive">{{item.SDYHYXM}}</span></p>
+                <p ng-if="item.XDYHYXM">下段引航员：<span class="positive">{{item.XDYHYXM}}</span></p>
+                <ion-option-button class="button-assertive" ng-click="showDetail(item)">航次汇报</ion-option-button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-modal-view>

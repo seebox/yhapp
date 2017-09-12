@@ -54,7 +54,7 @@
 
 				</label>
                     <div class="item item-button-right">
-                        邀请回答:&nbsp;&nbsp;<span class="positive" ng-repeat="i in devList" ng-if="i.checked">{{i.text}}&nbsp;&nbsp;</span>
+                        邀请回答:&nbsp;&nbsp;<span class="positive" ng-repeat="i in deptList" ng-if="i.checked">{{i.deptName}}&nbsp;&nbsp;</span>
                         <button class="button" ng-click="usersModal.show()">
 		            	<i class="ion-arrow-down-b"></i>
 		            </button>
@@ -81,8 +81,8 @@
             </ion-header-bar>
             <ion-content>
                 <div class="list">
-                    <ion-checkbox ng-repeat="item in devList" ng-click="selectOrg(item)" ng-checked="item.checked">
-                        {{ item.text }}
+                    <ion-checkbox ng-repeat="item in deptList" ng-click="selectOrg(item)" ng-checked="item.checked">
+                        {{ item.deptName }}
                     </ion-checkbox>
                 </div>
             </ion-content>

@@ -12,7 +12,7 @@ $controllers.controller('MainCtrl', function($rootScope, $scope, $stateParams, $
         name: "引航计划",
         url: "app/jihua"
     }, {
-        name: "我的航次汇报",
+        name: "航次汇报",
         url: "app/huibao"
     }, {
         name: "引航计划审批",
@@ -24,25 +24,25 @@ $controllers.controller('MainCtrl', function($rootScope, $scope, $stateParams, $
         name: "码头泊位信息",
         url: "app/bowei"
     }, {
-        name: "航行公告信息",
-        url: "app/faguilists/HXGG"
-    }, {
         name: "潮汐信息",
         url: "app/chaoxi"
-    }, {
-        name: "规章制度",
-        url: "app/faguilists/GZZD"
-    }, {
-        name: "安全预警消息",
-        url: "app/xiaoxi/ANQUAN"
-    }, {
-        name: "消息中心",
-        url: "app/xiaoxi/CENTER"
     }, {
         name: "出航津贴查询",
         url: "app/butie"
     }, {
-        name: "技术交流",
+        name: "规章制度",
+        url: "app/faguilists/GZZD"
+    }, {
+        name: "安全预警",
+        url: "app/faguilists/AQYJ"
+    }, {
+        name: "航行公告信息",
+        url: "app/faguilists/HXGG"
+    }, {
+        name: "安全公告",
+        url: "app/faguilists/AQGG"
+    }, {
+        name: "交流互动",
         url: "app/jiaoliu"
     }, {
         name: "休假管理",
@@ -60,8 +60,8 @@ $controllers.controller('MainCtrl', function($rootScope, $scope, $stateParams, $
         name: "明文传真",
         url: "app/faguilists/MWCZ"
     }, {
-        name: "引航签证单",
-        url: "app/playlists"
+        name: "消息中心",
+        url: "app/xiaoxi/CENTER"
     }];
 
 })

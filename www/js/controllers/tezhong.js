@@ -8,9 +8,18 @@ $controllers
     }).then(function(modal) {
         $scope.tezhongDetail = modal;
     });
+    $ionicModal.fromTemplateUrl('tpls/yehang.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.yehangDetail = modal;
+    });
 
     $scope.showDetail = function(item) {
         $scope.tezhongDetail.show();
+    };
+    $scope.showDetail1 = function(item) {
+        $scope.yehangDetail.show();
     };
 
     $ionicModal.fromTemplateUrl('anquan-modal.html', {

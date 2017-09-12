@@ -12,18 +12,17 @@
     <ion-content class="has-header scroll-content ionic-scroll">
 
         <div class="list">
-            <a class="item item-avatar" ng-click="showDetail(item)"> <img src="img/stantz.jpg">
-                <h2>计划变更消息</h2>
+
+            <a class="item" ng-repeat="item in items" ng-click="showDetail(item)">
+                <h2 class="positive">{{item.title}}</h2>
                 <p>
-                    消息内容<span style="position: absolute;right: 0;right: 20px;">永新3，沈车，专用航道护</span>
+                    {{item.content}}
                 </p>
-                <p>
-                    发布机构<span style="position: absolute;right: 0;right: 20px;">调度中心</span>
-                </p>
-                <p>
-                    发布时间<span style="position: absolute;right: 0;right: 20px;">2016-09-30 10:54:04</span>
+                <p class="item-note">
+                    {{item.sentTime}}
                 </p>
             </a>
+
         </div>
 
     </ion-content>

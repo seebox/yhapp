@@ -9,24 +9,15 @@
         </div>
 
     </div>
-
-
-
-
     <ion-content class="has-header">
         <div class="list">
-            <a class="item item-avatar" ng-click="showDetail(item)" ng-repeat="i in [0,1]">
-                <img src="img/ionic.png">
-                <h2>郑智化(引航员)</h2>
-                <p>办理购房贷款的事情，请假两天</p>
-                <p>时间：9月28-9月30日&nbsp;&nbsp;共2天</p>
+            <a class="item" ng-click="showDetail(item)" ng-repeat="item in items">
+                <h2>{{item.XM}}</h2>
+                <p>{{item.QXJSY}}</p>
+                <p>时间：<span class="positive">{{item.KSSJ1|dateqingjia}}</span>&nbsp;&nbsp;至&nbsp;&nbsp;<span class="positive">{{item.JSSJ1|dateqingjia}}</span>&nbsp;&nbsp;共&nbsp;<span class="assertive">{{item.TS1}}</span>&nbsp;天</p>
             </a>
         </div>
     </ion-content>
-
-
-
-
     </ion-tabs>
 
 </ion-view>

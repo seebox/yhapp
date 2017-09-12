@@ -13,110 +13,97 @@
             <div class="item">
                 船舶编号
                 <span class="item-note">
-        <a style="display:inline-block;" ng-click="boatDetail.show()">{{jihuaItem.CBBH}}</a>
+        {{jihuaItem.cbbh}}
       </span>
             </div>
             <a class="item">
-      英文船名
-      <span class="item-note">
-        {{jihuaItem.EN_NAME}}
-      </span>
-    </a>
-            <a class="item">
       中文船名
       <span class="item-note">
-       {{jihuaItem.CH_NAME}}
+       {{jihuaItem.chName}}
       </span>
     </a>
             <a class="item">
       国籍
       <span class="item-note">
-        {{jihuaItem.NATION_CNAME}}
+        {{jihuaItem.nationName}}
       </span>
     </a>
 
             <a class="item">
       代理
       <span class="item-note">
-        {{jihuaItem.AGENT_NAME}}
+        {{jihuaItem.agentName}}
       </span>
     </a>
             <a class="item">
       船舶类型
       <span class="item-note">
-       {{jihuaItem.VESSEL_TYPE}}
+       {{jihuaItem.vesselTypeName}}
       </span>
     </a>
-            <a class="item">
-      载货名称
-      <span class="item-note">
-        {{jihuaItem.GOODS_NAME}}
-      </span>
-    </a>
+
             <a class="item">
       长度
       <span class="item-note">
-        {{jihuaItem.VESSEL_LONG}}
+        {{jihuaItem.vesselLong}}
       </span>
     </a>
             <a class="item">
       吃水
       <span class="item-note">
-        {{jihuaItem.DRAFT_BEHIND}}
+        {{jihuaItem.draftBehind}}
       </span>
     </a>
 
             <a class="item">
       始发地
       <span class="item-note">
-        {{jihuaItem.ORIGIN_BWMC}}
+        {{jihuaItem.origin}}
       </span>
     </a>
             <a class="item">
       目的地
       <span class="item-note">
-        {{jihuaItem.DESTINATION_BWMC}}
+        {{jihuaItem.destination}}
       </span>
     </a>
             <a class="item">
       开航时间
       <span class="item-note">
-        {{jihuaItem.KHSJ|date}}
+        {{jihuaItem.khsjFormat}}
       </span>
     </a>
-            <a class="item">
+            <a class="item" ng-click="showPeiban(jihuaItem.sdyhy)">
       上段引航员
-      <span class="item-note">
-       {{jihuaItem.SDYHY}}
+      <span class="item-note positive">
+       {{jihuaItem.sdyhyName}}
       </span>
     </a>
             <a class="item">
       抵澄时间
       <span class="item-note">
-        {{jihuaItem.DCSJ|date}}
+        {{jihuaItem.dcsjFormat}}
       </span>
     </a>
-            <a class="item">
+            <a class="item" ng-click="showPeiban(jihuaItem.xdyhy)">
       下段引航员
-      <span class="item-note">
-        {{jihuaItem.XDYHY}}
+      <span class="item-note positive">
+        {{jihuaItem.xdyhyName}}
       </span>
     </a>
             <a class="item">
       抵宝时间
       <span class="item-note">
-       {{jihuaItem.YLSJ|date}}
+       {{jihuaItem.dbsjFormat}}
       </span>
     </a>
             <a class="item">
       引领备注
       <span class="item-note">
-        {{jihuaItem.JLBZ}}
+        {{jihuaItem.jlbz}}
       </span>
     </a>
         </div>
-        <div class="button-bar padding">
-            <a class="button button-positive" ng-click="openHuibao()">航次汇报</a>
-        </div>
+
     </ion-content>
 </ion-modal-view>

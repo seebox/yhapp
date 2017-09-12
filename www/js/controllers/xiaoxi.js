@@ -8,7 +8,15 @@ $controllers
         });
 
         $scope.showDetail = function(item) {
+            $scope.itemDetail = item;
             $scope.xiaoxiDetail.show();
+            $http({
+                method: "GET",
+                url: "/mobileoa/yhapi/message/setread",
+                params: { mesid: item.id }
+            }).success(function(res) {
+
+            });
         };
 
         $http({
@@ -16,7 +24,7 @@ $controllers
             url: "/mobileoa/japi/message/queryByTarget",
             params: { targetid: $rootScope.loginBody.loginUserId }
         }).success(function(res) {
-
+            $scope.items = res;
         });
 
     });

@@ -7,39 +7,19 @@
         </div>
         <h1 class="title">江阴引航站</h1>
         <div class="buttons">
-            <button class="button button-clear" ng-click="submit();">
+            <button class="button button-clear" ng-click="showDeleteButtons()">
 				<i class="ion-android-checkbox-outline"></i>
 			</button>
         </div>
     </div>
     <ion-content class="has-header scroll-content ionic-scroll">
         <ion-list>
-            <ion-item class="item" ng-repeat="i in items">
-                <a ng-click="showDetail(item)">
-                    <h2>澄12968&nbsp;(ESTOLAR)</h2>
-                    <p>
-                        代理：<span class="positive">常州外代</span> 长度：<span class="assertive">96.55</span> 吃水：<span class="assertive">9.88</span>
-                    </p>
-                    <p>
-                        始发地：<span class="positive">宝山</span> 目的地：<span class="positive">九江</span>
-                    </p>
-                    <p>
-                        开航时间：<span class="positive">0700/07</span> 抵澄时间：<span class="positive">700/07</span>
-                    </p>
-                </a>
-                <label class="checkbox" style="position: absolute;right: 5%;top: 33%;">
-					<input type="checkbox">
-				</label>
-            </ion-item>
-            <ion-item class="item" style="display:none;">
-                <label class="item item-input">
-					<input type="text" placeholder="审批意见" ng-model="yijian">
-				</label>
-                <div class="padding">
-                    <button class="button button-block button-positive">
-						提交审批
-					</button>
-                </div>
+            <ion-item class="item" ng-click="showDetail(item)" ng-repeat="item in jihuaList">
+                <h2>{{item.CH_NAME}}({{item.EN_NAME}})</h2>
+                <p>代理：<span class="positive">{{item.AGENT_NAME}}</span> 长度：<span class="assertive">{{item.VESSEL_LONG}}</span> 吃水：<span class="assertive">{{item.DRAFT_BEHIND}}</span></p>
+                <p>始发地：<span class="positive">{{item.ORIGIN_BWMC}}</span> 目的地：<span class="positive">{{item.DESTINATION_BWMC}}</span></p>
+                <p>开航时间：<span class="positive">{{item.KHSJ|date}}</span> 抵澄时间：<span class="positive">{{item.DCSJ|date}}</span></p>
+                <ion-delete-button class="ion-checkmark-circled" ng-click="doShenpi(item)"></ion-delete-button>
             </ion-item>
         </ion-list>
     </ion-content>

@@ -3,17 +3,30 @@
         <div class="buttons">
             <button class="button button-clear" ng-click="$ionicGoBack()"><i class="icon ion-android-arrow-back"></i></button>
         </div>
-        <h1 class="title">我的航次汇报列表</h1>
+        <h1 class="title">航次汇报</h1>
+    </div>
+    <div class="tabs tabs-striped tabs-color-positive">
+        <a class="tab-item" ng-class="{'active':index==0}" ng-click="changeTab(0)">
+   未完成汇报
+  </a>
+        <a class="tab-item" ng-class="{'active':index==1}" ng-click="changeTab(1)">
+   已完成汇报
+  </a>
 
     </div>
     <ion-content class="has-header scroll-content ionic-scroll">
+        <ion-refresher pulling-text="下拉刷新" on-refresh="loadData(true)"></ion-refresher>
         <ion-list>
-            <ion-item class="item" ng-click="showDetail(item)" ng-repeat="item in huibaolist">
-                <h2 class="positive">{{item.cbbh}}</h2>
-                <p>引航员：{{item.yhyName}} 正常航速：{{item.zchs}}</p>
-                <p>始发地：{{item.sfd}} 目的地：{{item.mdd}}</p>
-                <p>报告时间：{{item.bgsj}}</p>
+            <ion-item class="item" ng-click="showDetail(item)" ng-repeat="item in jihuaList">
+                <p>船名：<span class="positive">{{item.chName}}</span> 长度：<span class="assertive">{{item.vesselLong}}</span> 吃水：<span class="assertive">{{item.draftBehind}}</span></p>
+                <p>起讫地：<span class="positive">{{item.origin}}</span> -> <span class="positive">{{item.destination}}</span></p>
+                <p><span ng-if="sqlx=='20004'||sqlx=='20005'">开航时间：<span class="positive">{{item.khsjFormat}}</span></span><span ng-if="sqlx=='20003'"> 抵宝时间：<span class="positive">{{item.dbsjFormat}}</span></span><span ng-if="sqlx=='20003'||sqlx=='20004'"> 抵澄时间：<span class="positive">{{item.dcsjFormat}}</span></span>
+                </p>
+                <p ng-if="item.sdyhyName && sqlx!='20005'">上段引航员：<span class="positive">{{item.sdyhyName}}</span></p>
+                <p ng-if="item.xdyhyName"><span ng-if="sqlx!='20005'">下段引航员</span><span ng-if="sqlx=='20005'">移泊引航员</span>：<span class="positive">{{item.xdyhyName}}</span></p>
+                <ion-option-button class="button-assertive" ng-click="showHuibao(item)">航次汇报</ion-option-button>
             </ion-item>
         </ion-list>
+        <ion-infinite-scroll ng-if="noMore" on-infinite="loadData()"></ion-infinite-scroll>
     </ion-content>
 </ion-view>

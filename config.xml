@@ -39,6 +39,12 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <icon src="resources/android/icon/drawable-hdpi-icon.png" />
+    <allow-navigation href="http://192.168.2.1:undefined" />
+    <allow-navigation href="http://192.168.1.101:undefined" />
+    <allow-navigation href="http://10.11.4.96:undefined" />
+    <allow-navigation href="http://192.168.0.106:undefined" />
+    <plugin name="cordova-plugin-file" spec="^4.3.3" />
+    <plugin name="cordova-plugin-file-transfer" spec="^1.6.3" />
     <plugin name="jpush-phonegap-plugin" spec="^3.1.6">
         <variable name="APP_KEY" value="a35efa126392f4479cd615dc" />
     </plugin>

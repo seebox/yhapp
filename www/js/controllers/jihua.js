@@ -8,186 +8,130 @@ $controllers
             $scope.jihuaDetail = modal;
         });
 
+        $ionicModal.fromTemplateUrl('tpls/jihua-huibao.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.huibaoHistory = modal;
+        });
+
         $ionicModal.fromTemplateUrl('tpls/jihua-ren.html', {
             scope: $scope,
             animation: 'slide-in-up'
         }).then(function(modal) {
-            $scope.modalRen = modal;
+            $scope.peiban = modal;
         });
-        $ionicModal.fromTemplateUrl('tpls/boat-detail.html', {
-            scope: $scope,
-            animation: 'slide-in-up'
-        }).then(function(modal) {
-            $scope.boatDetail = modal;
-        });
-
-        $ionicModal.fromTemplateUrl('piban-modal.html', {
-            scope: $scope,
-            animation: 'slide-in-up'
-        }).then(function(modal) {
-            $scope.modalPeiban = modal;
-        });
-
-        $ionicModal.fromTemplateUrl('tpls/huibao-form.html', {
-            scope: $scope,
-            animation: 'slide-in-up'
-        }).then(function(modal) {
-            $scope.modalHuibao = modal;
-        });
-
-
-        $ionicModal.fromTemplateUrl('tpls/playlist.html', {
-            scope: $scope,
-            animation: 'slide-in-up'
-        }).then(function(modal) {
-            $scope.playModal = modal;
-        });
-
 
         $scope.showDetail = function(item) {
             $scope.jihuaItem = item;
             $scope.jihuaDetail.show();
         };
-        $scope.openHuibao = function() {
-            $scope.modalHuibao.show();
-        };
-        $scope.huibaoForm = {};
-
-        $scope.doHuibao = function() {
-            $scope.huibaoForm.cbbh = $scope.jihuaItem.CBBH;
-            $scope.huibaoForm.yhy = $rootScope.loginBody.loginUserId;
-            $scope.huibaoForm.sessionKey = $rootScope.loginBody.sessionKey;
-            $scope.huibaoForm.appId = SYSTEM.appId;
-            $scope.huibaoForm.username = $rootScope.loginBody.loginUserName;
-            var data = [];
-            for (var k in $scope.huibaoForm) {
-                data.push(k + "=" + $scope.huibaoForm[k]);
-            }
+        $scope.showPeiban = function(ids) {
 
             $http({
                 method: "POST",
-                url: "/cjpilot/yhapi/hchb/save.jsp",
-                data: $scope.huibaoForm
+                url: '/pilotserver/pilotplan/getlist?type=yhyqsj&str={"yhyid":"8ebd70f5efa94f5ead61df8d67d574c1"}',
+                params: {}
             }).success(function(res) {
 
             });
+            $scope.peiban.show();
+        }
+        $scope.yhzName = $rootScope.loginBody.dept.deptName;
+        $scope.sqlx = '20003';
+        var pageNo = 0,
+            pageSize = 15;
+        $scope.jihuaList = [];
+        $scope.noMore = true;
 
-        };
+        $scope.loadData = function(str, isRefresh) {
+            //imexportId:进出江标志（“20003”：进江；“20004”：出江；“20005”：移舶）
+            //stationId:引航站主键
+            //routeId:船舶航线（0：国内航线；1：国际航线）
+            //pilot:引航员主键
+            //type:类型（0：引航计划；1：航次汇报）
+            //isFinish:是否完成航次汇报（0：未完成；1：已完成）
 
-        $http({
-            method: "POST",
-            url: "/pilotserver/pilotplan/getlist",
-            params: { type: "yhz" }
-        }).success(function(res) {
-            $scope.yhzList = res.result;
-        });
-
-
-        function loadData(str) {
-            $ionicLoading.show({ template: "正在加载数据,请耐心等待..." });
-            var params = { type: "yhjh", jhzt: "4" };
-            if (str) {
-                params.str = JSON.stringify(str);
+            if (isRefresh) {
+                pageNo = 1;
+            } else {
+                ++pageNo;
             }
+            $ionicLoading.show({ template: "正在加载数据,请耐心等待..." });
+            var params = {
+                type: 0,
+                stationId: $rootScope.loginBody.dept.deptId,
+                imexportId: $scope.sqlx,
+                username: $rootScope.loginBody.loginUserName,
+                pageNo: pageNo,
+                pageSize: pageSize
+            };
+
+            if (str) {
+                params.stationId = str.station_id;
+                params.imexportId = str.sqlx;
+            }
+            $http({
+                method: "GET",
+                url: "/cjpilot/yhapi/yhjhList.jspx",
+                params: params
+            }).success(function(res) {
+                $ionicLoading.hide();
+                if (res.body.result) {
+                    if (isRefresh) {
+                        $scope.jihuaList = res.body.result;
+                    } else {
+                        $scope.jihuaList = $scope.jihuaList.concat(res.body.result);
+                    }
+                    if (res.body.result.length > 0) {
+                        $scope.noMore = true;
+                    } else {
+                        $scope.noMore = false;
+                    }
+                }
+                $scope.$broadcast('scroll.refreshComplete');
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+            });
+        };
+        $timeout(function() {
             $http({
                 method: "POST",
                 url: "/pilotserver/pilotplan/getlist",
-                params: params
+                params: { type: "yhz" }
             }).success(function(res) {
-                $scope.jihuaList = res.result.plan;
-                $ionicLoading.hide();
+                $scope.yhzList = res.result;
             });
-        }
-        loadData();
+        }, 1000);
+
         $scope.search = function() {
             var str = {};
             if ($scope.sqlx) {
                 str.sqlx = $scope.sqlx;
             }
-            if ($scope.cbhx) {
-                str.cbhx = $scope.cbhx;
-            }
             if ($scope.yinhangzhan) {
                 str.station_id = $scope.yinhangzhan;
+                for (var i = 0; i < $scope.yhzList.length; i++) {
+                    if (str.station_id == $scope.yhzList[i].YHZID) {
+                        $scope.yhzName = $scope.yhzList[i].YHZNAME;
+                    }
+                }
             }
-            loadData(str);
+            $scope.loadData(str, true);
             $scope.menuShow = false;
         };
 
-        $scope.play = function() {
-            $scope.playModal.show();
-        };
-
-        $scope.dates1 = [0];
-        $scope.dates2 = [0];
-        $scope.add1 = function() {
-            $scope.dates1.push($scope.dates1.length);
-        };
-        $scope.min1 = function() {
-            if ($scope.dates1.length > 1)
-                $scope.dates1.pop();
-        };
-        $scope.add2 = function() {
-            $scope.dates2.push($scope.dates2.length);
-        };
-        $scope.min2 = function() {
-            if ($scope.dates2.length > 1)
-                $scope.dates2.pop();
-        };
-
-        $scope.upload = function() {
-            $cordovaActionSheet.show({
-                title: '请选择',
-                buttonLabels: ['拍照', '从相册选择'],
-                addCancelButtonWithLabel: '取消',
-                androidEnableCancelButton: true,
-            }).then(function(btnIndex) {
-                switch (btnIndex) {
-                    case 1:
-                        takePhoto();
-                        break;
-                    case 2:
-                        pickImage();
-                        break;
-                    default:
-                        break;
+        $scope.showhistory = function(item) {
+            $http({
+                method: "POST",
+                url: '/pilotserver/pilotplan/getlist?type=hchb',
+                params: {
+                    str: JSON.stringify({ hh: item.callNo })
                 }
+            }).success(function(res) {
+                $scope.jihuaHistory = res.result;
+                $scope.huibaoHistory.show();
             });
         };
-
-        var takePhoto = function() {
-            var options = {
-                destinationType: Camera.DestinationType.FILE_URI, //返回类型：DATA_URL= 0，返回作为 base64 編碼字串。 FILE_URI=1，返回影像档的 URI。NATIVE_URI=2，返回图像本机URI (例如，資產庫)
-                sourceType: Camera.PictureSourceType.CAMERA, //从哪里选择图片：PHOTOLIBRARY=0，相机拍照=1，SAVEDPHOTOALBUM=2。0和1其实都是本地图库
-            };
-            $cordovaCamera.getPicture(options).then(function(imageData) {
-                $rootScope.imageData = imageData;
-            }, function(err) {
-
-            });
-        };
-
-        var pickImage = function() {
-            var options = {
-                maximumImagesCount: 10,
-                width: 800,
-                height: 800,
-                quality: 80
-            };
-
-            $cordovaImagePicker.getPictures(options)
-                .then(function(results) {
-                    $rootScope.imageData = results[0];
-                }, function(error) {});
-        };
-
-        $scope.save = function() {
-            $ionicGoBack();
-        };
-        $scope.submit = function() {
-            $.scope.$ionicGoBack();
-        };
-
 
     }).filter(
         'date', [function() {
@@ -201,3 +145,18 @@ $controllers
             }
         }]
     );
+// function loadData(str) {
+//     $ionicLoading.show({ template: "正在加载数据,请耐心等待..." });
+//     var params = { type: "yhjh", str: '{"sqlx":"20003","cbhx":"0"}' };
+//     if (str) {
+//         params.str = JSON.stringify(str);
+//     }
+//     $http({
+//         method: "POST",
+//         url: "/pilotserver/pilotplan/getlist",
+//         params: params
+//     }).success(function(res) {
+//         $scope.jihuaList = res.result.plan;
+//         $ionicLoading.hide();
+//     });
+// }

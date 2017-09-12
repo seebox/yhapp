@@ -1,32 +1,30 @@
 <ion-modal-view>
     <div class="bar bar-header bar-stable">
-
         <h1 class="title">航次汇报</h1>
         <div class="buttons">
-            <button class="button  button-clear" ng-click="modalHuibao.hide()">
+            <button class="button  button-clear" ng-click="modalHuibaoForm.hide()">
 				<i class="ion-close"></i>
 			</button>
         </div>
     </div>
     <ion-content class="has-header scroll-content ionic-scroll">
-
         <div class="list">
             <div class="item">
                 引 航 员:
                 <span class="item-note">
-					{{loginBody.loginUserRealName}}	
+					{{huibaoItem.yhyName}}	
 				</span>
             </div>
             <div class="item">
-                船名:
+                船舶编号:
                 <span class="item-note">
-					{{jihuaItem.CH_NAME}}				
+					{{huibaoItem.sbbh||huibaoItem.cbbh}}				
 				</span>
             </div>
             <div class="item">
                 船舶起迄地:
                 <span class="item-note">
-					{{jihuaItem.ORIGIN_BWMC}}-{{jihuaItem.DESTINATION_BWMC}}					
+					{{huibaoItem.sdf||huibaoItem.origin}}-{{huibaoItem.mdd||huibaoItem.destination}}					
 				</span>
             </div>
 
@@ -77,7 +75,7 @@
                 </div>
                 <select ng-model="huibaoForm.djgk">
 					<option value="1">正常</option>
-					<option value="2">锚机力量小</option>
+					<option value="2">反应慢</option>
 				</select>
             </div>
 
@@ -86,8 +84,8 @@
                     锚机工况:
                 </div>
                 <select ng-model="huibaoForm.mjgk">
-					<option>正常</option>
-					<option>锚机力量小</option>
+					<option value="1">正常</option>
+					<option value="2">锚机力量小</option>
 				</select>
             </div>
 
@@ -136,10 +134,29 @@
             </div>
 
         </div>
-        <a class="item" ng-click="play()"> 填写签证单信息<span class="item-note" style="font-size:26px;"><i class="icon ion-ios-arrow-right"></i></span> </a>
+        <div class="list">
+            <div class="item item-divider">
+                上段登离船时间
+            </div>
+            <div class="item item-input"> <input type="datetime-local" ng-model="huibaoForm.sddcsj" value=""> ~ <input type="datetime-local" ng-model="huibaoForm.sdlcsj" value=""></div>
+            <div class="item item-divider">
+                上段夜航时间段<i class="item-note icon ion-plus" ng-click="add1()"></i> <i class="item-note icon">&nbsp;&nbsp;</i><i class="item-note ion-minus" ng-click="min1()"></i>
+            </div>
+            <div class="item item-input" ng-repeat="date1 in dates1"> <input type="datetime-local" value=""> ~ <input type="datetime-local" value=""></div>
+            <div class="item item-divider">
+                下段登离船时间
+            </div>
+            <div class="item item-input"> <input type="datetime-local" value=""> ~ <input type="datetime-local" value=""></div>
+            <div class="item item-divider">
+                下段夜航时间段<i class="item-note icon ion-plus" ng-click="add2()"></i> <i class="item-note icon">&nbsp;&nbsp;</i><i class="item-note ion-minus" ng-click="min2()"></i>
+            </div>
+            <div class="item item-input" ng-repeat="date1 in dates2"> <input type="datetime-local" ng-model="huibaoForm.xddcsj" value=""> ~ <input type="datetime-local" ng-model="huibaoForm.xdlcsj" value=""></div>
+            <a class="item" ng-click="upload()"> 纸质签证单拍照<span class="item-note" style="font-size:26px;"><i class="icon ion-ios-reverse-camera-outline"></i></span> </a>
+            <div><img ng-src="{{imageData}}" style="display:block;height:200px;margin:5px auto;"></div>
+
+        </div>
         <div class="content padding">
             <button class="button button-block button-assertive" ng-click="doHuibao()">提交</button>
         </div>
-
     </ion-content>
 </ion-modal-view>

@@ -11,108 +11,108 @@
 
     <ion-content class="has-header scroll-content ionic-scroll">
         <div class="list">
-            <a class="item">
-      船舶编号
-      <span class="item-note">
-        澄12977
+            <div class="item">
+                船舶编号
+                <span class="item-note">
+        <a style="display:inline-block;" ng-click="boatDetail.show()">{{jihuaItem.CBBH}}</a>
       </span>
-    </a>
+            </div>
             <a class="item">
       英文船名
       <span class="item-note">
-        GLOBAL
+        {{jihuaItem.EN_NAME}}
       </span>
     </a>
             <a class="item">
       中文船名
       <span class="item-note">
-        PHENIX  环球凤凰
+       {{jihuaItem.CH_NAME}}
       </span>
     </a>
             <a class="item">
       国籍
       <span class="item-note">
-        巴拿马
+        {{jihuaItem.NATION_CNAME}}
       </span>
     </a>
 
             <a class="item">
       代理
       <span class="item-note">
-        常州外代
+        {{jihuaItem.AGENT_NAME}}
       </span>
     </a>
             <a class="item">
       船舶类型
       <span class="item-note">
-        其它危品
+       {{jihuaItem.VESSEL_TYPE}}
       </span>
     </a>
             <a class="item">
       载货名称
       <span class="item-note">
-        无
+        {{jihuaItem.GOODS_NAME}}
       </span>
     </a>
             <a class="item">
       长度
       <span class="item-note">
-        113.00
+        {{jihuaItem.VESSEL_LONG}}
       </span>
     </a>
             <a class="item">
       吃水
       <span class="item-note">
-        5.20
+        {{jihuaItem.DRAFT_BEHIND}}
       </span>
     </a>
 
             <a class="item">
       始发地
       <span class="item-note">
-        新润化工
+        {{jihuaItem.ORIGIN_BWMC}}
       </span>
     </a>
             <a class="item">
       目的地
       <span class="item-note">
-        宝山
+        {{jihuaItem.DESTINATION_BWMC}}
       </span>
     </a>
             <a class="item">
       开航时间
       <span class="item-note">
-        2100/06
+        {{jihuaItem.KHSJ|date}}
       </span>
     </a>
             <a class="item">
       上段引航员
       <span class="item-note">
-
+       {{jihuaItem.SDYHY}}
       </span>
     </a>
             <a class="item">
       抵澄时间
       <span class="item-note">
-        2100/06
+        {{jihuaItem.DCSJ|date}}
       </span>
     </a>
             <a class="item">
       下段引航员
       <span class="item-note">
-        饶明安、王炜
+        {{jihuaItem.XDYHY}}
       </span>
     </a>
             <a class="item">
       抵宝时间
       <span class="item-note">
-        2100/06
+       {{jihuaItem.YLSJ|date}}
       </span>
     </a>
             <a class="item">
       引领备注
       <span class="item-note">
-        万鑫3
+        {{jihuaItem.JLBZ}}
       </span>
     </a>
         </div>

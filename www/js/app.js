@@ -22,7 +22,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
         }
         if (window.plugins && window.plugins.jPushPlugin) {
             window.plugins.jPushPlugin.init();
-            window.plugins.jPushPlugin.setTagsWithAlias([], 'shenxiaohui');
         }
 
         //延迟设置isVisible为false，防止第三方输入法返回退出当前页面  
@@ -96,13 +95,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
             .state('app', {
                 url: '/app',
                 abstract: true,
-                cache: false,
                 templateUrl: 'tpls/app.html',
                 controller: 'AppCtrl'
             })
             .state('app.main', {
                 url: '/main',
-                cache: false,
                 views: {
                     'menuContent': {
                         templateUrl: 'tpls/main.html',
@@ -279,21 +276,24 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
             var interceptor = {
                 'request': function(config) {
                     config.params = config.params || {};
-                    if (config.url.indexOf('.html') == -1 && config.url.indexOf('login.jspx') == -1) {
+                    if (config.url.indexOf('.html') == -1 && config.url.indexOf('login.jspx') == -1 && config.url.indexOf('getDepartment.jspx') == -1) {
                         config.params.appId = SYSTEM.appId;
                         var sessionKey = window.localStorage.loginBody || {};
 
                         if (window.localStorage.loginBody) {
                             config.params.sessionKey = JSON.parse(window.localStorage.loginBody).sessionKey;
+                            config.params.username = JSON.parse(window.localStorage.loginBody).loginUserName;
                         }
+                    }
+                    if (config.url.indexOf('.html') == -1) {
                         if (window.cordova && window.location.hostname.length === 0) {
-                            config.url = "http://106.38.46.26:3421" + config.url;
+                            config.url = SYSTEM.host + config.url;
                         }
                     }
                     return config;
                 },
                 'response': function(response) {
-                    if (response.data.status == 'false') {
+                    if (response.data.status == 'false' || response.data.message == 'no login') {
                         window.location = "/#/app/main";
                         $rootScope.loginModal.show();
                     }

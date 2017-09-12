@@ -31,8 +31,6 @@ $controllers
         }
         $scope.curmonth = moment().format("YYYY-MM");
         loadData($scope.curmonth);
-
-
     })
     .controller('bowei', function($rootScope, $scope, $http, $ionicModal, $ionicLoading) {
         $ionicModal.fromTemplateUrl('bowei-detail.html', {
@@ -61,8 +59,9 @@ $controllers
                 url: "/pilotserver/pilotplan/getlist",
                 params: params
             }).success(function(res) {
-                $scope.jihuaList = res.result;
                 $ionicLoading.hide();
+                $scope.jihuaList = res.result;
+
             });
         }
 

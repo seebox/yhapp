@@ -3,43 +3,50 @@
         <div class="buttons">
             <button class="button button-clear" ng-click="$ionicGoBack()"><i class="icon ion-android-arrow-back"></i></button>
         </div>
-        <h1 class="title">引航计划</h1>
+        <h1 class="title" ng-init="as={'20003':'-进江','20004':'-出江','20005':'-移泊'};nw={'0':'-内贸','1':'-外贸'}">引航计划（{{yhzName}}）{{as[sqlx]}}{{nw[cbhx]}}</h1>
         <div class="buttons">
             <button class="button button-clear" ng-click="menuShow=!!!menuShow"><i class="icon ion-more"></i></button>
         </div>
     </div>
 
     <ion-content class="has-header scroll-content ionic-scroll">
+        <ion-refresher pulling-text="下拉刷新" on-refresh="loadData(undefined,true)"></ion-refresher>
         <ion-list>
             <ion-item class="item" ng-click="showDetail(item)" ng-repeat="item in jihuaList">
-                <h2>{{item.CH_NAME}}({{item.EN_NAME}})</h2>
-                <p>代理：<span class="positive">{{item.AGENT_NAME}}</span> 长度：<span class="assertive">{{item.VESSEL_LONG}}</span> 吃水：<span class="assertive">{{item.DRAFT_BEHIND}}</span></p>
-                <p>始发地：<span class="positive">{{item.ORIGIN_BWMC}}</span> 目的地：<span class="positive">{{item.DESTINATION_BWMC}}</span></p>
-                <p>开航时间：<span class="positive">{{item.KHSJ|date}}</span> 抵澄时间：<span class="positive">{{item.DCSJ|date}}</span></p>
-                <ion-option-button class="button-assertive" ng-click="modalList.show()">历史航次汇报</ion-option-button>
+                <p>船名：<span class="positive">{{item.chName}}</span> 长度：<span class="assertive">{{item.vesselLong}}</span> 吃水：<span class="assertive">{{item.draftBehind}}</span></p>
+                <p>起讫地：<span class="positive">{{item.origin}}</span> -> <span class="positive">{{item.destination}}</span></p>
+                <p><span ng-if="sqlx=='20004'||sqlx=='20005'">开航时间：<span class="positive">{{item.khsjFormat}}</span></span><span ng-if="sqlx=='20003'"> 抵宝时间：<span class="positive">{{item.dbsjFormat}}</span></span><span ng-if="sqlx=='20003'||sqlx=='20004'"> 抵澄时间：<span class="positive">{{item.dcsjFormat}}</span></span>
+                </p>
+                <p ng-if="item.sdyhyName && sqlx!='20005'">上段引航员：<span class="positive">{{item.sdyhyName}}</span></p>
+                <p ng-if="item.xdyhyName"><span ng-if="sqlx!='20005'">下段引航员</span><span ng-if="sqlx=='20005'">移泊引航员</span>：<span class="positive">{{item.xdyhyName}}</span></p>
+                <ion-option-button class="button-assertive" ng-click="showhistory(item)">航次报告</ion-option-button>
             </ion-item>
         </ion-list>
+        <ion-infinite-scroll ng-if="noMore" on-infinite="loadData(undefined)"></ion-infinite-scroll>
     </ion-content>
 
 </ion-view>
 <div ng-show="menuShow" class="list card bg-dark" style="position:absolute;top:44px;left:0;right:0;z-index: 99999;background: #fff;">
     <label class="item item-select">
 		<div class="input-label">
-			引航站
+			<strong>引航站</strong>
 		</div>
 		<select ng-model="yinhangzhan">
-      <option value="{{item.YHZID}}" ng-repeat="item in yhzList">{{item.YHZNAME}}</option>
+      <option value="{{item.YHZID}}" ng-repeat="item in yhzList" ng-click="changeYHZ(item)">{{item.YHZNAME}}</option>
     </select>
   </label>
     <div class="list">
-        <div class="padding">
-            <input type="radio" value="0" ng-model="cbhx" name="B">内贸
-            <input type="radio" value="1" ng-model="cbhx" name="B">外贸
+
+        <div class="item item-divider">
+
         </div>
-        <div class="padding">
-            <input type="radio" value="20003" ng-model="sqlx" name="A">进江
-            <input type="radio" value="20004" ng-model="sqlx" name="A">出江
-            <input type="radio" value="20005" ng-model="sqlx" name="A">移泊
+        <ion-list>
+            <ion-radio ng-model="sqlx" name="b" value="20003">进江</ion-radio>
+            <ion-radio ng-model="sqlx" name="b" value="20004">出江</ion-radio>
+            <ion-radio ng-model="sqlx" name="b" value="20005">移泊</ion-radio>
+        </ion-list>
+        <div class="item item-divider">
+
         </div>
         <div class="buttons padding">
             <button class="button button-positive button-block" ng-click="search()">
@@ -49,6 +56,11 @@
     </div>
 
 </div>
+<style>
+    .item-radio input:checked+.radio-content .item-content {
+        background: #ffffff;
+    }
+</style>
 <script id="my-modal.html" type="text/ng-template">
     <div class="modal">
         <ion-header-bar>

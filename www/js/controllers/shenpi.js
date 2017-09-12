@@ -1,6 +1,6 @@
 $controllers
 
-    .controller('shenpi', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+    .controller('shenpi', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicListDelegate, $ionicSideMenuDelegate, $http) {
     $ionicModal.fromTemplateUrl('tpls/shenpi-detail.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -9,36 +9,53 @@ $controllers
     });
 
     $scope.showDetail = function(item) {
+        $scope.jihuaItem = item;
+
+        $http({
+            method: "POST",
+            url: '/pilotserver/pilotplan/getlist?type=yhyqsj&str={"yhyids":"' + item.SDYHY.replace(/\|/g, ',') + '"}',
+            //params: params
+        }).success(function(res) {
+
+        });
         $scope.shenpiDetail.show();
     };
+    console.log($rootScope.loginBody);
 
-    $scope.yijian = "";
-    $scope.items = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-    $scope.submit = function() {
-        var myPopup = $ionicPopup.show({
-            template: '<input type="text" ng-model="yijian">',
-            title: '请输入审批意见',
-            subTitle: '',
-            scope: $scope,
-            buttons: [
-                { text: '取消' },
-                {
-                    text: '<b>提交</b>',
-                    type: 'button-positive',
-                    onTap: function(e) {
-
-                        $scope.items = [10, 11, 12, 13, 14, 15, 16, 17];
-
-
-
-                    }
-                },
-            ]
-        });
-        myPopup.then(function(res) {
-            console.log('Tapped!', res);
+    function loadData(str) {
+        $ionicLoading.show({ template: "正在加载数据,请耐心等待..." });
+        var params = { type: "yhjh", jhzt: "0", str: '{"sqlx":"20003","cbhx":"0"}' };
+        if (str) {
+            params.str = JSON.stringify(str);
+        }
+        $http({
+            method: "POST",
+            url: '/pilotserver/pilotplan/getlist?type=yhjh&str={"app":"0","yhz":"' + $rootScope.loginBody.dept.deptName + '"}',
+            //params: params
+        }).success(function(res) {
+            $scope.jihuaList = res.result;
+            $ionicLoading.hide();
         });
     }
+    loadData();
+    var delShow = false;
+    $scope.showDeleteButtons = function() {
+        delShow = !delShow;
+        $ionicListDelegate.showDelete(delShow);
+    };
+
+    $scope.doShenpi = function(item) {
+        var params = { str: { type: "6", "partflag": "0", "shr": $rootScope.loginBody.userPersonId, ids: [item.ID] } };
+
+        $http({
+            method: "POST",
+            url: "/pilotserver/pilotplan/updateplanstatus",
+            params: params
+        }).success(function(res) {
+            loadData();
+        });
+    };
+
 })
 
 ;

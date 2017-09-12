@@ -11,7 +11,7 @@
 
     <ion-content class="has-header scroll-content ionic-scroll">
         <div class="item item-divider">
-            自2017年1月1日起已休假情况
+            已休假情况
         </div>
         <a class="item">
 
@@ -28,58 +28,57 @@
             <a class="item">
       休假人
       <span class="item-note">
-        陈学思
+        {{itemDetail.XM}}
       </span>
      </a>
             <a class="item">
       休假地点
       <span class="item-note">
-        无锡市
+       {{itemDetail.XJCS}}
       </span>
      </a>
             <a class="item">
       休假事由
       <span class="item-note">
-        办理购房贷款的事情
+            {{itemDetail.QXJSY}}
       </span>
      </a>
             <a class="item">
       休假类别
       <span class="item-note">
-        事假
+            {{itemDetail.QJLB}}
       </span>
      </a>
             <a class="item">
       休假开始时间
       <span class="item-note">
-        <input type="datetime-local" value="2016-09-08T04:20">
+            {{itemDetail.KSSJ1|dateqingjia}}
       </span>
      </a>
             <a class="item">
       休假结束时间
       <span class="item-note">
-         <input type="datetime-local" value="2016-09-09T04:20">
+            {{itemDetail.JSSJ1|dateqingjia}}
       </span>
      </a>
             <a class="item">
       请假天数
       <span class="item-note">
-        <input type="text" value="2">
+            {{itemDetail.TS1}}
       </span>
      </a>
             <div class="item item-divider">
-                审批情况
+                批示意见
             </div>
             <a class="item">
 
-                <h2>引航站领导（李某）已同意。</h2>
-                <p>审批意见:XXXXXXXXXXX</p>
+                    {{itemDetail.COMMENTS}}
 
             </a>
-            <div class="item item-divider">
+            <div class="item item-divider" ng-if="false">
                 审批意见
             </div>
-            <div class="list list-inset">
+            <div class="list list-inset" ng-if="false">
                 <label class="item item-input">
     <textarea placeholder="审批内容"></textarea>
   </label>

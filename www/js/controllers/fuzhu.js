@@ -1,6 +1,12 @@
 $controllers
     .controller('faguilists', function($scope, $http, $ionicModal, $ionicLoading, $stateParams) {
-        if ($stateParams.flag == 'GZZD') {
+        if ($stateParams.flag == 'AQGG') {
+            $scope.title = '';
+            $scope.choice = { k: 'AQGG', v: '安全公告' };
+        } else if ($stateParams.flag == 'AQYJ') {
+            $scope.title = '';
+            $scope.choice = { k: 'AQYJ', v: '安全预警' };
+        } else if ($stateParams.flag == 'GZZD') {
             $scope.types = [
                 { k: 'RSGL', v: '人事管理' },
                 { k: 'XZGL', v: '行政管理' },
@@ -55,6 +61,7 @@ $controllers
             $scope.selectShow = false;
             $scope.choice = choice;
             $http.get('/cjpilot/yhapi/content.jspx?type=0&channel=' + choice.k + '&pageNo=' + pageNo + '&pageSize=' + pageSize).success(function(response) {
+                $ionicLoading.hide();
                 if (response.body.content) {
                     if (isRefresh) {
                         $scope.items = response.body.content.list;
@@ -67,7 +74,6 @@ $controllers
                 } else {
                     $scope.noMore = false;
                 }
-                $ionicLoading.hide();
                 $scope.$broadcast('scroll.refreshComplete');
                 $scope.$broadcast('scroll.infiniteScrollComplete');
             });

@@ -3,6 +3,8 @@
   "version": "1.1.1",
   "description": "yinhang: An Ionic project",
   "dependencies": {
+    "cordova-plugin-file": "^4.3.3",
+    "cordova-plugin-file-transfer": "^1.6.3",
     "cordova-plugin-jcore": "file:node_modules/cordova-plugin-jcore",
     "gulp": "^3.5.6",
     "gulp-concat": "^2.2.0",
@@ -30,7 +32,9 @@
       "id": "nl.codeyellow.signature"
     },
     "cordova-plugin-camera@2.3.0",
-    "jpush-phonegap-plugin"
+    "jpush-phonegap-plugin",
+    "cordova-plugin-file",
+    "cordova-plugin-file-transfer"
   ],
   "cordovaPlatforms": [
     "android"
@@ -39,7 +43,9 @@
     "plugins": {
       "jpush-phonegap-plugin": {
         "APP_KEY": "a35efa126392f4479cd615dc"
-      }
+      },
+      "cordova-plugin-file": {},
+      "cordova-plugin-file-transfer": {}
     }
   }
 }
