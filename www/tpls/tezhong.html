@@ -11,14 +11,12 @@
             <header class="bar bar-header bar-dark">
             </header>
             <ion-content class="has-header scroll-content ionic-scroll">
-
-
                 <ion-list>
-                    <ion-item class="item" ng-click="showDetail()" ng-repeat="i in [0,1,2]">
-                        <h2>澄12968&nbsp;(ESTOLAR)</h2>
-                        <p>代理：<span class="positive">常州外代</span> 长度：<span class="assertive">96.55</span> 吃水：<span class="assertive">9.88</span></p>
-                        <p>引领起港<span class="positive">宝山</span> 引领讫港：<span class="positive">九江</span></p>
-                        <p>预计到长江口：<span class="positive">0700/07</span> 离港时间：<span class="positive">700/07</span></p>
+                    <ion-item class="item" ng-click="showTzcb(item)" ng-repeat="item in Tzcb">
+                        <h2>{{item.CBBH}}</h2>
+                        <p>船名：<span class="positive">{{item.CM}}</span> 长度：<span class="assertive">{{item.ZC}}</span> 吃水：<span class="assertive">{{item.ZDCS}}</span></p>
+                        <p>引领起港：<span class="positive">{{item.YLQG}}</span> 引领讫港：<span class="positive">{{item.YLQIG}}</span></p>
+                        <p>预计到长江口：<span class="positive">{{item.DCJKSJ|date}}</span> 离港时间：<span class="positive">{{item.LGKSJ|date}}</span></p>
                     </ion-item>
                 </ion-list>
 
@@ -29,13 +27,11 @@
             <header class="bar bar-header bar-dark">
             </header>
             <ion-content class="has-header scroll-content ionic-scroll">
-
-
                 <ion-list>
-                    <ion-item class="item" ng-click="showDetail1()" ng-repeat="i in [0,1,2,3]">
-                        <h2>ESTOLAR</h2>
-                        <p>代理：<span class="positive">常州外代</span> 长度：<span class="assertive">96.55</span> 吃水：<span class="assertive">9.88</span></p>
-                        <p>引领讫港：<span class="positive">宝山</span> 引领讫港：<span class="positive">九江</span></p>
+                    <ion-item class="item" ng-click="showYhcb(item)" ng-repeat="item in Yhcb">
+                        <h2>{{item.CBBH}}</h2>
+                        <p>船名：<span class="positive">{{item.CM}}</span> 长度：<span class="assertive">{{item.ZC}}</span> 吃水：<span class="assertive">{{item.ZDCS}}</span></p>
+                        <p>引领起港：<span class="positive">{{item.YHQG}}</span> 引领讫港：<span class="positive">{{item.YLQG}}</span></p>
                     </ion-item>
                 </ion-list>
             </ion-content>

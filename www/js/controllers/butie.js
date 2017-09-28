@@ -11,7 +11,7 @@ $controllers
             $scope.butieDetail.show();
         };
         $scope.years = [];
-        for (var i = 0; i < 12; i++) {
+        for (var i = 0; i < 24; i++) {
             $scope.years.push(moment().subtract(i, 'month').format("YYYY-MM"));
         }
 
@@ -24,7 +24,7 @@ $controllers
             $http({
                 method: "GET",
                 url: "/cjpilot/yhapi/vpn/chjt.jspx",
-                params: { pilotDate: date, yhyid: $rootScope.loginBody.loginUserId }
+                params: { pilotDate: date, yhyid: $rootScope.loginBody.userPersonId }
             }).success(function(res) {
                 $scope.data = res.body.chjt;
             });

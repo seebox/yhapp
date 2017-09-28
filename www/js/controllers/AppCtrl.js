@@ -26,7 +26,8 @@ $controllers
     if (window.localStorage.loginBody) {
         $rootScope.loginBody = JSON.parse(window.localStorage.loginBody);
         if (window.plugins && window.plugins.jPushPlugin) {
-            window.plugins.jPushPlugin.setTagsWithAlias([], $rootScope.loginBody.loginUserName);
+            window.plugins.jPushPlugin.setTagsWithAlias([], $rootScope.loginBody.loginUserId);
+            $http.get('/mobileoa/yhapi/message/regist?userid=' + $rootScope.loginBody.loginUserId).success(function(response) {});
         }
     }
 
@@ -56,14 +57,16 @@ $controllers
                 $rootScope.loginModal.hide();
                 $ionicLoading.show({ template: '登录成功' });
                 if (window.plugins && window.plugins.jPushPlugin) {
-                    window.plugins.jPushPlugin.setTagsWithAlias([], $rootScope.loginBody.loginUserName);
+                    window.plugins.jPushPlugin.setTagsWithAlias([], $rootScope.loginBody.loginUserId);
+                    $http.get('/mobileoa/yhapi/message/regist?userid=' + $rootScope.loginBody.loginUserId).success(function(response) {});
                 }
                 $timeout(function() {
                     $ionicLoading.hide();
                 }, 1000);
             } else {
                 $ionicLoading.hide();
-                $ionicPopup.alert({ template: res.message });
+                var alert = { "password error": "密码错误", "user not found": "用户不存在" }
+                $ionicPopup.alert({ template: alert[res.message] });
             }
         }).error(function(data, status, headers, config) {
             alert(config.url);

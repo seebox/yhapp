@@ -37,17 +37,24 @@
   </label>
     <div class="list">
 
-        <div class="item item-divider">
-
-        </div>
+        <div class="item item-divider"></div>
         <ion-list>
             <ion-radio ng-model="sqlx" name="b" value="20003">进江</ion-radio>
             <ion-radio ng-model="sqlx" name="b" value="20004">出江</ion-radio>
             <ion-radio ng-model="sqlx" name="b" value="20005">移泊</ion-radio>
         </ion-list>
-        <div class="item item-divider">
-
+        <div class="item item-divider"></div>
+        <div class="list">
+            <label class="item item-input">
+              <span class="input-label">中文船名</span>
+              <input type="text" ng-model="chName">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">呼号</span>
+              <input type="text" ng-model="callNo">
+            </label>
         </div>
+        <div class="item item-divider"></div>
         <div class="buttons padding">
             <button class="button button-positive button-block" ng-click="search()">
               确定

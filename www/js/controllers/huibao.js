@@ -1,26 +1,24 @@
 $controllers
-    .controller('huibao', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate, $http, $cordovaActionSheet, $cordovaCamera, $cordovaImagePicker) {
+    .controller('huibao', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate, $http, $cordovaActionSheet, $cordovaCamera, $cordovaImagePicker, $cordovaFileTransfer) {
 
-        // $ionicModal.fromTemplateUrl('tpls/huibao-detail.html', {
-        //     scope: $scope,
-        //     animation: 'slide-in-up'
-        // }).then(function(modal) {
-        //     $scope.modalHuibao = modal;
-        // });
+        $ionicModal.fromTemplateUrl('tpls/huibao-detail.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.modalDetail = modal;
+        });
+
         $ionicModal.fromTemplateUrl('tpls/huibao-form.html', {
             scope: $scope,
             animation: 'slide-in-up'
         }).then(function(modal) {
             $scope.modalHuibaoForm = modal;
+
         });
-        // $ionicModal.fromTemplateUrl('tpls/playlist.html', {
-        //     scope: $scope,
-        //     animation: 'slide-in-up'
-        // }).then(function(modal) {
-        //     $scope.playModal = modal;
-        // });
+
         $scope.index = 0;
         $scope.changeTab = function(i) {
+            pageNo = 0;
             $scope.index = i;
             $scope.loadData(true);
         };
@@ -28,18 +26,20 @@ $controllers
 
             var params = {
                 username: $rootScope.loginBody.loginUserName,
-                cbbh: item.cbbh
+                cbbh: item.cbbh,
+                pilot: $rootScope.loginBody.userPersonId
             };
             $http({
                 method: "GET",
                 url: "/cjpilot/yhapi/yhjhBean.jspx",
                 params: params
             }).success(function(res) {
-                $scope.huibaoForm = {};
+                $scope.huibaoForm = Object.assign(res.body.result.hchb, res.body.result.qzd, res.body.result.attach_list);
             });
             $scope.huibaoItem = item;
             $scope.huibaoItem.yhyName = $rootScope.loginBody.loginUserRealName;
             $scope.modalHuibaoForm.show();
+
         };
         $scope.modifyDetail = function(item) {
             $http.get('/cjpilot/yhapi/hchb.jspx?type=1&mode=HCHB&id=' + item.id).success(function(res) {
@@ -49,19 +49,6 @@ $controllers
 
         };
         $scope.huibaolist = [];
-
-
-        $http({
-            method: "GET",
-            url: "/cjpilot/yhapi/hchb.jspx",
-            params: {
-                mode: 'QZD',
-                cbbh: '通w107473',
-                username: $rootScope.loginBody.loginUserName
-            }
-        }).success(function(res) {
-
-        });
 
         var pageNo = 0,
             pageSize = 15;
@@ -80,7 +67,9 @@ $controllers
                 isFinish: $scope.index,
                 pilot: $rootScope.loginBody.userPersonId,
                 stationId: $rootScope.loginBody.dept.deptId,
-                username: $rootScope.loginBody.loginUserName
+                username: $rootScope.loginBody.loginUserName,
+                pageNo: pageNo,
+                pageSize: pageSize
             };
 
             $http({
@@ -107,10 +96,11 @@ $controllers
             });
         };
 
+        $scope.showDetail = function(item) {
+            $scope.huibaoItem = item;
+            $scope.modalDetail.show();
+        }
 
-        // $scope.play = function() {
-        //     $scope.playModal.show();
-        // };
         $scope.dates1 = [0];
         $scope.dates2 = [0];
         $scope.add1 = function() {
@@ -136,6 +126,21 @@ $controllers
             $scope.huibaoForm.sessionKey = $rootScope.loginBody.sessionKey;
             $scope.huibaoForm.appId = SYSTEM.appId;
             $scope.huibaoForm.username = $rootScope.loginBody.loginUserName;
+            $scope.huibaoForm.jjqyhsjd = [];
+            if ($scope.huibaoForm.jjqyhsjd1) {
+                for (var i in $scope.huibaoForm.jjqyhsjd1) {
+                    $scope.huibaoForm.jjqyhsjd.push($scope.huibaoForm.jjqyhsjd1[i] + "/" + $scope.huibaoForm.jjqyhsjd2[i]);
+                }
+            }
+            $scope.huibaoForm.jjqyhsjd = $scope.huibaoForm.jjqyhsjd.join(",");
+            $scope.huibaoForm.jjhyhsjd = [];
+            if ($scope.huibaoForm.jjhyhsjd1) {
+                for (var i in $scope.huibaoForm.jjhyhsjd1) {
+                    $scope.huibaoForm.jjhyhsjd.push($scope.huibaoForm.jjhyhsjd1[i] + "/" + $scope.huibaoForm.jjhyhsjd2[i]);
+                }
+            }
+            $scope.huibaoForm.jjhyhsjd = $scope.huibaoForm.jjhyhsjd.join(",");
+            console.log($scope.huibaoForm);
             var data = [];
             for (var k in $scope.huibaoForm) {
                 data.push(k + "=" + $scope.huibaoForm[k]);
@@ -144,7 +149,6 @@ $controllers
             $http({
                 method: "POST",
                 url: "/cjpilot/yhapi/hchb/save.jsp",
-                //data: data.join("&")
                 params: $scope.huibaoForm
             }).success(function(res) {
                 $scope.modalHuibaoForm.hide();
@@ -154,6 +158,7 @@ $controllers
 
             });
         };
+
 
         $scope.upload = function() {
             $cordovaActionSheet.show({
@@ -182,6 +187,7 @@ $controllers
             };
             $cordovaCamera.getPicture(options).then(function(imageData) {
                 $rootScope.imageData = imageData;
+                filego('ddddd', $rootScope.imageData);
             }, function(err) {
 
             });
@@ -198,29 +204,56 @@ $controllers
             $cordovaImagePicker.getPictures(options)
                 .then(function(results) {
                     $rootScope.imageData = results[0];
+                    filego('ddddd', $rootScope.imageData);
                 }, function(error) {});
         };
 
         function filego(billId, imageURI) {
 
             var options = new FileUploadOptions();
-            options.fileKey = "file";
+            options.fileKey = "files";
             options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
             options.mimeType = "image/jpeg";
             var params = {};
-            params.appId = SYSTEM.appId;
-            params.sessionKey = $rootScope.loginBody.sessionKey;
-            params.username = $rootScope.loginBody.loginUserName;
-            params.billId = billId;
             options.params = params;
             var ft = new FileTransfer();
-            var url = encodeURI(SYSTEM.host + '/yhapi/hchb/fileUpload.jsp');
-            $cordovaFileTransfer.upload(url, options)
-                .then(function(result) {
-                    alert(result);
+            var url = encodeURI(SYSTEM.host + '/cjpilot/yhapi/hchb/fileUpload.jsp?billId=' + billId + '&appId=' +
+                SYSTEM.appId + '&username=' + $rootScope.loginBody.loginUserName + '&sessionKey=' + $rootScope.loginBody.sessionKey);
 
+            $cordovaFileTransfer.upload(url, imageURI, options)
+                .then(function(result) {
+                    $scope.changeTab(1);
                 }, function(err) {
                     alert(err);
                 });
         }
+    }).directive('datetime', function() {
+        return {
+            restrict: 'A',
+            scope: {
+                ngModel: '='
+            },
+            link: function($scope, element, attrs, ngModel) {
+
+                $(element).on('click', function() {
+                    datePicker.show(options, onSuccess, onError);
+                });
+
+                var options = {
+                    date: $scope.ngModel ? $scope.ngModel : new Date(),
+                    mode: 'datetime'
+                };
+
+                function onSuccess(date) {
+                    $scope.$apply(function() {
+                        $scope.ngModel = moment(date).format('YYYY-MM-DD hh:mm:ss');
+                    })
+
+                }
+
+                function onError(error) { // Android only
+                    alert('Error: ' + error);
+                }
+            }
+        };
     });

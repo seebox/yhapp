@@ -3,6 +3,7 @@
   "version": "1.1.1",
   "description": "yinhang: An Ionic project",
   "dependencies": {
+    "cordova-plugin-datepicker": "^0.9.3",
     "cordova-plugin-file": "^4.3.3",
     "cordova-plugin-file-transfer": "^1.6.3",
     "cordova-plugin-jcore": "file:node_modules/cordova-plugin-jcore",
@@ -34,7 +35,8 @@
     "cordova-plugin-camera@2.3.0",
     "jpush-phonegap-plugin",
     "cordova-plugin-file",
-    "cordova-plugin-file-transfer"
+    "cordova-plugin-file-transfer",
+    "cordova-plugin-datepicker"
   ],
   "cordovaPlatforms": [
     "android"
@@ -45,7 +47,8 @@
         "APP_KEY": "a35efa126392f4479cd615dc"
       },
       "cordova-plugin-file": {},
-      "cordova-plugin-file-transfer": {}
+      "cordova-plugin-file-transfer": {},
+      "cordova-plugin-datepicker": {}
     }
   }
 }

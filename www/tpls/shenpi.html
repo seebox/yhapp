@@ -8,19 +8,28 @@
         <h1 class="title">江阴引航站</h1>
         <div class="buttons">
             <button class="button button-clear" ng-click="showDeleteButtons()">
-				<i class="ion-android-checkbox-outline"></i>
+				<i class="icon ion-android-checkbox-outline"></i>
 			</button>
         </div>
     </div>
-    <ion-content class="has-header scroll-content ionic-scroll">
+    <ion-content class="has-header scroll-content ionic-scroll" ng-class="{'has-footer':delShow}">
         <ion-list>
             <ion-item class="item" ng-click="showDetail(item)" ng-repeat="item in jihuaList">
                 <h2>{{item.CH_NAME}}({{item.EN_NAME}})</h2>
                 <p>代理：<span class="positive">{{item.AGENT_NAME}}</span> 长度：<span class="assertive">{{item.VESSEL_LONG}}</span> 吃水：<span class="assertive">{{item.DRAFT_BEHIND}}</span></p>
                 <p>始发地：<span class="positive">{{item.ORIGIN_BWMC}}</span> 目的地：<span class="positive">{{item.DESTINATION_BWMC}}</span></p>
                 <p>开航时间：<span class="positive">{{item.KHSJ|date}}</span> 抵澄时间：<span class="positive">{{item.DCSJ|date}}</span></p>
-                <ion-delete-button class="ion-checkmark-circled" ng-click="doShenpi(item)"></ion-delete-button>
+                <ion-delete-button ng-click="doSelect(item)" class="checkbox">
+                    <input type="checkbox" ng-checked="item.checked">
+                </ion-delete-button>
             </ion-item>
         </ion-list>
     </ion-content>
+    <div class="bar bar-footer bar-stable" ng-show="delShow">
+        <div class="buttons">
+            <button class="button button-positive" ng-click="doShenpi()"><i class="icon ion-android-done"></i>审批</button>
+            <button class="button button-clear"></button>
+            <button class="button button-positive" ng-click="doCancel()"><i class="icon ion-loading-c"></i>取消</button>
+        </div>
+    </div>
 </ion-view>

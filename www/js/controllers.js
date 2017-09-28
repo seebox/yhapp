@@ -26,7 +26,8 @@ $controllers
     if (window.localStorage.loginBody) {
         $rootScope.loginBody = JSON.parse(window.localStorage.loginBody);
         if (window.plugins && window.plugins.jPushPlugin) {
-            window.plugins.jPushPlugin.setTagsWithAlias([], $rootScope.loginBody.loginUserName);
+            window.plugins.jPushPlugin.setTagsWithAlias([], $rootScope.loginBody.loginUserId);
+            $http.get('/mobileoa/yhapi/message/regist?userid=' + $rootScope.loginBody.loginUserId).success(function(response) {});
         }
     }
 
@@ -56,14 +57,16 @@ $controllers
                 $rootScope.loginModal.hide();
                 $ionicLoading.show({ template: '登录成功' });
                 if (window.plugins && window.plugins.jPushPlugin) {
-                    window.plugins.jPushPlugin.setTagsWithAlias([], $rootScope.loginBody.loginUserName);
+                    window.plugins.jPushPlugin.setTagsWithAlias([], $rootScope.loginBody.loginUserId);
+                    $http.get('/mobileoa/yhapi/message/regist?userid=' + $rootScope.loginBody.loginUserId).success(function(response) {});
                 }
                 $timeout(function() {
                     $ionicLoading.hide();
                 }, 1000);
             } else {
                 $ionicLoading.hide();
-                $ionicPopup.alert({ template: res.message });
+                var alert = { "password error": "密码错误", "user not found": "用户不存在" }
+                $ionicPopup.alert({ template: alert[res.message] });
             }
         }).error(function(data, status, headers, config) {
             alert(config.url);
@@ -159,7 +162,7 @@ $controllers
             $scope.butieDetail.show();
         };
         $scope.years = [];
-        for (var i = 0; i < 12; i++) {
+        for (var i = 0; i < 24; i++) {
             $scope.years.push(moment().subtract(i, 'month').format("YYYY-MM"));
         }
 
@@ -172,7 +175,7 @@ $controllers
             $http({
                 method: "GET",
                 url: "/cjpilot/yhapi/vpn/chjt.jspx",
-                params: { pilotDate: date, yhyid: $rootScope.loginBody.loginUserId }
+                params: { pilotDate: date, yhyid: $rootScope.loginBody.userPersonId }
             }).success(function(res) {
                 $scope.data = res.body.chjt;
             });
@@ -249,6 +252,10 @@ $controllers
                 { k: 'AQGL', v: '安全管理' },
                 { k: 'SCDD', v: '生产调度' }
             ];
+            $http.get('cjpilot/yhapi/channelList.jspx?parent=AQGG').success(function(response) {
+                //$scope.types;
+            });
+
             $scope.title = '规章制度 - ';
             $scope.choice = { k: 'RSGL', v: '人事管理' };
             $scope.cur = "RSGL";
@@ -359,28 +366,26 @@ $controllers
 
 });
 $controllers
-    .controller('huibao', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate, $http, $cordovaActionSheet, $cordovaCamera, $cordovaImagePicker) {
+    .controller('huibao', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate, $http, $cordovaActionSheet, $cordovaCamera, $cordovaImagePicker, $cordovaFileTransfer) {
 
-        // $ionicModal.fromTemplateUrl('tpls/huibao-detail.html', {
-        //     scope: $scope,
-        //     animation: 'slide-in-up'
-        // }).then(function(modal) {
-        //     $scope.modalHuibao = modal;
-        // });
+        $ionicModal.fromTemplateUrl('tpls/huibao-detail.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.modalDetail = modal;
+        });
+
         $ionicModal.fromTemplateUrl('tpls/huibao-form.html', {
             scope: $scope,
             animation: 'slide-in-up'
         }).then(function(modal) {
             $scope.modalHuibaoForm = modal;
+
         });
-        // $ionicModal.fromTemplateUrl('tpls/playlist.html', {
-        //     scope: $scope,
-        //     animation: 'slide-in-up'
-        // }).then(function(modal) {
-        //     $scope.playModal = modal;
-        // });
+
         $scope.index = 0;
         $scope.changeTab = function(i) {
+            pageNo = 0;
             $scope.index = i;
             $scope.loadData(true);
         };
@@ -388,18 +393,20 @@ $controllers
 
             var params = {
                 username: $rootScope.loginBody.loginUserName,
-                cbbh: item.cbbh
+                cbbh: item.cbbh,
+                pilot: $rootScope.loginBody.userPersonId
             };
             $http({
                 method: "GET",
                 url: "/cjpilot/yhapi/yhjhBean.jspx",
                 params: params
             }).success(function(res) {
-                $scope.huibaoForm = {};
+                $scope.huibaoForm = Object.assign(res.body.result.hchb, res.body.result.qzd, res.body.result.attach_list);
             });
             $scope.huibaoItem = item;
             $scope.huibaoItem.yhyName = $rootScope.loginBody.loginUserRealName;
             $scope.modalHuibaoForm.show();
+
         };
         $scope.modifyDetail = function(item) {
             $http.get('/cjpilot/yhapi/hchb.jspx?type=1&mode=HCHB&id=' + item.id).success(function(res) {
@@ -409,19 +416,6 @@ $controllers
 
         };
         $scope.huibaolist = [];
-
-
-        $http({
-            method: "GET",
-            url: "/cjpilot/yhapi/hchb.jspx",
-            params: {
-                mode: 'QZD',
-                cbbh: '通w107473',
-                username: $rootScope.loginBody.loginUserName
-            }
-        }).success(function(res) {
-
-        });
 
         var pageNo = 0,
             pageSize = 15;
@@ -440,7 +434,9 @@ $controllers
                 isFinish: $scope.index,
                 pilot: $rootScope.loginBody.userPersonId,
                 stationId: $rootScope.loginBody.dept.deptId,
-                username: $rootScope.loginBody.loginUserName
+                username: $rootScope.loginBody.loginUserName,
+                pageNo: pageNo,
+                pageSize: pageSize
             };
 
             $http({
@@ -467,10 +463,11 @@ $controllers
             });
         };
 
+        $scope.showDetail = function(item) {
+            $scope.huibaoItem = item;
+            $scope.modalDetail.show();
+        }
 
-        // $scope.play = function() {
-        //     $scope.playModal.show();
-        // };
         $scope.dates1 = [0];
         $scope.dates2 = [0];
         $scope.add1 = function() {
@@ -496,6 +493,21 @@ $controllers
             $scope.huibaoForm.sessionKey = $rootScope.loginBody.sessionKey;
             $scope.huibaoForm.appId = SYSTEM.appId;
             $scope.huibaoForm.username = $rootScope.loginBody.loginUserName;
+            $scope.huibaoForm.jjqyhsjd = [];
+            if ($scope.huibaoForm.jjqyhsjd1) {
+                for (var i in $scope.huibaoForm.jjqyhsjd1) {
+                    $scope.huibaoForm.jjqyhsjd.push($scope.huibaoForm.jjqyhsjd1[i] + "/" + $scope.huibaoForm.jjqyhsjd2[i]);
+                }
+            }
+            $scope.huibaoForm.jjqyhsjd = $scope.huibaoForm.jjqyhsjd.join(",");
+            $scope.huibaoForm.jjhyhsjd = [];
+            if ($scope.huibaoForm.jjhyhsjd1) {
+                for (var i in $scope.huibaoForm.jjhyhsjd1) {
+                    $scope.huibaoForm.jjhyhsjd.push($scope.huibaoForm.jjhyhsjd1[i] + "/" + $scope.huibaoForm.jjhyhsjd2[i]);
+                }
+            }
+            $scope.huibaoForm.jjhyhsjd = $scope.huibaoForm.jjhyhsjd.join(",");
+            console.log($scope.huibaoForm);
             var data = [];
             for (var k in $scope.huibaoForm) {
                 data.push(k + "=" + $scope.huibaoForm[k]);
@@ -504,7 +516,6 @@ $controllers
             $http({
                 method: "POST",
                 url: "/cjpilot/yhapi/hchb/save.jsp",
-                //data: data.join("&")
                 params: $scope.huibaoForm
             }).success(function(res) {
                 $scope.modalHuibaoForm.hide();
@@ -514,6 +525,7 @@ $controllers
 
             });
         };
+
 
         $scope.upload = function() {
             $cordovaActionSheet.show({
@@ -542,6 +554,7 @@ $controllers
             };
             $cordovaCamera.getPicture(options).then(function(imageData) {
                 $rootScope.imageData = imageData;
+                filego('ddddd', $rootScope.imageData);
             }, function(err) {
 
             });
@@ -558,31 +571,58 @@ $controllers
             $cordovaImagePicker.getPictures(options)
                 .then(function(results) {
                     $rootScope.imageData = results[0];
+                    filego('ddddd', $rootScope.imageData);
                 }, function(error) {});
         };
 
         function filego(billId, imageURI) {
 
             var options = new FileUploadOptions();
-            options.fileKey = "file";
+            options.fileKey = "files";
             options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
             options.mimeType = "image/jpeg";
             var params = {};
-            params.appId = SYSTEM.appId;
-            params.sessionKey = $rootScope.loginBody.sessionKey;
-            params.username = $rootScope.loginBody.loginUserName;
-            params.billId = billId;
             options.params = params;
             var ft = new FileTransfer();
-            var url = encodeURI(SYSTEM.host + '/yhapi/hchb/fileUpload.jsp');
-            $cordovaFileTransfer.upload(url, options)
-                .then(function(result) {
-                    alert(result);
+            var url = encodeURI(SYSTEM.host + '/cjpilot/yhapi/hchb/fileUpload.jsp?billId=' + billId + '&appId=' +
+                SYSTEM.appId + '&username=' + $rootScope.loginBody.loginUserName + '&sessionKey=' + $rootScope.loginBody.sessionKey);
 
+            $cordovaFileTransfer.upload(url, imageURI, options)
+                .then(function(result) {
+                    $scope.changeTab(1);
                 }, function(err) {
                     alert(err);
                 });
         }
+    }).directive('datetime', function() {
+        return {
+            restrict: 'A',
+            scope: {
+                ngModel: '='
+            },
+            link: function($scope, element, attrs, ngModel) {
+
+                $(element).on('click', function() {
+                    datePicker.show(options, onSuccess, onError);
+                });
+
+                var options = {
+                    date: $scope.ngModel ? $scope.ngModel : new Date(),
+                    mode: 'datetime'
+                };
+
+                function onSuccess(date) {
+                    $scope.$apply(function() {
+                        $scope.ngModel = moment(date).format('YYYY-MM-DD hh:mm:ss');
+                    })
+
+                }
+
+                function onError(error) { // Android only
+                    alert('Error: ' + error);
+                }
+            }
+        };
     });
 $controllers
     .controller('jiaoliu', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $http) {
@@ -783,6 +823,8 @@ $controllers
                 stationId: $rootScope.loginBody.dept.deptId,
                 imexportId: $scope.sqlx,
                 username: $rootScope.loginBody.loginUserName,
+                chName: $scope.chName,
+                callNo: $scope.callNo,
                 pageNo: pageNo,
                 pageSize: pageSize
             };
@@ -981,7 +1023,7 @@ $controllers
         url: "pilotserver/pilotplan/getlist",
         params: {
             type: 'yhyqsj',
-            str: JSON.stringify({ "dw": "南通站", "yhyid": $rootScope.loginBody.userPersonId })
+            str: JSON.stringify({ "dw": $rootScope.loginBody.dept.deptName, "yhyid": $rootScope.loginBody.userPersonId })
         }
     }).success(function(res) {
         $scope.items = res.result;
@@ -1000,7 +1042,7 @@ $controllers
 );;
 $controllers
 
-    .controller('shenpi', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicListDelegate, $ionicSideMenuDelegate, $http) {
+    .controller('shenpi', function($rootScope, $scope, $ionicModal, $ionicPopup, $timeout, $ionicLoading, $ionicListDelegate, $ionicSideMenuDelegate, $http) {
     $ionicModal.fromTemplateUrl('tpls/shenpi-detail.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -1020,7 +1062,6 @@ $controllers
         });
         $scope.shenpiDetail.show();
     };
-    console.log($rootScope.loginBody);
 
     function loadData(str) {
         $ionicLoading.show({ template: "正在加载数据,请耐心等待..." });
@@ -1030,7 +1071,7 @@ $controllers
         }
         $http({
             method: "POST",
-            url: '/pilotserver/pilotplan/getlist?type=yhjh&str={"app":"0","yhz":"' + $rootScope.loginBody.dept.deptName + '"}',
+            url: '/pilotserver/pilotplan/getlist?type=yhjh&str={"app":"0","shzt":"0",yhz":"' + $rootScope.loginBody.dept.deptName + '"}',
             //params: params
         }).success(function(res) {
             $scope.jihuaList = res.result;
@@ -1038,22 +1079,43 @@ $controllers
         });
     }
     loadData();
-    var delShow = false;
+    $scope.delShow = false;
     $scope.showDeleteButtons = function() {
-        delShow = !delShow;
-        $ionicListDelegate.showDelete(delShow);
+        $scope.delShow = !$scope.delShow;
+        $ionicListDelegate.showDelete($scope.delShow);
     };
 
-    $scope.doShenpi = function(item) {
-        var params = { str: { type: "6", "partflag": "0", "shr": $rootScope.loginBody.userPersonId, ids: [item.ID] } };
+    $scope.doSelect = function(item) {
+        item.checked = !!!item.checked;
+    };
+    $scope.doCancel = function() {
+        $scope.delShow = false;
+        $ionicListDelegate.showDelete($scope.delShow);
+    };
+    $scope.doShenpi = function() {
+        var ids = [];
+        for (var i in $scope.jihuaList) {
+            if ($scope.jihuaList[i].checked) {
+                ids.push($scope.jihuaList[i].ID);
+            }
+        }
+        if (ids.length > 0) {
+            var params = { str: { type: "6", "partflag": "0", "shr": $rootScope.loginBody.userPersonId, ids: ids } };
+            $http({
+                method: "POST",
+                url: "/pilotserver/pilotplan/updateplanstatus",
+                params: params
+            }).success(function(res) {
+                $scope.delShow = false;
+                //loadData();
+            });
+        } else {
+            var alertPopup = $ionicPopup.alert({
+                title: '请选择要审批的计划',
+                okText: '确定'
+            });
+        }
 
-        $http({
-            method: "POST",
-            url: "/pilotserver/pilotplan/updateplanstatus",
-            params: params
-        }).success(function(res) {
-            loadData();
-        });
     };
 
 })
@@ -1062,7 +1124,7 @@ $controllers
 $controllers
 
 
-    .controller('tezhong', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+    .controller('tezhong', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $http) {
     $ionicModal.fromTemplateUrl('tpls/tezhong-detail.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -1076,10 +1138,12 @@ $controllers
         $scope.yehangDetail = modal;
     });
 
-    $scope.showDetail = function(item) {
+    $scope.showTzcb = function(item) {
+        $scope.tzcbDetail = item;
         $scope.tezhongDetail.show();
     };
-    $scope.showDetail1 = function(item) {
+    $scope.showYhcb = function(item) {
+        $scope.yhcbDetail = item;
         $scope.yehangDetail.show();
     };
 
@@ -1102,6 +1166,13 @@ $controllers
             $ionicLoading.hide();
         }, 2000)
     }
+
+    $http.get('/WebapiService/GetTzcbInfo').success(function(response) {
+        $scope.Tzcb = response;
+    });
+    $http.get('/WebapiService/GetYhcbInfo').success(function(response) {
+        $scope.Yhcb = response;
+    });
 });
 $controllers
     .controller('xiaoxi', function($rootScope, $scope, $ionicModal, $http, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {

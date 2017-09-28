@@ -1,7 +1,7 @@
 $controllers
 
 
-    .controller('tezhong', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
+    .controller('tezhong', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $http) {
     $ionicModal.fromTemplateUrl('tpls/tezhong-detail.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -15,10 +15,12 @@ $controllers
         $scope.yehangDetail = modal;
     });
 
-    $scope.showDetail = function(item) {
+    $scope.showTzcb = function(item) {
+        $scope.tzcbDetail = item;
         $scope.tezhongDetail.show();
     };
-    $scope.showDetail1 = function(item) {
+    $scope.showYhcb = function(item) {
+        $scope.yhcbDetail = item;
         $scope.yehangDetail.show();
     };
 
@@ -41,4 +43,11 @@ $controllers
             $ionicLoading.hide();
         }, 2000)
     }
+
+    $http.get('/WebapiService/GetTzcbInfo').success(function(response) {
+        $scope.Tzcb = response;
+    });
+    $http.get('/WebapiService/GetYhcbInfo').success(function(response) {
+        $scope.Yhcb = response;
+    });
 });

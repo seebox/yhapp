@@ -15,6 +15,10 @@ $controllers
                 { k: 'AQGL', v: '安全管理' },
                 { k: 'SCDD', v: '生产调度' }
             ];
+            $http.get('cjpilot/yhapi/channelList.jspx?parent=AQGG').success(function(response) {
+                //$scope.types;
+            });
+
             $scope.title = '规章制度 - ';
             $scope.choice = { k: 'RSGL', v: '人事管理' };
             $scope.cur = "RSGL";

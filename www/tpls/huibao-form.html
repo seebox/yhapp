@@ -138,19 +138,19 @@
             <div class="item item-divider">
                 上段登离船时间
             </div>
-            <div class="item item-input"> <input type="datetime-local" ng-model="huibaoForm.sddcsj" value=""> ~ <input type="datetime-local" ng-model="huibaoForm.sdlcsj" value=""></div>
+            <div class="item item-input"> <input type="text" ng-model="huibaoForm.sddcsj" datetime> ~ <input type="text" ng-model="huibaoForm.sdlcsj" datetime></div>
             <div class="item item-divider">
                 上段夜航时间段<i class="item-note icon ion-plus" ng-click="add1()"></i> <i class="item-note icon">&nbsp;&nbsp;</i><i class="item-note ion-minus" ng-click="min1()"></i>
             </div>
-            <div class="item item-input" ng-repeat="date1 in dates1"> <input type="datetime-local" value=""> ~ <input type="datetime-local" value=""></div>
+            <div class="item item-input" ng-repeat="date1 in dates1"> <input type="text" ng-model="huibaoForm.jjqyhsjd1[date1]" datetime> ~ <input type="text" ng-model="huibaoForm.jjqyhsjd2[date1]" datetime></div>
             <div class="item item-divider">
                 下段登离船时间
             </div>
-            <div class="item item-input"> <input type="datetime-local" value=""> ~ <input type="datetime-local" value=""></div>
+            <div class="item item-input"> <input type="text" ng-model="huibaoForm.xddcsj" datetime> ~ <input type="text" ng-model="huibaoForm.xdlcsj" datetime></div>
             <div class="item item-divider">
                 下段夜航时间段<i class="item-note icon ion-plus" ng-click="add2()"></i> <i class="item-note icon">&nbsp;&nbsp;</i><i class="item-note ion-minus" ng-click="min2()"></i>
             </div>
-            <div class="item item-input" ng-repeat="date1 in dates2"> <input type="datetime-local" ng-model="huibaoForm.xddcsj" value=""> ~ <input type="datetime-local" ng-model="huibaoForm.xdlcsj" value=""></div>
+            <div class="item item-input" ng-repeat="date1 in dates2"> <input type="text" ng-model="huibaoForm.jjhyhsjd1[date1]" datetime> ~ <input type="text" ng-model="huibaoForm.jjhyhsjd2[date1]" datetime></div>
             <a class="item" ng-click="upload()"> 纸质签证单拍照<span class="item-note" style="font-size:26px;"><i class="icon ion-ios-reverse-camera-outline"></i></span> </a>
             <div><img ng-src="{{imageData}}" style="display:block;height:200px;margin:5px auto;"></div>
 

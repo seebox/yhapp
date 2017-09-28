@@ -63,6 +63,8 @@ $controllers
                 stationId: $rootScope.loginBody.dept.deptId,
                 imexportId: $scope.sqlx,
                 username: $rootScope.loginBody.loginUserName,
+                chName: $scope.chName,
+                callNo: $scope.callNo,
                 pageNo: pageNo,
                 pageSize: pageSize
             };
