@@ -16,7 +16,6 @@ $controllers
 
         $scope.changedOrg = function() {
             $scope.usersModal.hide();
-            console.log($scope.deptList);
         };
         $scope.selectOrg = function(item) {
             item.checked = !item.checked;
@@ -30,22 +29,52 @@ $controllers
 
         $scope.changeTab = function(i) {
             $scope.index = i;
-            loadData();
+            $scope.loadData(true);
         };
         $scope.index = 0;
+        var pagenum = 0,
+            count = 20;
+
         var listUri = [
-            "/mobileoa/japi/discuss/listNotBelongOrg", //不可回答
+            "/mobileoa/japi/discuss/list", //不可回答
             "/mobileoa/japi/discuss/listBelongOrg", //可回答
             "/mobileoa/japi/discuss/myList" //我提问的
         ];
-        console.log($rootScope);
+        $scope.items = [];
+        $scope.noMore = true;
+        $scope.loadData = function(isRefresh) {
 
-        function loadData() {
-            $http.get(listUri[$scope.index] + '?orgId=' + $rootScope.loginBody.dept.deptId + "&userid=" + $rootScope.loginBody.loginUserId).success(function(res) {
-                $scope.items = res;
+            if (isRefresh) {
+                pagenum = 1;
+            } else {
+                ++pagenum;
+            }
+            $http({
+                method: "GET",
+                url: listUri[$scope.index],
+                params: {
+                    orgId: $rootScope.loginBody.dept.deptId,
+                    userid: $rootScope.loginBody.loginUserId,
+                    pagenum: pagenum,
+                    count: count
+                }
+            }).success(function(res) {
+                $ionicLoading.hide();
+
+                if (isRefresh) {
+                    $scope.items = res;
+                } else {
+                    $scope.items = $scope.items.concat(res);
+                }
+                if (res.length > 0) {
+                    $scope.noMore = true;
+                } else {
+                    $scope.noMore = false;
+                }
+                $scope.$broadcast('scroll.refreshComplete');
+                $scope.$broadcast('scroll.infiniteScrollComplete');
             });
         }
-        loadData();
 
 
         $scope.tiwen = function() {
@@ -60,7 +89,7 @@ $controllers
                     title: $scope.rep.reply,
                     invitedOrgs: invites.join(",")
                 }).success(function(res) {
-                    loadData();
+                    $scope.loadData(true);
                     $scope.jiaoliuModal.hide();
                 });
             }
@@ -77,7 +106,7 @@ $controllers
 
         $scope.delDiscuss = function(item) {
             $http.get('/mobileoa/japi/discuss/delete/' + item.id + '?userid=' + $rootScope.loginBody.loginUserId).success(function(res) {
-                loadData();
+                $scope.loadData(true);
             });
         };
 
@@ -92,6 +121,7 @@ $controllers
             $scope.detail = res;
         });
         $scope.replay = "";
+        $scope.index = $stateParams.index;
         $scope.submit = function() {
             if ($scope.replay.replace(/\s/, '').length > 0) {
                 $http.post('/mobileoa/japi/discuss/answer?bizid=' + $stateParams.id + '&userid=' + $rootScope.loginBody.loginUserId, { answerContent: $scope.replay }).success(function(res) {

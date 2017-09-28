@@ -13,7 +13,7 @@
             <div class="item">
                 <h2>提问：{{detail.title}}</h2>
                 <p>
-                    XXX - 引航中心引航员
+                    {{detail.creator.userRealname}}
                 </p>
             </div>
             <div class="list list-inset">
@@ -21,7 +21,7 @@
                 <ion-list>
                     <ion-item ng-repeat="answer in detail.answers">
 
-                        王学海：{{answer.answerContent}}
+                        {{answer.creator.userRealname}}：{{answer.anwserContent}}
                         <ion-option-button class="button-assertive" ng-click="delAnswer(answer)">删除</ion-option-button>
                     </ion-item>
                 </ion-list>
@@ -29,7 +29,7 @@
 
             </div>
 
-            <div class="padding">
+            <div class="padding" ng-if="index==1">
                 <button class="button button-block button-positive" ng-click="answer()">回答</button>
             </div>
 
@@ -37,11 +37,10 @@
                 评论
             </div>
             <ion-list>
-                <ion-item class="item item-avatar" ng-repeat="item in detail.comments">
-                    <img src="img/ionic.png">
-                    <h2>郑智化</h2>
+                <ion-item class="item" ng-repeat="item in detail.comments">
+                    <h2>{{item.creator.userRealname}}</h2>
                     <p>
-                        {{item.commentContent}}
+                        {{item.commentConent}}
                     </p>
                     <ion-option-button class="button-assertive" ng-click="delComment(item)">删除</ion-option-button>
                 </ion-item>

@@ -249,7 +249,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
                 }
             })
             .state('app.jiaoliu-detail', {
-                url: '/jiaoliu/:id',
+                url: '/jiaoliu/:id/:index',
                 cache: false,
                 views: {
                     'menuContent': {
