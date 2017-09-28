@@ -41,7 +41,7 @@ $controllers
         console.log($rootScope);
 
         function loadData() {
-            $http.get(listUri[$scope.index] + '?orgId=' + $rootScope.loginBody.dept.deptId).success(function(res) {
+            $http.get(listUri[$scope.index] + '?orgId=' + $rootScope.loginBody.dept.deptId + "&userid=" + $rootScope.loginBody.loginUserId).success(function(res) {
                 $scope.items = res;
             });
         }
@@ -56,7 +56,7 @@ $controllers
                 }
             }
             if ($scope.rep.reply.replace(/\s/, '').length > 0 && invites.length > 0) {
-                $http.post('/mobileoa/japi/discuss/add', {
+                $http.post('/mobileoa/japi/discuss/add?userid=' + $rootScope.loginBody.loginUserId, {
                     title: $scope.rep.reply,
                     invitedOrgs: invites.join(",")
                 }).success(function(res) {
@@ -76,7 +76,7 @@ $controllers
         });
 
         $scope.delDiscuss = function(item) {
-            $http.get('/mobileoa/japi/discuss/delete/' + item.id).success(function(res) {
+            $http.get('/mobileoa/japi/discuss/delete/' + item.id + '?userid=' + $rootScope.loginBody.loginUserId).success(function(res) {
                 loadData();
             });
         };
@@ -88,13 +88,13 @@ $controllers
             $scope.answerShow = true;
         };
 
-        $http.get('/mobileoa/japi/discuss/get/' + $stateParams.id).success(function(res) {
+        $http.get('/mobileoa/japi/discuss/get/' + $stateParams.id + '?userid=' + $rootScope.loginBody.loginUserId).success(function(res) {
             $scope.detail = res;
         });
         $scope.replay = "";
         $scope.submit = function() {
             if ($scope.replay.replace(/\s/, '').length > 0) {
-                $http.post('/mobileoa/japi/discuss/answer?bizid=' + $stateParams.id + '&username=yhyd', { answerContent: $scope.replay }).success(function(res) {
+                $http.post('/mobileoa/japi/discuss/answer?bizid=' + $stateParams.id + '&userid=' + $rootScope.loginBody.loginUserId, { answerContent: $scope.replay }).success(function(res) {
                     $scope.detail = res;
                     $scope.answerShow = !$scope.answerShow;
                     $scope.replay = "";
@@ -106,7 +106,7 @@ $controllers
         $scope.comm = function() {
 
             if ($scope.comment.replace(/\s/, '').length > 0) {
-                $http.post('/mobileoa/japi/discuss/comment?bizid=' + $stateParams.id + '&username=yhyd', { commentContent: $scope.comment }).success(function(res) {
+                $http.post('/mobileoa/japi/discuss/comment?bizid=' + $stateParams.id + '&userid=' + $rootScope.loginBody.loginUserId, { commentContent: $scope.comment }).success(function(res) {
                     $scope.detail = res;
                     $scope.comment = "";
                 });
@@ -115,8 +115,8 @@ $controllers
 
         $scope.delAnswer = function(answer) {
 
-            $http.get('/mobileoa/japi/discuss/answer/delete/' + answer.id).success(function(res) {
-                $http.get('/mobileoa/japi/discuss/get/' + $stateParams.id).success(function(res) {
+            $http.get('/mobileoa/japi/discuss/answer/delete/' + answer.id + '?userid=' + $rootScope.loginBody.loginUserId).success(function(res) {
+                $http.get('/mobileoa/japi/discuss/get/' + $stateParams.id + '?userid=' + $rootScope.loginBody.loginUserId).success(function(res) {
                     $scope.detail = res;
                 });
             });
@@ -124,8 +124,8 @@ $controllers
 
         $scope.delComment = function(comm) {
 
-            $http.get('/mobileoa/japi/discuss/comment/delete/' + comm.id).success(function(res) {
-                $http.get('/mobileoa/japi/discuss/get/' + $stateParams.id).success(function(res) {
+            $http.get('/mobileoa/japi/discuss/comment/delete/' + comm.id + '?userid=' + $rootScope.loginBody.loginUserId).success(function(res) {
+                $http.get('/mobileoa/japi/discuss/get/' + $stateParams.id + '?userid=' + $rootScope.loginBody.loginUserId).success(function(res) {
                     $scope.detail = res;
                 });
             });
