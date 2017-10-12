@@ -14,14 +14,28 @@ $controllers
     }).then(function(modal) {
         $scope.yehangDetail = modal;
     });
-
+    var details;
     $scope.showTzcb = function(item) {
         $scope.tzcbDetail = item;
         $scope.tezhongDetail.show();
+        $http({
+            method: "GET",
+            url: "/WebapiService/GetSpInfo",
+            params: { id: item.ID }
+        }).success(function(res) {
+            details = res.Details;
+        });
     };
     $scope.showYhcb = function(item) {
         $scope.yhcbDetail = item;
         $scope.yehangDetail.show();
+        $http({
+            method: "GET",
+            url: "/WebapiService/GetSpInfo",
+            params: { id: item.ID }
+        }).success(function(res) {
+            details = res.Details;
+        });
     };
 
     $ionicModal.fromTemplateUrl('anquan-modal.html', {
@@ -31,13 +45,48 @@ $controllers
         $scope.anquanModal = modal;
     });
 
-    $scope.baobei = function() {
+    $scope.baobei = function(tzcbDetail) {
+        $http({
+            method: "GET",
+            url: "/WebapiService/SpFun",
+            params: {
+                yeOrTe: 1,
+                Sqid: tzcbDetail.ID,
+                nextSpDetailsId: details[1].ID,
+                IsFinish: "true",
+                currUserId: $rootScope.loginBody.loginUserId,
+                YHZAQCS: "1",
+                AJBYJ: "2",
+                LDYJ: "3"
+            }
+        }).success(function(res) {
+
+        });
         $ionicLoading.show({ template: '审核已完成' });
         $timeout(function() {
             $ionicLoading.hide();
         }, 2000);
     }
-    $scope.baopi = function() {
+    $scope.yj = "";
+    $scope.baopi = function(tzcbDetail) {
+        console.log($scope.yj);
+        $http({
+            method: "GET",
+            url: "/WebapiService/SpFun",
+            params: {
+                yeOrTe: 1,
+                Sqid: tzcbDetail.ID,
+                nextSpDetailsId: details[1].ID,
+                IsFinish: "false",
+                currUserId: $rootScope.loginBody.loginUserId,
+                YHZAQCS: "1",
+                AJBYJ: $scope.yj,
+                LDYJ: "3"
+            }
+        }).success(function(res) {
+
+        });
+
         $ionicLoading.show({ template: '已转到安技部审批' });
         $timeout(function() {
             $ionicLoading.hide();

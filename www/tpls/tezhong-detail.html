@@ -149,7 +149,7 @@
             </div>
             <div class="list list-inset">
                 <label class="item item-input">
-      <textarea placeholder="审批内容"></textarea>
+      <textarea placeholder="审批内容" ng-model="yj"></textarea>
     </label>
                 <label class="item" ng-click="anquanModal.show()">
       安全措施
@@ -158,8 +158,8 @@
     </span>
   </label>
                 <div class="button-bar bar-positive">
-                    <a class="button " ng-click="baobei()">报备</a>
-                    <a class="button " ng-click="baopi()">报批</a>
+                    <a class="button " ng-click="baobei(tzcbDetail)">报备</a>
+                    <a class="button " ng-click="baopi(tzcbDetail)">报批</a>
                 </div>
             </div>
 
