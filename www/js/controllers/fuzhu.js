@@ -87,6 +87,10 @@ $controllers
                 $scope.detail = response.body.content;
                 $scope.modalHangxin.show();
             });
+            $http.get('/cjpilot/yhapi/readContent.jspx?learnLengthUsed=1&contentId=' + id).success(function(response) {
+                $scope.detail = response.body.content;
+                $scope.modalHangxin.show();
+            });
         };
 
 

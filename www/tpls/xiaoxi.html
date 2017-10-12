@@ -10,7 +10,7 @@
     </div>
 
     <ion-content class="has-header scroll-content ionic-scroll">
-
+        <ion-refresher pulling-text="下拉刷新" on-refresh="loadData(true)"></ion-refresher>
         <div class="list">
 
             <a class="item" ng-repeat="item in items" ng-click="showDetail(item)">
@@ -24,6 +24,6 @@
             </a>
 
         </div>
-
+        <ion-infinite-scroll ng-if="noMore" on-infinite="loadData(undefined)"></ion-infinite-scroll>
     </ion-content>
 </ion-view>
