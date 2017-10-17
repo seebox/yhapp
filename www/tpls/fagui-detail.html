@@ -16,6 +16,9 @@
         <div class=" item-body" ng-bind-html="detail.txt|to_trusted">
 
         </div>
+        <div class=" item-body">
+            <a ng-repeat="atm in detail.atmlist" ng-click="preview(atm)">{{atm.name}}</a>
+        </div>
         </ion-list>
     </ion-content>
 </ion-modal-view>

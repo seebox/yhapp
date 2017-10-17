@@ -6,7 +6,34 @@
             <button class="button button-clear" ng-click="peiban.hide()"><i class="ion-close"></i></button>
         </div>
     </div>
-    <ion-content class="has-header padding">
-        暂无信息
+    <ion-content class="has-header">
+        <div class="list" ng-repeat="item in peibanItem">
+            <div class="item item-divider">
+                {{item.XM}}
+            </div>
+
+            <div class="item">
+                所在引航站
+                <span class="item-note">
+                    {{item.DW}}
+                </span>
+            </div>
+            <div class="item">
+                档次
+                <span class="item-note">
+                    {{item.DC}}
+                </span>
+            </div>
+
+            <div class="item">
+                电话
+                <div class="item-note">
+                    <a style="display:inline" href="tel:{{item.SJHM}}">{{item.SJHM}}</a>&nbsp;&nbsp;
+                    <a style="display:inline" href="tel:{{item.SJH}}">{{item.SJH}}</a>&nbsp;&nbsp;
+                    <a style="display:inline" href="tel:{{item.SJH2}}">{{item.SJH2}}</a>
+                </div>
+            </div>
+
+        </div>
     </ion-content>
 </ion-modal-view>

@@ -16,7 +16,7 @@ $controllers
 
     $scope.showDetail = function(item) {
         $scope.itemDetail = item;
-        //pilotserver/pilotplan/getlist?type=xjtj&str={"yhyid":"3ed2a2c5e9034829afdfb52d5fba9494"}
+
         $http({
             method: "POST",
             url: "/pilotserver/pilotplan/getlist",
@@ -25,7 +25,7 @@ $controllers
                 str: JSON.stringify({ "yhyid": item.YHYID })
             }
         }).success(function(res) {
-            $scope.tongji = res.result;
+            $scope.tongji = res.result[0];
         });
         $scope.qingjiaDetail.show();
     };
@@ -45,7 +45,7 @@ $controllers
 }).filter(
     'dateqingjia', [function() {
         return function(text) {
-            if (text === null || text.length === 0) {
+            if (!text || text.length === 0) {
                 return "";
             } else {
                 return moment(text).format('YYYY-MM-DD');

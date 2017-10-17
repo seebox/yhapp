@@ -10,117 +10,99 @@
 
     <ion-content class="has-header scroll-content ionic-scroll">
         <div class="list">
+            <div class="item">
+                船舶编号
+                <span class="item-note">
+    {{huibaoItem.cbbh}}
+  </span>
+            </div>
             <a class="item">
-        中文船名
-        <span class="item-note">
-          {{huibaoItem.cm}}
-        </span>
-      </a>
+  中文船名
+  <span class="item-note">
+   {{huibaoItem.chName}}
+  </span>
+</a>
             <a class="item">
-        引航员
-        <span class="item-note">
-          {{huibaoItem.yhyName}}
-        </span>
-      </a>
-            <a class="item">
-        始发地
-        <span class="item-note">
-          {{huibaoItem.sfd}}
-        </span>
-      </a>
-            <a class="item">
-        目的地
-        <span class="item-note">
-          {{huibaoItem.mdd}}
-        </span>
-      </a>
+  国籍
+  <span class="item-note">
+    {{huibaoItem.nationName}}
+  </span>
+</a>
 
             <a class="item">
-        报告时间
-        <span class="item-note">
-          {{huibaoItem.bgsj}}
-        </span>
-      </a>
+  代理
+  <span class="item-note">
+    {{huibaoItem.agentName}}
+  </span>
+</a>
+            <a class="item">
+  船舶类型
+  <span class="item-note">
+   {{huibaoItem.vesselTypeName}}
+  </span>
+</a>
 
             <a class="item">
-        接受人
-        <span class="item-note">
-          {{huibaoItem.bgjsr}}
-        </span>
-      </a>
+  长度
+  <span class="item-note">
+    {{huibaoItem.vesselLong}}
+  </span>
+</a>
             <a class="item">
-        操纵性能
-        <span class="item-note">
-          {{huibaoItem.cbczxn}}
-        </span>
-      </a>
-            <a class="item">
-        主机工况
-        <span class="item-note">
-          {{huibaoItem.zjgk}}
-        </span>
-      </a>
-            <a class="item">
-        可变螺距
-        <span class="item-note">
-          {{huibaoItem.sfkbdj}}
-        </span>
-      </a>
+  吃水
+  <span class="item-note">
+    {{huibaoItem.draftBehind}}
+  </span>
+</a>
 
             <a class="item">
-        正常航速
-        <span class="item-note">
-          {{huibaoItem.zchs}}
-        </span>
-      </a>
+  始发地
+  <span class="item-note">
+    {{huibaoItem.origin}}
+  </span>
+</a>
             <a class="item">
-        舵机工况
-        <span class="item-note">
-          {{huibaoItem.djgk}}
-        </span>
-      </a>
+  目的地
+  <span class="item-note">
+    {{huibaoItem.destination}}
+  </span>
+</a>
             <a class="item">
-        助航设备
-        <span class="item-note">
-          {{huibaoItem.zhsb}}
-        </span>
-      </a>
+  开航时间
+  <span class="item-note">
+    {{huibaoItem.khsjFormat}}
+  </span>
+</a>
+            <a class="item" ng-click="showPeiban(huibaoItem.sdyhy)">
+  上段引航员
+  <span class="item-note positive">
+   {{huibaoItem.sdyhyName}}
+  </span>
+</a>
             <a class="item">
-        靠离泊状态
-        <span class="item-note">
-          {{huibaoItem.kibzt}}
-        </span>
-      </a>
+  抵澄时间
+  <span class="item-note">
+    {{huibaoItem.dcsjFormat}}
+  </span>
+</a>
+            <a class="item" ng-click="showPeiban(huibaoItem.xdyhy)">
+  下段引航员
+  <span class="item-note positive">
+    {{huibaoItem.xdyhyName}}
+  </span>
+</a>
             <a class="item">
-        锚的使用情况
-        <span class="item-note">
-          {{huibaoItem.mdsyqk}}
-        </span>
-      </a>
+  抵宝时间
+  <span class="item-note">
+   {{huibaoItem.dbsjFormat}}
+  </span>
+</a>
             <a class="item">
-        锚机工况
-        <span class="item-note">
-          {{huibaoItem.mjgk}}
-        </span>
-      </a>
-            <a class="item">
-        锚链入水
-        <span class="item-note">
-         {{huibaoItem.mlrsjj}}
-        </span>
-      </a>
-            <a class="item">
-        其它信息
-        <span class="item-note">
-         {{huibaoItem.qtaqxx}}
-        </span>
-      </a>
-            <a class="item">
-        备注
-        <span class="item-note">
-{{huibaoItem.remark}}
-        </span>
-      </a>
+  引领备注
+  <span class="item-note">
+    {{huibaoItem.jlbz}}
+  </span>
+</a>
         </div>
 
     </ion-content>

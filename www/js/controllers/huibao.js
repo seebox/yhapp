@@ -35,6 +35,7 @@ $controllers
                 params: params
             }).success(function(res) {
                 $scope.huibaoForm = Object.assign(res.body.result.hchb, res.body.result.qzd, res.body.result.attach_list);
+                $scope.attach_list = res.body.result.attach_list;
             });
             $scope.huibaoItem = item;
             $scope.huibaoItem.yhyName = $rootScope.loginBody.loginUserRealName;
@@ -89,6 +90,8 @@ $controllers
                     } else {
                         $scope.noMore = false;
                     }
+                } else {
+                    $scope.noMore = false;
                 }
 
                 $scope.$broadcast('scroll.refreshComplete');
@@ -151,9 +154,13 @@ $controllers
                 url: "/cjpilot/yhapi/hchb/save.jsp",
                 params: $scope.huibaoForm
             }).success(function(res) {
-                $scope.modalHuibaoForm.hide();
+
                 if ($rootScope.imageData) {
-                    filego(res.body.qzdInfo.pbid, $rootScope.imageData);
+
+                    filego(res.body.result.qzdInfo.pbid, $rootScope.imageData);
+                } else {
+                    $scope.modalHuibaoForm.hide();
+
                 }
 
             });
@@ -187,7 +194,6 @@ $controllers
             };
             $cordovaCamera.getPicture(options).then(function(imageData) {
                 $rootScope.imageData = imageData;
-                filego('ddddd', $rootScope.imageData);
             }, function(err) {
 
             });
@@ -204,25 +210,29 @@ $controllers
             $cordovaImagePicker.getPictures(options)
                 .then(function(results) {
                     $rootScope.imageData = results[0];
-                    filego('ddddd', $rootScope.imageData);
                 }, function(error) {});
         };
 
         function filego(billId, imageURI) {
 
             var options = new FileUploadOptions();
+
             options.fileKey = "files";
             options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
             options.mimeType = "image/jpeg";
             var params = {};
             options.params = params;
+
             var ft = new FileTransfer();
+
             var url = encodeURI(SYSTEM.host + '/cjpilot/yhapi/hchb/fileUpload.jsp?billId=' + billId + '&appId=' +
                 SYSTEM.appId + '&username=' + $rootScope.loginBody.loginUserName + '&sessionKey=' + $rootScope.loginBody.sessionKey);
 
             $cordovaFileTransfer.upload(url, imageURI, options)
                 .then(function(result) {
                     $scope.changeTab(1);
+                    $scope.modalHuibaoForm.hide();
+
                 }, function(err) {
                     alert(err);
                 });
@@ -252,7 +262,13 @@ $controllers
                 }
 
                 function onError(error) { // Android only
-                    alert('Error: ' + error);
+                    if (error == 'cancel') {
+                        $scope.$apply(function() {
+                            $scope.ngModel = '';
+                        })
+                    } else {
+                        alert('Error: ' + error);
+                    }
                 }
             }
         };

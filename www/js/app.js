@@ -13,7 +13,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
         if (window.cordova && window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
             cordova.plugins.Keyboard.disableScroll(true);
-
         }
         if (window.StatusBar) {
             // org.apache.cordova.statusbar required
@@ -22,6 +21,37 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
         }
         if (window.plugins && window.plugins.jPushPlugin) {
             window.plugins.jPushPlugin.init();
+            if (window.localStorage.loginBody) {
+                window.plugins.jPushPlugin.getRegistrationID(function(rId) {
+                    $rootScope.registionId = rId;
+                    $http.get('/mobileoa/yhapi/message/regist?registionId=' + rId + '&userid=' + $rootScope.loginBody.loginUserId).success(function(response) {});
+                })
+                window.plugins.jPushPlugin.setTagsWithAlias([], $rootScope.loginBody.loginUserId);
+            }
+            document.addEventListener("jpush.openNotification", function(event) {
+                onNotification(event);
+                $state.go("app.xiaoxi");
+            }, false);
+            document.addEventListener("jpush.receiveNotification", function(event) {
+                onNotification(event);
+            }, false);
+
+            function onNotification(event) {
+                try {
+                    var alertId, alertContent, dateTime;
+                    if (device.platform == "Android") {
+                        alertContent = event.alert;
+                        alertId = event.extras["cn.jpush.android.MSG_ID"]
+                    } else {
+                        alertContent = event.aps.alert;
+                        alertId = event["_j_msgid"]
+                    }
+                    dateTime = moment().format("YYYY-MM-DD HH:mm");
+
+                } catch (exception) {
+                    alert("jpush error");
+                }
+            }
         }
 
         //延迟设置isVisible为false，防止第三方输入法返回退出当前页面  
@@ -266,6 +296,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
                         controller: 'bowei'
                     }
                 }
+            }).state('login', {
+                url: '/login',
+                cache: false,
+                templateUrl: 'tpls/login.html',
+                controller: 'login'
+
             });
 
         $urlRouterProvider.otherwise('/app/main');
@@ -294,8 +330,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
                 },
                 'response': function(response) {
                     if (response.data.status == 'false' || response.data.message == 'no login') {
-                        window.location = "/#/app/main";
-                        $rootScope.loginModal.show();
+                        $rootScope.gologin();
                     }
                     return response;
                 },

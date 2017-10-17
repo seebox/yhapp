@@ -30,10 +30,10 @@ $controllers
 
             $http({
                 method: "POST",
-                url: '/pilotserver/pilotplan/getlist?type=yhyqsj&str={"yhyid":"8ebd70f5efa94f5ead61df8d67d574c1"}',
+                url: '/pilotserver/pilotplan/getlist?type=yhy&str={"yhyids":"' + ids.replace(/\|/g, ',') + '"}',
                 params: {}
             }).success(function(res) {
-
+                $scope.peibanItem = res.result;
             });
             $scope.peiban.show();
         }
@@ -90,6 +90,8 @@ $controllers
                     } else {
                         $scope.noMore = false;
                     }
+                } else {
+                    $scope.noMore = false;
                 }
                 $scope.$broadcast('scroll.refreshComplete');
                 $scope.$broadcast('scroll.infiniteScrollComplete');

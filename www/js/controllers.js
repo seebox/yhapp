@@ -1,82 +1,15 @@
 $controllers
 
-    .controller('AppCtrl', function($rootScope, $scope, $http, $ionicModal, $timeout, $ionicLoading, $ionicPopup) {
+    .controller('AppCtrl', function($rootScope, $scope, $http, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $state) {
 
-    $scope.loginData = {};
-    $ionicModal.fromTemplateUrl('tpls/login.html', {
-        scope: $scope
-    }).then(function(modal) {
-        $rootScope.loginModal = modal;
-        if (!window.localStorage.loginBody) {
-            $rootScope.loginModal.show();
-        }
-    });
-
-    $scope.closeLogin = function() {
-        $rootScope.loginModal.hide();
-    };
-
-    $scope.login = function() {
-        $rootScope.loginModal.show();
-    };
-    $scope.userName = "李某";
-    $scope.userTitle = "引航中心引航员";
-    //yhyd / 123456
 
     if (window.localStorage.loginBody) {
         $rootScope.loginBody = JSON.parse(window.localStorage.loginBody);
-        if (window.plugins && window.plugins.jPushPlugin) {
-            window.plugins.jPushPlugin.setTagsWithAlias([], $rootScope.loginBody.loginUserId);
-            $http.get('/mobileoa/yhapi/message/regist?userid=' + $rootScope.loginBody.loginUserId).success(function(response) {});
-        }
+    } else {
+        $state.go('login');
     }
-
-    $scope.doLogin = function() {
-
-        var appId = SYSTEM.appId;  
-        var appKey = 'lB31U03sLvvq1WKJfA1BuFl351Fu24yk';
-        var key = CryptoJS.enc.Utf8.parse("IcMJkg76sXQ6OU3D");
-        var iv = CryptoJS.enc.Utf8.parse('SLc1LkHYorpb7imY');
-        var nonce_str = new Date().getTime();
-
-        function Encrypt(word) {
-            srcs = CryptoJS.enc.Utf8.parse(word);
-            var encrypted = CryptoJS.AES.encrypt(srcs, key, { iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
-            return encrypted.ciphertext.toString().toLowerCase();
-        }
-        var form = ['username=' + $scope.loginData.username, 'aesPassword=' + Encrypt($scope.loginData.password), 'appId=' + appId, 'nonce_str=' + nonce_str];
-        console.log(form.sort().join("&") + '&key=' + appKey);
-        var sign = md5(form.sort().join("&") + '&key=' + appKey).toUpperCase();
-        $ionicLoading.show({ template: '正在登录' });
-
-        $http.post('/cjpilot/api/user/login.jspx?' + form.join("&") + '&sign=' + sign).success(function(res) {
-            if (res.status == "true") {
-                window.localStorage.session = ['username=' + $scope.loginData.username, 'sessionKey=' + res.body.sessionKey, 'appId=' + appId, 'nonce_str=' + nonce_str, 'sign=' + sign];
-                window.localStorage.loginBody = JSON.stringify(res.body);
-                $rootScope.loginBody = res.body;
-                $rootScope.loginModal.hide();
-                $ionicLoading.show({ template: '登录成功' });
-                if (window.plugins && window.plugins.jPushPlugin) {
-                    window.plugins.jPushPlugin.setTagsWithAlias([], $rootScope.loginBody.loginUserId);
-                    $http.get('/mobileoa/yhapi/message/regist?userid=' + $rootScope.loginBody.loginUserId).success(function(response) {});
-                }
-                $timeout(function() {
-                    $ionicLoading.hide();
-                }, 1000);
-            } else {
-                $ionicLoading.hide();
-                var alert = { "password error": "密码错误", "user not found": "用户不存在" }
-                $ionicPopup.alert({ template: alert[res.message] });
-            }
-        }).error(function(data, status, headers, config) {
-            alert(config.url);
-        });
-
-
-    };
-
-    $rootScope.isOpen = function() {
-        return $ionicSideMenuDelegate.isOpen();
+    $rootScope.gologin = function() {
+        $state.go('login');
     }
 
 });
@@ -236,7 +169,7 @@ $controllers
 
     });
 $controllers
-    .controller('faguilists', function($scope, $http, $ionicModal, $ionicLoading, $stateParams) {
+    .controller('faguilists', function($scope, $http, $ionicModal, $ionicLoading, $stateParams, $cordovaFileTransfer, $cordovaFileOpener2) {
         if ($stateParams.flag == 'AQGG') {
             $scope.title = '';
             $scope.choice = { k: 'AQGG', v: '安全公告' };
@@ -309,12 +242,15 @@ $controllers
                     } else {
                         $scope.items = $scope.items.concat(response.body.content.list);
                     }
-                }
-                if (response.body.content.list.length > 0) {
-                    $scope.noMore = true;
+                    if (response.body.content.list.length > 0) {
+                        $scope.noMore = true;
+                    } else {
+                        $scope.noMore = false;
+                    }
                 } else {
                     $scope.noMore = false;
                 }
+
                 $scope.$broadcast('scroll.refreshComplete');
                 $scope.$broadcast('scroll.infiniteScrollComplete');
             });
@@ -322,6 +258,14 @@ $controllers
         $scope.showDetail = function(id) {
             $http.get('/cjpilot/yhapi/content.jspx?type=1&parent=GZZD&contentId=' + id).success(function(response) {
                 $scope.detail = response.body.content;
+                $scope.detail.atmlist = [];
+                var patt1 = /<a.*?(href=\"([^\"]*)\").*?>([^>]*?)<\/a>/g;
+
+                while (result = patt1.exec($scope.detail.txt)) {
+                    $scope.detail.atmlist.push({ url: SYSTEM.host + result[2], name: result[3] });
+
+                }
+                $scope.detail.txt = $scope.detail.txt.replace(patt1, "");
                 $scope.modalHangxin.show();
             });
             $http.get('/cjpilot/yhapi/readContent.jspx?learnLengthUsed=1&contentId=' + id).success(function(response) {
@@ -330,7 +274,20 @@ $controllers
             });
         };
 
+        $scope.preview = function(atm) {
+            var targetPath = device.platform == "Android" ? cordova.file.externalDataDirectory + atm.name : cordova.file.documentsDirectory + encodeURI(atm.name);
 
+            $cordovaFileTransfer.download(atm.url, targetPath, {}, true).then(function(result) {
+
+                $cordovaFileOpener2.open(targetPath, 'application/octet-stream').then(function() {}, function(err) {
+                    alert(JSON.stringify(err));
+                });
+            }, function(err) {
+
+            }, function(progress) {
+
+            });
+        }
 
     }).filter(
         'to_trusted', ['$sce', function($sce) {
@@ -406,6 +363,7 @@ $controllers
                 params: params
             }).success(function(res) {
                 $scope.huibaoForm = Object.assign(res.body.result.hchb, res.body.result.qzd, res.body.result.attach_list);
+                $scope.attach_list = res.body.result.attach_list;
             });
             $scope.huibaoItem = item;
             $scope.huibaoItem.yhyName = $rootScope.loginBody.loginUserRealName;
@@ -460,6 +418,8 @@ $controllers
                     } else {
                         $scope.noMore = false;
                     }
+                } else {
+                    $scope.noMore = false;
                 }
 
                 $scope.$broadcast('scroll.refreshComplete');
@@ -522,9 +482,13 @@ $controllers
                 url: "/cjpilot/yhapi/hchb/save.jsp",
                 params: $scope.huibaoForm
             }).success(function(res) {
-                $scope.modalHuibaoForm.hide();
+
                 if ($rootScope.imageData) {
-                    filego(res.body.qzdInfo.pbid, $rootScope.imageData);
+
+                    filego(res.body.result.qzdInfo.pbid, $rootScope.imageData);
+                } else {
+                    $scope.modalHuibaoForm.hide();
+
                 }
 
             });
@@ -558,7 +522,6 @@ $controllers
             };
             $cordovaCamera.getPicture(options).then(function(imageData) {
                 $rootScope.imageData = imageData;
-                filego('ddddd', $rootScope.imageData);
             }, function(err) {
 
             });
@@ -575,25 +538,29 @@ $controllers
             $cordovaImagePicker.getPictures(options)
                 .then(function(results) {
                     $rootScope.imageData = results[0];
-                    filego('ddddd', $rootScope.imageData);
                 }, function(error) {});
         };
 
         function filego(billId, imageURI) {
 
             var options = new FileUploadOptions();
+
             options.fileKey = "files";
             options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
             options.mimeType = "image/jpeg";
             var params = {};
             options.params = params;
+
             var ft = new FileTransfer();
+
             var url = encodeURI(SYSTEM.host + '/cjpilot/yhapi/hchb/fileUpload.jsp?billId=' + billId + '&appId=' +
                 SYSTEM.appId + '&username=' + $rootScope.loginBody.loginUserName + '&sessionKey=' + $rootScope.loginBody.sessionKey);
 
             $cordovaFileTransfer.upload(url, imageURI, options)
                 .then(function(result) {
                     $scope.changeTab(1);
+                    $scope.modalHuibaoForm.hide();
+
                 }, function(err) {
                     alert(err);
                 });
@@ -623,7 +590,13 @@ $controllers
                 }
 
                 function onError(error) { // Android only
-                    alert('Error: ' + error);
+                    if (error == 'cancel') {
+                        $scope.$apply(function() {
+                            $scope.ngModel = '';
+                        })
+                    } else {
+                        alert('Error: ' + error);
+                    }
                 }
             }
         };
@@ -824,10 +797,10 @@ $controllers
 
             $http({
                 method: "POST",
-                url: '/pilotserver/pilotplan/getlist?type=yhyqsj&str={"yhyid":"8ebd70f5efa94f5ead61df8d67d574c1"}',
+                url: '/pilotserver/pilotplan/getlist?type=yhy&str={"yhyids":"' + ids.replace(/\|/g, ',') + '"}',
                 params: {}
             }).success(function(res) {
-
+                $scope.peibanItem = res.result;
             });
             $scope.peiban.show();
         }
@@ -884,6 +857,8 @@ $controllers
                     } else {
                         $scope.noMore = false;
                     }
+                } else {
+                    $scope.noMore = false;
                 }
                 $scope.$broadcast('scroll.refreshComplete');
                 $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -956,6 +931,60 @@ $controllers
 //         $ionicLoading.hide();
 //     });
 // }
+$controllers
+
+    .controller('login', function($rootScope, $scope, $http, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $state) {
+
+    $scope.loginData = {};
+
+    //yhyd / 123456
+
+    $scope.doLogin = function() {
+
+        var appId = SYSTEM.appId;  
+        var appKey = 'lB31U03sLvvq1WKJfA1BuFl351Fu24yk';
+        var key = CryptoJS.enc.Utf8.parse("IcMJkg76sXQ6OU3D");
+        var iv = CryptoJS.enc.Utf8.parse('SLc1LkHYorpb7imY');
+        var nonce_str = new Date().getTime();
+
+        function Encrypt(word) {
+            srcs = CryptoJS.enc.Utf8.parse(word);
+            var encrypted = CryptoJS.AES.encrypt(srcs, key, { iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
+            return encrypted.ciphertext.toString().toLowerCase();
+        }
+        var form = ['username=' + $scope.loginData.username, 'aesPassword=' + Encrypt($scope.loginData.password), 'appId=' + appId, 'nonce_str=' + nonce_str];
+
+        var sign = md5(form.sort().join("&") + '&key=' + appKey).toUpperCase();
+        $ionicLoading.show({ template: '正在登录' });
+
+        $http.post('/cjpilot/api/user/login.jspx?' + form.join("&") + '&sign=' + sign).success(function(res) {
+            if (res.status == "true") {
+                window.localStorage.session = ['username=' + $scope.loginData.username, 'sessionKey=' + res.body.sessionKey, 'appId=' + appId, 'nonce_str=' + nonce_str, 'sign=' + sign];
+                window.localStorage.loginBody = JSON.stringify(res.body);
+                $rootScope.loginBody = res.body;
+                $ionicLoading.show({ template: '登录成功' });
+
+                if (window.plugins && window.plugins.jPushPlugin) {
+                    window.plugins.jPushPlugin.setTagsWithAlias([], $rootScope.loginBody.loginUserId);
+                    $http.get('/mobileoa/yhapi/message/regist?registionId=' + $rootScope.registionId + '&userid=' + $rootScope.loginBody.loginUserId).success(function(response) {});
+                }
+                $timeout(function() {
+                    $ionicLoading.hide();
+                    $state.go('app.main');
+                }, 1000);
+            } else {
+                $ionicLoading.hide();
+                var alerterr = { "password error": "密码错误", "user not found": "用户不存在" }
+                $ionicPopup.alert({ template: alerterr[res.message] });
+            }
+        }).error(function(data, status, headers, config) {
+            alert(config.url);
+        });
+
+
+    };
+
+});
 $controllers.controller('PlaylistsCtrl', function($rootScope, $scope, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
 
 
@@ -1036,7 +1065,7 @@ $controllers
 
     $scope.showDetail = function(item) {
         $scope.itemDetail = item;
-        //pilotserver/pilotplan/getlist?type=xjtj&str={"yhyid":"3ed2a2c5e9034829afdfb52d5fba9494"}
+
         $http({
             method: "POST",
             url: "/pilotserver/pilotplan/getlist",
@@ -1045,7 +1074,7 @@ $controllers
                 str: JSON.stringify({ "yhyid": item.YHYID })
             }
         }).success(function(res) {
-            $scope.tongji = res.result;
+            $scope.tongji = res.result[0];
         });
         $scope.qingjiaDetail.show();
     };
@@ -1065,7 +1094,7 @@ $controllers
 }).filter(
     'dateqingjia', [function() {
         return function(text) {
-            if (text === null || text.length === 0) {
+            if (!text || text.length === 0) {
                 return "";
             } else {
                 return moment(text).format('YYYY-MM-DD');

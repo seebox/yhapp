@@ -1,5 +1,5 @@
 $controllers
-    .controller('faguilists', function($scope, $http, $ionicModal, $ionicLoading, $stateParams) {
+    .controller('faguilists', function($scope, $http, $ionicModal, $ionicLoading, $stateParams, $cordovaFileTransfer, $cordovaFileOpener2) {
         if ($stateParams.flag == 'AQGG') {
             $scope.title = '';
             $scope.choice = { k: 'AQGG', v: '安全公告' };
@@ -72,12 +72,15 @@ $controllers
                     } else {
                         $scope.items = $scope.items.concat(response.body.content.list);
                     }
-                }
-                if (response.body.content.list.length > 0) {
-                    $scope.noMore = true;
+                    if (response.body.content.list.length > 0) {
+                        $scope.noMore = true;
+                    } else {
+                        $scope.noMore = false;
+                    }
                 } else {
                     $scope.noMore = false;
                 }
+
                 $scope.$broadcast('scroll.refreshComplete');
                 $scope.$broadcast('scroll.infiniteScrollComplete');
             });
@@ -85,6 +88,14 @@ $controllers
         $scope.showDetail = function(id) {
             $http.get('/cjpilot/yhapi/content.jspx?type=1&parent=GZZD&contentId=' + id).success(function(response) {
                 $scope.detail = response.body.content;
+                $scope.detail.atmlist = [];
+                var patt1 = /<a.*?(href=\"([^\"]*)\").*?>([^>]*?)<\/a>/g;
+
+                while (result = patt1.exec($scope.detail.txt)) {
+                    $scope.detail.atmlist.push({ url: SYSTEM.host + result[2], name: result[3] });
+
+                }
+                $scope.detail.txt = $scope.detail.txt.replace(patt1, "");
                 $scope.modalHangxin.show();
             });
             $http.get('/cjpilot/yhapi/readContent.jspx?learnLengthUsed=1&contentId=' + id).success(function(response) {
@@ -93,7 +104,20 @@ $controllers
             });
         };
 
+        $scope.preview = function(atm) {
+            var targetPath = device.platform == "Android" ? cordova.file.externalDataDirectory + atm.name : cordova.file.documentsDirectory + encodeURI(atm.name);
 
+            $cordovaFileTransfer.download(atm.url, targetPath, {}, true).then(function(result) {
+
+                $cordovaFileOpener2.open(targetPath, 'application/octet-stream').then(function() {}, function(err) {
+                    alert(JSON.stringify(err));
+                });
+            }, function(err) {
+
+            }, function(progress) {
+
+            });
+        }
 
     }).filter(
         'to_trusted', ['$sce', function($sce) {
