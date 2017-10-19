@@ -9,6 +9,14 @@
         </div>
 
     </div>
+    <div class="tabs tabs-striped tabs-color-positive" ng-init="index=0">
+        <a class="tab-item" ng-class="{'active':index==0}" ng-click="changeTab(0)">
+   我的休假
+  </a>
+        <a class="tab-item" ng-class="{'active':index==1}" ng-click="changeTab(1)">
+    待我审批
+  </a>
+    </div>
     <ion-content class="has-header">
         <div class="list">
             <a class="item" ng-click="showDetail(item)" ng-repeat="item in items">

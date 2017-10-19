@@ -21,6 +21,12 @@ $controllers
         }).then(function(modal) {
             $scope.peiban = modal;
         });
+        $ionicModal.fromTemplateUrl('tpls/boat-detail.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.boat = modal;
+        });
 
         $scope.showDetail = function(item) {
             $scope.jihuaItem = item;
@@ -37,8 +43,20 @@ $controllers
             });
             $scope.peiban.show();
         }
+        $scope.showBoat = function(ids) {
+
+            $http({
+                method: "POST",
+                url: '',
+                params: {}
+            }).success(function(res) {
+                $scope.boatItem = res;
+            });
+            $scope.boat.show();
+        }
         $scope.yhzName = $rootScope.loginBody.dept.deptName;
         $scope.sqlx = '20003';
+
         var pageNo = 0,
             pageSize = 15;
         $scope.jihuaList = [];

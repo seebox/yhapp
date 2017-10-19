@@ -53,10 +53,10 @@ $controllers
                 yeOrTe: 1,
                 Sqid: tzcbDetail.ID,
                 nextSpDetailsId: details[1].ID,
-                IsFinish: "true",
+                IsFinish: $scope.IsFinish,
                 currUserId: $rootScope.loginBody.loginUserId,
                 YHZAQCS: "1",
-                AJBYJ: "2",
+                AJBYJ: $scope.yj,
                 LDYJ: "3"
             }
         }).success(function(res) {
@@ -69,7 +69,6 @@ $controllers
     }
     $scope.yj = "";
     $scope.baopi = function(tzcbDetail) {
-        console.log($scope.yj);
         $http({
             method: "GET",
             url: "/WebapiService/SpFun",
@@ -77,7 +76,7 @@ $controllers
                 yeOrTe: 1,
                 Sqid: tzcbDetail.ID,
                 nextSpDetailsId: details[1].ID,
-                IsFinish: "false",
+                IsFinish: $scope.IsFinish,
                 currUserId: $rootScope.loginBody.loginUserId,
                 YHZAQCS: "1",
                 AJBYJ: $scope.yj,

@@ -157,9 +157,17 @@
       <i class="icon ion-android-arrow-dropdown"></i>
     </span>
   </label>
+                <div class="item item-input item-select">
+                    <div class="input-label">
+                        是否完成:
+                    </div>
+                    <select ng-model="IsFinish">
+<option value="true">是</option>
+<option value="false">否</option>
+</select>
+                </div>
                 <div class="button-bar bar-positive">
-                    <a class="button " ng-click="baobei(tzcbDetail)">报备</a>
-                    <a class="button " ng-click="baopi(tzcbDetail)">报批</a>
+                    <a class="button " ng-click="baobei(tzcbDetail)">审批</a>
                 </div>
             </div>
 
