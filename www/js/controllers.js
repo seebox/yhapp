@@ -788,6 +788,12 @@ $controllers
         }).then(function(modal) {
             $scope.peiban = modal;
         });
+        $ionicModal.fromTemplateUrl('tpls/boat-detail.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.boat = modal;
+        });
 
         $scope.showDetail = function(item) {
             $scope.jihuaItem = item;
@@ -804,8 +810,19 @@ $controllers
             });
             $scope.peiban.show();
         }
+        $scope.showBoat = function(mmsi) {
+            $http({
+                method: "GET",
+                url: '/mobileoa/japi/message/getShipInfo',
+                params: { mmsi: mmsi }
+            }).success(function(res) {
+                $scope.boatItem = res;
+            });
+            $scope.boat.show();
+        }
         $scope.yhzName = $rootScope.loginBody.dept.deptName;
         $scope.sqlx = '20003';
+
         var pageNo = 0,
             pageSize = 15;
         $scope.jihuaList = [];
@@ -1239,10 +1256,10 @@ $controllers
                 yeOrTe: 1,
                 Sqid: tzcbDetail.ID,
                 nextSpDetailsId: details[1].ID,
-                IsFinish: "true",
+                IsFinish: $scope.IsFinish,
                 currUserId: $rootScope.loginBody.loginUserId,
                 YHZAQCS: "1",
-                AJBYJ: "2",
+                AJBYJ: $scope.yj,
                 LDYJ: "3"
             }
         }).success(function(res) {
@@ -1255,7 +1272,6 @@ $controllers
     }
     $scope.yj = "";
     $scope.baopi = function(tzcbDetail) {
-        console.log($scope.yj);
         $http({
             method: "GET",
             url: "/WebapiService/SpFun",
@@ -1263,7 +1279,7 @@ $controllers
                 yeOrTe: 1,
                 Sqid: tzcbDetail.ID,
                 nextSpDetailsId: details[1].ID,
-                IsFinish: "false",
+                IsFinish: $scope.IsFinish,
                 currUserId: $rootScope.loginBody.loginUserId,
                 YHZAQCS: "1",
                 AJBYJ: $scope.yj,
@@ -1298,13 +1314,16 @@ $controllers
         $scope.showDetail = function(item) {
             $scope.itemDetail = item;
             $scope.xiaoxiDetail.show();
-            $http({
-                method: "GET",
-                url: "/mobileoa/yhapi/message/setread",
-                params: { mesid: item.id }
-            }).success(function(res) {
+            if(!item.isread){
+                $http({
+                    method: "GET",
+                    url: "/mobileoa/yhapi/message/setread",
+                    params: { mesid: item.id ,targetid:$rootScope.loginBody.loginUserId}
+                }).success(function(res) {
+    
+                });
+            }
 
-            });
         };
         var pagenum = 0,
             count = 15;

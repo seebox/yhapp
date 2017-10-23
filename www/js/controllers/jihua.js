@@ -43,12 +43,11 @@ $controllers
             });
             $scope.peiban.show();
         }
-        $scope.showBoat = function(ids) {
-
+        $scope.showBoat = function(mmsi) {
             $http({
-                method: "POST",
-                url: '',
-                params: {}
+                method: "GET",
+                url: '/mobileoa/japi/message/getShipInfo',
+                params: { mmsi: mmsi }
             }).success(function(res) {
                 $scope.boatItem = res;
             });
