@@ -10,13 +10,16 @@ $controllers
         $scope.showDetail = function(item) {
             $scope.itemDetail = item;
             $scope.xiaoxiDetail.show();
-            $http({
-                method: "GET",
-                url: "/mobileoa/yhapi/message/setread",
-                params: { mesid: item.id }
-            }).success(function(res) {
+            if(!item.isread){
+                $http({
+                    method: "GET",
+                    url: "/mobileoa/yhapi/message/setread",
+                    params: { mesid: item.id ,targetid:$rootScope.loginBody.loginUserId}
+                }).success(function(res) {
+    
+                });
+            }
 
-            });
         };
         var pagenum = 0,
             count = 15;
