@@ -272,4 +272,13 @@ $controllers
                 }
             }
         };
-    });
+    }).filter(
+        'nimabi', [function() {
+            return function(text) {
+
+                return text.replace("http://198.22.240.212", SYSTEM.host);
+
+
+            }
+        }]
+    );
