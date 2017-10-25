@@ -153,7 +153,7 @@
             <div class="item item-input" ng-repeat="date1 in dates2"> <input type="text" ng-model="huibaoForm.jjhyhsjd1[date1]" datetime> ~ <input type="text" ng-model="huibaoForm.jjhyhsjd2[date1]" datetime></div>
             <a class="item" ng-click="upload()"> 纸质签证单拍照<span class="item-note" style="font-size:26px;"><i class="icon ion-ios-reverse-camera-outline"></i></span> </a>
             <div ng-if="imageData"><img ng-src="{{imageData}}" style="display:block;height:200px;margin:5px auto;"></div>
-            <div ng-repeat="img in attach_list">{{img.downUrl}}<img ng-src="{{img.downUrl|nimabi}}" style="display:block;height:200px;margin:5px auto;"></div>
+            <div ng-repeat="img in attach_list" ng-if="!imageData"><img ng-src="{{img.downUrl|nimabi}}" style="display:block;height:200px;margin:5px auto;"></div>
 
         </div>
         <div class="content padding">

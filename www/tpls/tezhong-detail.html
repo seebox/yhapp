@@ -149,22 +149,24 @@
             </div>
             <div class="list list-inset">
                 <label class="item item-input">
-      <textarea placeholder="审批内容" ng-model="yj"></textarea>
+      <textarea placeholder="审批内容" ng-model="temp.yj"></textarea>
     </label>
-                <label class="item" ng-click="anquanModal.show()">
+                <label class="item item-select">
       安全措施
-    <span class="item-note" > 
-      <i class="icon ion-android-arrow-dropdown"></i>
-    </span>
+    
+      <select ng-model="temp.aqcsText">
+        <option ng-repeat="item in aqcslist" value="{{item.CSNR}}">{{item.CSNR}}</option>
+      </select>
+    
   </label>
                 <div class="item item-input item-select">
                     <div class="input-label">
                         是否完成:
                     </div>
-                    <select ng-model="IsFinish">
-<option value="true">是</option>
-<option value="false">否</option>
-</select>
+                    <select ng-model="temp.IsFinish">
+                    <option value="true">是</option>
+                    <option value="false">否</option>
+                    </select>
                 </div>
                 <div class="button-bar bar-positive">
                     <a class="button " ng-click="baobei(tzcbDetail)">审批</a>

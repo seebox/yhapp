@@ -363,6 +363,24 @@ $controllers
                 params: params
             }).success(function(res) {
                 $scope.huibaoForm = Object.assign(res.body.result.hchb, res.body.result.qzd, res.body.result.attach_list);
+                $scope.huibaoForm.jjqyhsjd1 = [];
+                $scope.huibaoForm.jjqyhsjd2 = [];
+                $scope.huibaoForm.jjhyhsjd1 = [];
+                $scope.huibaoForm.jjhyhsjd2 = [];
+                if ($scope.huibaoForm.jjqyhsjd.length > 0) {
+                    var arr1 = $scope.huibaoForm.jjqyhsjd.split(",");
+                    for (var i = 0; i < arr1.length; i++) {
+                        $scope.huibaoForm.jjqyhsjd1.push(arr1[i].split("/")[0]);
+                        $scope.huibaoForm.jjqyhsjd2.push(arr1[i].split("/")[1]);
+                    }
+                }
+                if ($scope.huibaoForm.jjhyhsjd.length > 0) {
+                    var arr2 = $scope.huibaoForm.jjhyhsjd.split(",");
+                    for (var i = 0; i < arr2.length; i++) {
+                        $scope.huibaoForm.jjhyhsjd1.push(arr2[i].split("/")[0]);
+                        $scope.huibaoForm.jjhyhsjd2.push(arr2[i].split("/")[1]);
+                    }
+                }
                 $scope.attach_list = res.body.result.attach_list;
             });
             $scope.huibaoItem = item;
@@ -562,7 +580,7 @@ $controllers
                     $scope.modalHuibaoForm.hide();
 
                 }, function(err) {
-                    alert(err);
+                    //alert(err);
                 });
         }
     }).directive('datetime', function() {
@@ -579,12 +597,13 @@ $controllers
 
                 var options = {
                     date: $scope.ngModel ? $scope.ngModel : new Date(),
-                    mode: 'datetime'
+                    mode: 'datetime',
+                    is24Hour: true
                 };
 
                 function onSuccess(date) {
                     $scope.$apply(function() {
-                        $scope.ngModel = moment(date).format('YYYY-MM-DD hh:mm:ss');
+                        $scope.ngModel = moment(date).format('YYYY-MM-DD HH:mm:ss');
                     })
 
                 }
@@ -595,7 +614,7 @@ $controllers
                             $scope.ngModel = '';
                         })
                     } else {
-                        alert('Error: ' + error);
+                        //alert('Error: ' + error);
                     }
                 }
             }
@@ -1104,19 +1123,29 @@ $controllers
         });
         $scope.qingjiaDetail.show();
     };
-    ///pilotserver/pilotplan / getlist ? type = yhyqsj & str = { "spr": "aa", "dw": "南通站", "yhyid": "" }
-    //spr: 审批人 dw: 单位 yhyid: 引航员id
-
-    $http({
-        method: "POST",
-        url: "pilotserver/pilotplan/getlist",
-        params: {
-            type: 'yhyqsj',
-            str: JSON.stringify({ "dw": $rootScope.loginBody.dept.deptName, "yhyid": $rootScope.loginBody.userPersonId })
+    $scope.changeTab = function(i) {
+        $scope.index = i;
+        if (i == 0) {
+            $scope.loadData(true);
+        } else {
+            $scope.items = [];
         }
-    }).success(function(res) {
-        $scope.items = res.result;
-    });
+
+    };
+    $scope.loadData = function() {
+        $http({
+            method: "POST",
+            url: "pilotserver/pilotplan/getlist",
+            params: {
+                type: 'yhyqsj',
+                str: JSON.stringify({ "dw": $rootScope.loginBody.dept.deptName, "yhyid": $rootScope.loginBody.userPersonId })
+            }
+        }).success(function(res) {
+            $scope.items = res.result;
+        });
+    }
+    $scope.loadData();
+
 }).filter(
     'dateqingjia', [function() {
         return function(text) {
@@ -1256,7 +1285,11 @@ $controllers
     }).then(function(modal) {
         $scope.anquanModal = modal;
     });
-
+    $scope.temp = {
+        yj: "",
+        aqcsText: "",
+        IsFinish: "true"
+    }
     $scope.baobei = function(tzcbDetail) {
         $http({
             method: "GET",
@@ -1267,8 +1300,8 @@ $controllers
                 nextSpDetailsId: details[1].ID,
                 IsFinish: $scope.IsFinish,
                 currUserId: $rootScope.loginBody.loginUserId,
-                YHZAQCS: "1",
-                AJBYJ: $scope.yj,
+                YHZAQCS: $scope.temp.aqcsText,
+                AJBYJ: $scope.temp.yj,
                 LDYJ: "3"
             }
         }).success(function(res) {
@@ -1279,37 +1312,41 @@ $controllers
             $ionicLoading.hide();
         }, 2000);
     }
-    $scope.yj = "";
-    $scope.baopi = function(tzcbDetail) {
-        $http({
-            method: "GET",
-            url: "/WebapiService/SpFun",
-            params: {
-                yeOrTe: 1,
-                Sqid: tzcbDetail.ID,
-                nextSpDetailsId: details[1].ID,
-                IsFinish: $scope.IsFinish,
-                currUserId: $rootScope.loginBody.loginUserId,
-                YHZAQCS: "1",
-                AJBYJ: $scope.yj,
-                LDYJ: "3"
-            }
-        }).success(function(res) {
 
-        });
 
-        $ionicLoading.show({ template: '已转到安技部审批' });
-        $timeout(function() {
-            $ionicLoading.hide();
-        }, 2000)
-    }
 
-    $http.get('/WebapiService/GetTzcbInfo').success(function(response) {
-        $scope.Tzcb = response;
+    $http({
+        method: "GET",
+        url: "/WebapiService/GetTzcbInfo",
+        params: {
+            where: "where 1=1",
+            pageSize: 500,
+            pageIndex: 1,
+            isFinish: 0
+        }
+    }).success(function(res) {
+        $scope.Tzcb = res;
     });
-    $http.get('/WebapiService/GetYhcbInfo').success(function(response) {
-        $scope.Yhcb = response;
+    $http({
+        method: "GET",
+        url: "/WebapiService/GetYhcbInfo",
+        params: {
+            where: "where 1=1",
+            pageSize: 500,
+            pageIndex: 1,
+            isFinish: 0
+        }
+    }).success(function(res) {
+        $scope.Yhcb = res;
     });
+    $http({
+        method: "GET",
+        url: "WebapiService/GetAQCS"
+    }).success(function(res) {
+        $scope.aqcslist = res;
+    });
+    //$scope.aqcslist = 
+
 });
 $controllers
     .controller('xiaoxi', function($rootScope, $scope, $ionicModal, $http, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {

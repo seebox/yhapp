@@ -35,6 +35,24 @@ $controllers
                 params: params
             }).success(function(res) {
                 $scope.huibaoForm = Object.assign(res.body.result.hchb, res.body.result.qzd, res.body.result.attach_list);
+                $scope.huibaoForm.jjqyhsjd1 = [];
+                $scope.huibaoForm.jjqyhsjd2 = [];
+                $scope.huibaoForm.jjhyhsjd1 = [];
+                $scope.huibaoForm.jjhyhsjd2 = [];
+                if ($scope.huibaoForm.jjqyhsjd.length > 0) {
+                    var arr1 = $scope.huibaoForm.jjqyhsjd.split(",");
+                    for (var i = 0; i < arr1.length; i++) {
+                        $scope.huibaoForm.jjqyhsjd1.push(arr1[i].split("/")[0]);
+                        $scope.huibaoForm.jjqyhsjd2.push(arr1[i].split("/")[1]);
+                    }
+                }
+                if ($scope.huibaoForm.jjhyhsjd.length > 0) {
+                    var arr2 = $scope.huibaoForm.jjhyhsjd.split(",");
+                    for (var i = 0; i < arr2.length; i++) {
+                        $scope.huibaoForm.jjhyhsjd1.push(arr2[i].split("/")[0]);
+                        $scope.huibaoForm.jjhyhsjd2.push(arr2[i].split("/")[1]);
+                    }
+                }
                 $scope.attach_list = res.body.result.attach_list;
             });
             $scope.huibaoItem = item;
@@ -234,7 +252,7 @@ $controllers
                     $scope.modalHuibaoForm.hide();
 
                 }, function(err) {
-                    alert(err);
+                    //alert(err);
                 });
         }
     }).directive('datetime', function() {
@@ -251,12 +269,13 @@ $controllers
 
                 var options = {
                     date: $scope.ngModel ? $scope.ngModel : new Date(),
-                    mode: 'datetime'
+                    mode: 'datetime',
+                    is24Hour: true
                 };
 
                 function onSuccess(date) {
                     $scope.$apply(function() {
-                        $scope.ngModel = moment(date).format('YYYY-MM-DD hh:mm:ss');
+                        $scope.ngModel = moment(date).format('YYYY-MM-DD HH:mm:ss');
                     })
 
                 }
@@ -267,7 +286,7 @@ $controllers
                             $scope.ngModel = '';
                         })
                     } else {
-                        alert('Error: ' + error);
+                        //alert('Error: ' + error);
                     }
                 }
             }

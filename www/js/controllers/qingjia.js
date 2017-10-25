@@ -29,19 +29,29 @@ $controllers
         });
         $scope.qingjiaDetail.show();
     };
-    ///pilotserver/pilotplan / getlist ? type = yhyqsj & str = { "spr": "aa", "dw": "南通站", "yhyid": "" }
-    //spr: 审批人 dw: 单位 yhyid: 引航员id
-
-    $http({
-        method: "POST",
-        url: "pilotserver/pilotplan/getlist",
-        params: {
-            type: 'yhyqsj',
-            str: JSON.stringify({ "dw": $rootScope.loginBody.dept.deptName, "yhyid": $rootScope.loginBody.userPersonId })
+    $scope.changeTab = function(i) {
+        $scope.index = i;
+        if (i == 0) {
+            $scope.loadData(true);
+        } else {
+            $scope.items = [];
         }
-    }).success(function(res) {
-        $scope.items = res.result;
-    });
+
+    };
+    $scope.loadData = function() {
+        $http({
+            method: "POST",
+            url: "pilotserver/pilotplan/getlist",
+            params: {
+                type: 'yhyqsj',
+                str: JSON.stringify({ "dw": $rootScope.loginBody.dept.deptName, "yhyid": $rootScope.loginBody.userPersonId })
+            }
+        }).success(function(res) {
+            $scope.items = res.result;
+        });
+    }
+    $scope.loadData();
+
 }).filter(
     'dateqingjia', [function() {
         return function(text) {

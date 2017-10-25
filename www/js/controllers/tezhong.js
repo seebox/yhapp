@@ -44,7 +44,11 @@ $controllers
     }).then(function(modal) {
         $scope.anquanModal = modal;
     });
-
+    $scope.temp = {
+        yj: "",
+        aqcsText: "",
+        IsFinish: "true"
+    }
     $scope.baobei = function(tzcbDetail) {
         $http({
             method: "GET",
@@ -55,8 +59,8 @@ $controllers
                 nextSpDetailsId: details[1].ID,
                 IsFinish: $scope.IsFinish,
                 currUserId: $rootScope.loginBody.loginUserId,
-                YHZAQCS: "1",
-                AJBYJ: $scope.yj,
+                YHZAQCS: $scope.temp.aqcsText,
+                AJBYJ: $scope.temp.yj,
                 LDYJ: "3"
             }
         }).success(function(res) {
@@ -67,35 +71,39 @@ $controllers
             $ionicLoading.hide();
         }, 2000);
     }
-    $scope.yj = "";
-    $scope.baopi = function(tzcbDetail) {
-        $http({
-            method: "GET",
-            url: "/WebapiService/SpFun",
-            params: {
-                yeOrTe: 1,
-                Sqid: tzcbDetail.ID,
-                nextSpDetailsId: details[1].ID,
-                IsFinish: $scope.IsFinish,
-                currUserId: $rootScope.loginBody.loginUserId,
-                YHZAQCS: "1",
-                AJBYJ: $scope.yj,
-                LDYJ: "3"
-            }
-        }).success(function(res) {
 
-        });
 
-        $ionicLoading.show({ template: '已转到安技部审批' });
-        $timeout(function() {
-            $ionicLoading.hide();
-        }, 2000)
-    }
 
-    $http.get('/WebapiService/GetTzcbInfo').success(function(response) {
-        $scope.Tzcb = response;
+    $http({
+        method: "GET",
+        url: "/WebapiService/GetTzcbInfo",
+        params: {
+            where: "where 1=1",
+            pageSize: 500,
+            pageIndex: 1,
+            isFinish: 0
+        }
+    }).success(function(res) {
+        $scope.Tzcb = res;
     });
-    $http.get('/WebapiService/GetYhcbInfo').success(function(response) {
-        $scope.Yhcb = response;
+    $http({
+        method: "GET",
+        url: "/WebapiService/GetYhcbInfo",
+        params: {
+            where: "where 1=1",
+            pageSize: 500,
+            pageIndex: 1,
+            isFinish: 0
+        }
+    }).success(function(res) {
+        $scope.Yhcb = res;
     });
+    $http({
+        method: "GET",
+        url: "WebapiService/GetAQCS"
+    }).success(function(res) {
+        $scope.aqcslist = res;
+    });
+    //$scope.aqcslist = 
+
 });
