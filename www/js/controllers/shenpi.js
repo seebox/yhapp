@@ -29,7 +29,7 @@ $controllers
         }
         $http({
             method: "POST",
-            url: '/pilotserver/pilotplan/getlist?type=yhjh&str={"app":"0","shzt":"0",yhz":"' + $rootScope.loginBody.dept.deptName + '"}',
+            url: '/pilotserver/pilotplan/getlist?type=yhjh&str={"app":"0","shzt":"0","yhz":"' + $rootScope.loginBody.dept.deptName + '"}',
             //params: params
         }).success(function(res) {
             $scope.jihuaList = res.result;
