@@ -1,6 +1,6 @@
 $controllers
 
-    .controller('AppCtrl', function($rootScope, $scope, $http, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $state) {
+    .controller('AppCtrl', function($rootScope, $scope, $http, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $state, $checkUpdate) {
 
 
     if (window.localStorage.loginBody) {
@@ -10,6 +10,10 @@ $controllers
     }
     $rootScope.gologin = function() {
         $state.go('login');
+    }
+
+    $scope.checkUpdate = function() {
+        $checkUpdate.go();
     }
 
 });
