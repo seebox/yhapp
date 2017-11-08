@@ -1057,10 +1057,15 @@ $controllers
 
     .controller('login', function($rootScope, $scope, $http, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $state) {
 
-    $scope.loginData = {};
+    $scope.loginData = {
+        checked: true
+    };
 
-    //yhyd / 123456
 
+    if (window.localStorage.account) {
+        $scope.loginData.username = window.localStorage.account;
+        $scope.loginData.password = window.localStorage.password;
+    }
     $scope.doLogin = function() {
 
         var appId = SYSTEM.appId;  
@@ -1073,6 +1078,13 @@ $controllers
             srcs = CryptoJS.enc.Utf8.parse(word);
             var encrypted = CryptoJS.AES.encrypt(srcs, key, { iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
             return encrypted.ciphertext.toString().toLowerCase();
+        }
+        if ($scope.loginData.checked) {
+            window.localStorage.account = $scope.loginData.username;
+            window.localStorage.password = $scope.loginData.password;
+        } else {
+            window.localStorage.account = "";
+            window.localStorage.password = "";
         }
         var form = ['username=' + $scope.loginData.username, 'aesPassword=' + Encrypt($scope.loginData.password), 'appId=' + appId, 'nonce_str=' + nonce_str];
 
