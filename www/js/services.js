@@ -9,7 +9,7 @@
     .factory('$checkUpdate', ['$rootScope', '$http', '$cordovaAppVersion', '$ionicPopup', '$cordovaFileTransfer', '$cordovaFileOpener2', '$ionicLoading',
         function($rootScope, $http, $cordovaAppVersion, $ionicPopup, $cordovaFileTransfer, $cordovaFileOpener2, $ionicLoading) {
             // 显示是否更新对话框
-            function showUpdateConfirm() {
+            function showUpdateConfirm(ver) {
                 var confirmPopup = $ionicPopup.alert({
                     title: '版本升级',
                     template: '系统有新的版本，请升级到最新版', //从服务端获取更新的内容
@@ -20,7 +20,7 @@
                         $ionicLoading.show({
                             template: "正在下载中..."
                         });
-                        var url = SYSTEM.host + "/apk/yhapp0.0.1.apk"; //可以从服务端获取更新APP的路径
+                        var url = SYSTEM.host + "/apk/yhapp" + ver + ".apk"; //可以从服务端获取更新APP的路径
                         var targetPath = (device.platform == "Android" ? cordova.file.externalDataDirectory : cordova.file.documentsDirectory) + "gangkou.apk"; //APP下载存放的路径，可以使用cordova file插件进行相关配置
                         var trustHosts = true
                         var options = {};
@@ -50,7 +50,7 @@
                         var serverAppVersion = data.version; //从服务端获取最新版本                      
                         $cordovaAppVersion.getVersionNumber().then(function(version) {
                             if (version != serverAppVersion) {
-                                showUpdateConfirm();
+                                showUpdateConfirm(serverAppVersion);
                             } else {
                                 $ionicPopup.alert({
                                     title: '<strong>系统提示</strong>',
@@ -60,7 +60,7 @@
                             }
                         });
                     }).error(function(data, status) {
-                        alert('版本号获取失败');
+                        //alert('版本号获取失败');
                     });
                 },
                 check: function() {
@@ -68,12 +68,12 @@
                         var serverAppVersion = data.version; //从服务端获取最新版本                   
                         $cordovaAppVersion.getVersionNumber().then(function(version) {
                             if (version != serverAppVersion) {
-                                showUpdateConfirm();
+                                showUpdateConfirm(serverAppVersion);
                             }
                             $rootScope.version = version;
                         });
                     }).error(function(data, status) {
-                        alert('版本号获取失败');
+                        //alert('版本号获取失败');
                     });
                 }
             };

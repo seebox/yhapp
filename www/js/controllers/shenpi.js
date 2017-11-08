@@ -65,7 +65,7 @@ $controllers
                 params: params
             }).success(function(res) {
                 $scope.delShow = false;
-                //loadData();
+                loadData();
             });
         } else {
             var alertPopup = $ionicPopup.alert({

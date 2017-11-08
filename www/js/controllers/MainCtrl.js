@@ -16,7 +16,8 @@ $controllers.controller('MainCtrl', function($rootScope, $scope, $stateParams, $
         url: "app/huibao"
     }, {
         name: "引航计划审批",
-        url: "app/shenpi"
+        url: "app/shenpi",
+        show: $rootScope.loginBody.dept.deptParentName == "中心机关"
     }, {
         name: "特种夜航船审批",
         url: "app/tezhong"

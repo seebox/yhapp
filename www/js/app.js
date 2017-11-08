@@ -132,6 +132,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'service
             })
             .state('app.main', {
                 url: '/main',
+                cache: false,
                 views: {
                     'menuContent': {
                         templateUrl: 'tpls/main.html',
