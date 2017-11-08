@@ -20,7 +20,7 @@
             </div>
 
             <div class="worklist">
-                <a class="grid9" ng-repeat="playlist in playlists" ng-href="#/{{playlist.url}}" ng-if="!playlist.show" type="item-text-wrap">
+                <a class="grid9" ng-repeat="playlist in playlists" ng-href="#/{{playlist.url}}" ng-if="!playlist.hide" type="item-text-wrap">
                     <img class="{{colors[$index]}}-bg" ng-src="img/{{playlist.url.split('/')[1]}}{{playlist.url.split('/')[2]||''}}.png">
                     <div class="pname">
                         {{playlist.name}}
