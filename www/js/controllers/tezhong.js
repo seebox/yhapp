@@ -64,12 +64,14 @@ $controllers
                 LDYJ: "3"
             }
         }).success(function(res) {
-
+            $scope.tezhongDetail.hide();
+            $scope.yehangDetail.hide();
+            $ionicLoading.show({ template: '审核已完成' });
+            $timeout(function() {
+                $ionicLoading.hide();
+            }, 2000);
         });
-        $ionicLoading.show({ template: '审核已完成' });
-        $timeout(function() {
-            $ionicLoading.hide();
-        }, 2000);
+
     }
 
 

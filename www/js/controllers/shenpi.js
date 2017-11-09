@@ -10,14 +10,11 @@ $controllers
 
     $scope.showDetail = function(item) {
         $scope.jihuaItem = item;
-
-        $http({
-            method: "POST",
-            url: '/pilotserver/pilotplan/getlist?type=yhyqsj&str={"yhyids":"' + item.SDYHY.replace(/\|/g, ',') + '"}',
-            //params: params
-        }).success(function(res) {
-
-        });
+        // $http({
+        //     method: "POST",
+        //     url: '/pilotserver/pilotplan/getlist?type=yhyqsj&str={"yhyids":"' + item.SDYHY.replace(/\|/g, ',') + '"}',
+        // }).success(function(res) {
+        // });
         $scope.shenpiDetail.show();
     };
 
@@ -58,13 +55,18 @@ $controllers
             }
         }
         if (ids.length > 0) {
-            var params = { str: { type: "6", "partflag": "0", "shr": $rootScope.loginBody.userPersonId, ids: ids } };
+            var str = '武汉,芜湖,南京,镇江';
+            var flag = "1";
+            if (str.indexOf($rootScope.loginBody.dept.deptName) > -1) {
+                flag = "0";
+            }
+            var params = { str: { type: "6", "partflag": flag, "shr": $rootScope.loginBody.userPersonId, ids: ids } };
             $http({
                 method: "POST",
                 url: "/pilotserver/pilotplan/updateplanstatus",
                 params: params
             }).success(function(res) {
-                $scope.delShow = false;
+                $scope.doCancel();
                 loadData();
             });
         } else {
