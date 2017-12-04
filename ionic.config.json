@@ -1,22 +1,36 @@
 {
-    "name": "yhapp",
-    "app_id": "yhapp",
-    "gulpStartupTasks": [
-        "concatctrl",
-        "watch"
-    ],
-    "type": "ionic1",
-    "proxies": [{
-        "path": "/cjpilot",
-        "proxyUrl": "http://218.90.166.172:8031/cjpilot"
-    }, {
-        "path": "/pilotserver",
-        "proxyUrl": "http://218.90.166.172:8031/pilotserver"
-    }, {
-        "path": "/mobileoa",
-        "proxyUrl": "http://218.90.166.172:8031/mobileoa/"
-    }, {
-        "path": "/WebapiService",
-        "proxyUrl": "http://218.90.166.172:8031/WebapiService/"
-    }]
+  "name": "yhapp",
+  "app_id": "yhapp",
+  "gulpStartupTasks": [
+    "concatctrl",
+    "watch"
+  ],
+  "type": "ionic1",
+  "proxies": [
+    {
+      "path": "/cjpilot",
+      "proxyUrl": "http://218.90.166.172:8031/cjpilot"
+    },
+    {
+      "path": "/pilotserver",
+      "proxyUrl": "http://218.90.166.172:8031/pilotserver"
+    },
+    {
+      "path": "/mobileoa",
+      "proxyUrl": "http://218.90.166.172:8031/mobileoa/"
+    },
+    {
+      "path": "/WebapiService",
+      "proxyUrl": "http://218.90.166.172:8031/WebapiService/"
+    }
+  ],
+  "integrations": {
+    "cordova": {}
+  },
+  "watchPatterns": [
+    "scss/**/*",
+    "www/**/*",
+    "!www/lib/**/*",
+    "!www/**/*.map"
+  ]
 }

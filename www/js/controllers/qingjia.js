@@ -39,14 +39,16 @@ $controllers
 
     };
     $scope.loadData = function() {
+
         $http({
             method: "POST",
-            url: "pilotserver/pilotplan/getlist",
+            url: "/pilotserver/pilotplan/getlist",
             params: {
                 type: 'yhyqsj',
                 str: JSON.stringify({ "dw": $rootScope.loginBody.dept.deptName, "yhyid": $rootScope.loginBody.userPersonId })
             }
         }).success(function(res) {
+
             $scope.items = res.result;
         });
     }
