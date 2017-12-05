@@ -41,7 +41,7 @@ $controllers
     $scope.loadData = function(index) { 
         var str = JSON.stringify({ "dw": $rootScope.loginBody.dept.deptName, "yhyid": $rootScope.loginBody.userPersonId });
         if (index == 1) {
-            str = JSON.stringify({ "dw": $rootScope.loginBody.dept.deptName, "spr": $rootScope.loginBody.userPersonId, "isend": 1 });
+            str = JSON.stringify({ "dw": $rootScope.loginBody.dept.deptName, "spr": $rootScope.loginBody.userPersonId, "isend": "1" });
         }
         $http({
             method: "POST",
