@@ -1215,20 +1215,23 @@ $controllers
     $scope.changeTab = function(i) {
         $scope.index = i;
         if (i == 0) {
-            $scope.loadData(true);
+            $scope.loadData(i);
         } else {
-            $scope.items = [];
+            $scope.loadData(i);
         }
 
     };
-    $scope.loadData = function() {
-
+    $scope.loadData = function(index) { 
+        var str = JSON.stringify({ "dw": $rootScope.loginBody.dept.deptName, "yhyid": $rootScope.loginBody.userPersonId });
+        if (index == 1) {
+            str = JSON.stringify({ "dw": $rootScope.loginBody.dept.deptName, "spr": $rootScope.loginBody.userPersonId, "isend": 1 });
+        }
         $http({
             method: "POST",
             url: "/pilotserver/pilotplan/getlist",
             params: {
                 type: 'yhyqsj',
-                str: JSON.stringify({ "dw": $rootScope.loginBody.dept.deptName, "yhyid": $rootScope.loginBody.userPersonId })
+                str: str
             }
         }).success(function(res) {
 
