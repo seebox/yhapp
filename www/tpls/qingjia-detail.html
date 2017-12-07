@@ -13,7 +13,7 @@
         <div class="item item-divider">
             已休假情况
         </div>
-        <a class="item">
+        <div class="item">
 
             <p><span>病假:{{tongji.bj}}天</span>&nbsp;&nbsp;
                 <span>公休假:{{tongji.gxj}}天</span>&nbsp;&nbsp;
@@ -27,75 +27,109 @@
                 <span>待岗:{{tongji.dg}}天</span>
                 <span>年休假:{{tongji.nxj}}天</span></p>
 
-        </a>
+        </div>
         <div class="item item-divider">
 
         </div>
         <div class="list">
-            <a class="item">
-      休假人
-      <span class="item-note">
+            <div class="item">
+                休假人
+                <span class="item-note">
         {{itemDetail.XM}}
       </span>
-     </a>
-            <a class="item">
-      休假地点
-      <span class="item-note">
+            </div>
+            <div class="item">
+                休假地点
+                <span class="item-note">
        {{itemDetail.XJCS}}
       </span>
-     </a>
-            <a class="item">
-      休假事由
-      <span class="item-note">
+            </div>
+            <div class="item">
+                休假事由
+                <span class="item-note">
             {{itemDetail.QXJSY}}
       </span>
-     </a>
-            <a class="item">
-      休假类别
-      <span class="item-note">
-            {{itemDetail.QJLB}}
+            </div>
+            <div class="item">
+                休假类别
+                <span class="item-note">
+            {{itemDetail.QJLB|qjlb}}
       </span>
-     </a>
-            <a class="item">
-      休假开始时间
-      <span class="item-note">
+            </div>
+            <div class="item">
+                休假开始时间
+                <span class="item-note">
             {{itemDetail.KSSJ1|dateqingjia}}
       </span>
-     </a>
-            <a class="item">
-      休假结束时间
-      <span class="item-note">
+            </div>
+            <div class="item">
+                休假结束时间
+                <span class="item-note">
             {{itemDetail.JSSJ1|dateqingjia}}
       </span>
-     </a>
-            <a class="item">
-      请假天数
-      <span class="item-note">
+            </div>
+            <div class="item">
+                请假天数
+                <span class="item-note">
             {{itemDetail.TS1}}
       </span>
-     </a>
-            <div class="item item-divider">
-                批示意见
             </div>
-            <a class="item">
+            <div class="item item-divider" ng-if="itemDetail.COMMENTS[0]">
+                引航站意见
+            </div>
+            <div class="item" ng-if="itemDetail.COMMENTS[0]">
+                审批意见
+                <span class="item-note">{{itemDetail.COMMENTS[0][0]}}</span>
+            </div>
+            <div class="item" ng-if="itemDetail.COMMENTS[0]">
+                审批人
+                <span class="item-note">{{itemDetail.COMMENTS[0][1]}}</span>
+            </div>
+            <div class="item" ng-if="itemDetail.COMMENTS[0]">
+                审批时间
+                <span class="item-note">{{itemDetail.COMMENTS[0][2]|dateqingjia}}</span>
+            </div>
+            <div class="item item-divider" ng-if="itemDetail.COMMENTS[1]">
+                总调室意见
+            </div>
+            <div class="item" ng-if="itemDetail.COMMENTS[1]">
+                审批意见
+                <span class="item-note">{{itemDetail.COMMENTS[1][0]}}</span>
+            </div>
+            <div class="item" ng-if="itemDetail.COMMENTS[1]">
+                审批人
+                <span class="item-note">{{itemDetail.COMMENTS[1][1]}}</span>
+            </div>
+            <div class="item" ng-if="itemDetail.COMMENTS[1]">
+                审批时间
+                <span class="item-note">{{itemDetail.COMMENTS[1][2]|dateqingjia}}</span>
+            </div>
+            <div class="item item-divider" ng-if="itemDetail.COMMENTS[2]">
+                领导意见
+            </div>
+            <div class="item" ng-if="itemDetail.COMMENTS[2]">
+                审批意见
+                <span class="item-note">{{itemDetail.COMMENTS[2][0]}}</span>
+            </div>
+            <div class="item" ng-if="itemDetail.COMMENTS[2]">
+                审批人
+                <span class="item-note">{{itemDetail.COMMENTS[2][1]}}</span>
+            </div>
+            <div class="item" ng-if="itemDetail.COMMENTS[2]">
+                审批时间
+                <span class="item-note">{{itemDetail.COMMENTS[2][2]|dateqingjia}}</span>
+            </div>
 
-                    {{itemDetail.COMMENTS}}
-
-            </a>
-            <div class="item item-divider" ng-if="false">
+            <div class="item item-divider" ng-if="index=='1'">
                 审批意见
             </div>
-            <div class="list list-inset" ng-if="false">
+            <div class="list list-inset" ng-if="index=='1'">
                 <label class="item item-input">
-    <textarea placeholder="审批内容"></textarea>
-  </label>
-
+                    <textarea placeholder="审批内容" ng-model="itemDetail.yijian"></textarea>
+                </label>
                 <div class="button-bar ">
-                    <a class="button button-positive">同意</a>
-                    <a class="button button-assertive">不同意</a>
+                    <button class="button button-positive" ng-click="doShenpi(itemDetail)">审批</button>
                 </div>
-
-
             </div>
         </div>
     </ion-content>

@@ -21,8 +21,8 @@
         <div class="list">
             <a class="item" ng-click="showDetail(item)" ng-repeat="item in items">
                 <h2>{{item.XM}}</h2>
-                <p>{{item.QXJSY}}</p>
-                <p>时间：<span class="positive">{{item.KSSJ1|dateqingjia}}</span>&nbsp;&nbsp;至&nbsp;&nbsp;<span class="positive">{{item.JSSJ1|dateqingjia}}</span>&nbsp;&nbsp;共&nbsp;<span class="assertive">{{item.TS1}}</span>&nbsp;天</p>
+                <p>休假时间1：<span class="positive">{{item.KSSJ1|dateqingjia}}</span>&nbsp;~&nbsp;<span class="positive">{{item.JSSJ1|dateqingjia}}</span>&nbsp;&nbsp;共&nbsp;<span class="assertive">{{item.TS1}}</span>&nbsp;天</p>
+                <p ng-if="item.KSSJ2">休假时间2：<span class="positive">{{item.KSSJ2|dateqingjia}}</span>&nbsp;~&nbsp;<span class="positive">{{item.JSSJ2|dateqingjia}}</span>&nbsp;&nbsp;共&nbsp;<span class="assertive">{{item.TS2}}</span>&nbsp;天</p>
             </a>
         </div>
     </ion-content>
