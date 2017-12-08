@@ -24,6 +24,7 @@ $controllers
             params: { id: item.ID }
         }).success(function(res) {
             details = res.Details;
+            $scope.tzcbDetail.NGR = res.SQUserName;
         });
     };
     $scope.showYhcb = function(item) {
@@ -35,6 +36,7 @@ $controllers
             params: { id: item.ID }
         }).success(function(res) {
             details = res.Details;
+            $scope.yhcbDetail.NGR = res.SQUserName;
         });
     };
 

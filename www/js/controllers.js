@@ -1197,13 +1197,13 @@ $controllers.controller('qingjia', function($rootScope, $scope, $ionicModal, $ti
     });
 
     $scope.showDetail = function(item) {
-
-        item.COMMENTS = item.COMMENTS.split("き");
-
-        for (var i in item.COMMENTS) {
-            item.COMMENTS[i] = item.COMMENTS[i].split("キ");
+        if (item.COMMENTS) {
+            item.COMMENTS = item.COMMENTS.split("き");
+            for (var i in item.COMMENTS) {
+                item.COMMENTS[i] = item.COMMENTS[i].split("キ");
+            }
         }
-        console.log(item.COMMENTS);
+
         $scope.itemDetail = item;
 
         $http({
@@ -1260,7 +1260,7 @@ $controllers.controller('qingjia', function($rootScope, $scope, $ionicModal, $ti
         }
         $http({
             method: "POST",
-            url: "/pilotserver/pilotplan/saveoffwork1",
+            url: "/pilotserver/pilotplan/saveoffwork",
             params: {
                 str: JSON.stringify({
                     "applicant": item.APPLICANT,
@@ -1284,13 +1284,13 @@ $controllers.controller('qingjia', function($rootScope, $scope, $ionicModal, $ti
                     "stepid": item.CURRENTSTEP,
                     "ts1": item.TS1,
                     "ts2": item.TS2,
-                    "type": "2",
+                    "type": item.QJLB,
                     "xjcs": item.XJCS,
                     "yhyid": item.YHYID
                 })
             }
         }).success(function(res) {
-            $scope.items = res.result;
+            $scope.qingjiaDetail.hide();
         });
     }
 
@@ -1457,6 +1457,7 @@ $controllers
             params: { id: item.ID }
         }).success(function(res) {
             details = res.Details;
+            $scope.tzcbDetail.NGR = res.SQUserName;
         });
     };
     $scope.showYhcb = function(item) {
@@ -1468,6 +1469,7 @@ $controllers
             params: { id: item.ID }
         }).success(function(res) {
             details = res.Details;
+            $scope.yhcbDetail.NGR = res.SQUserName;
         });
     };
 
