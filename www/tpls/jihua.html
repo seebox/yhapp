@@ -3,7 +3,7 @@
         <div class="buttons">
             <button class="button button-clear" ng-click="$ionicGoBack()"><i class="icon ion-android-arrow-back"></i></button>
         </div>
-        <h1 class="title" ng-init="as={'20003':'-进江','20004':'-出江','20005':'-移泊'};nw={'0':'-内贸','1':'-外贸'}">引航计划（{{yhzName}}）{{as[sqlx]}}{{nw[cbhx]}}</h1>
+        <h1 class="title" ng-init="as={'20003':'-进江','20004':'-出江','20005':'-移泊'};nw={'0':'-内贸','1':'-外贸'}">引航计划（{{yinhangzhan.YHZNAME}}）{{as[sqlx]}}{{nw[cbhx]}}</h1>
         <div class="buttons">
             <button class="button button-clear" ng-click="menuShow=!!!menuShow"><i class="icon ion-more"></i></button>
         </div>
@@ -30,10 +30,9 @@
     <label class="item item-select">
 		<div class="input-label">
 			<strong>引航站</strong>
-		</div>
-		<select ng-model="yinhangzhan">
-      <option value="{{item.YHZID}}" ng-repeat="item in yhzList" ng-click="changeYHZ(item)">{{item.YHZNAME}}</option>
-    </select>
+    </div>
+    <select ng-model="yinhangzhan" ng-options="item.YHZNAME for item in yhzList"></select>
+
   </label>
     <div class="list">
 

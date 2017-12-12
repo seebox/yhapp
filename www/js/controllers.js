@@ -925,7 +925,6 @@ $controllers
             });
             $scope.boat.show();
         }
-        $scope.yhzName = $rootScope.loginBody.dept.deptName;
         $scope.sqlx = '20003';
 
         var pageNo = 0,
@@ -992,7 +991,14 @@ $controllers
                 url: "/pilotserver/pilotplan/getlist",
                 params: { type: "yhz" }
             }).success(function(res) {
+
                 $scope.yhzList = res.result;
+                for (var i in $scope.yhzList) {
+                    if ($scope.yhzList[i].YHZID == $rootScope.loginBody.dept.deptId) {
+                        $scope.yinhangzhan = $scope.yhzList[i];
+                    }
+                }
+
             });
         }, 1000);
 
@@ -1002,7 +1008,7 @@ $controllers
                 str.sqlx = $scope.sqlx;
             }
             if ($scope.yinhangzhan) {
-                str.station_id = $scope.yinhangzhan;
+                str.station_id = $scope.yinhangzhan.YHZID;
                 for (var i = 0; i < $scope.yhzList.length; i++) {
                     if (str.station_id == $scope.yhzList[i].YHZID) {
                         $scope.yhzName = $scope.yhzList[i].YHZNAME;
@@ -1038,21 +1044,6 @@ $controllers
             }
         }]
     );
-// function loadData(str) {
-//     $ionicLoading.show({ template: "正在加载数据,请耐心等待..." });
-//     var params = { type: "yhjh", str: '{"sqlx":"20003","cbhx":"0"}' };
-//     if (str) {
-//         params.str = JSON.stringify(str);
-//     }
-//     $http({
-//         method: "POST",
-//         url: "/pilotserver/pilotplan/getlist",
-//         params: params
-//     }).success(function(res) {
-//         $scope.jihuaList = res.result.plan;
-//         $ionicLoading.hide();
-//     });
-// }
 $controllers
 
     .controller('login', function($rootScope, $scope, $http, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $state) {
