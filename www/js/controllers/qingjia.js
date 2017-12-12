@@ -98,10 +98,10 @@ $controllers.controller('qingjia', function($rootScope, $scope, $ionicModal, $ti
                     "shrq": moment().format('YYYY-MM-DD'),
                     "spbm": item.SPBM,
                     "spr": item.SPR,
-                    "stepid": item.CURRENTSTEP,
+                    "stepid": parseInt(item.CURRENTSTEP) + 1,
                     "ts1": item.TS1,
                     "ts2": item.TS2,
-                    "type": item.QJLB,
+                    "type": 2,
                     "xjcs": item.XJCS,
                     "yhyid": item.YHYID
                 })
