@@ -44,12 +44,12 @@
     <allow-navigation href="http://10.11.4.96:undefined" />
     <allow-navigation href="http://192.168.0.106:undefined" />
     <allow-navigation href="http://192.168.0.101:undefined" />
-    <plugin name="cordova-plugin-app-version" spec="^0.1.9" />
-    <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
-    <plugin name="cordova-plugin-file" spec="^4.3.3" />
-    <plugin name="cordova-plugin-file-opener2" spec="^2.0.3" />
-    <plugin name="cordova-plugin-file-transfer" spec="^1.6.3" />
     <plugin name="jpush-phonegap-plugin" spec="^3.1.6">
         <variable name="APP_KEY" value="a35efa126392f4479cd615dc" />
     </plugin>
+    <plugin name="cordova-plugin-file" spec="^4.3.3" />
+    <plugin name="cordova-plugin-file-transfer" spec="^1.6.3" />
+    <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
+    <plugin name="cordova-plugin-app-version" spec="^0.1.9" />
+    <plugin name="cordova-plugin-file-opener2" spec="^2.0.3" />
 </widget>
